@@ -3,7 +3,8 @@ title: "get_raw_data"
 output: html_notebook
 ---
 
-#Install needed libraries once
+```{r}
+# ---- Setup ----
 
 library(tidyverse)
 library(rgbif)
@@ -14,15 +15,57 @@ library(tigris)
 
 options(tigris_use_cache = TRUE) #store downloaded shapefiles locally 
 
+# Set a seed for reproducibility 
+set.seed(123)
 
-# ---- 1. Paths ----
+```
+
+```{r}
+# ---- Paths ----
 
 dir_raw       <- "data/raw"
 dir_gbif      <- file.path(dir_raw, "gbif")
-dir_viirs     <- file.file(path = dir_raw, "viirs")
+dir_viirs     <- file.path(dir_raw, "viirs")
 dir_boundaries<- file.path(dir_raw, "boundaries")
 
 dir.create(dir_raw,       showWarnings = FALSE, recursive = TRUE)
 dir.create(dir_gbif,      showWarnings = FALSE, recursive = TRUE)
 dir.create(dir_viirs,     showWarnings = FALSE, recursive = TRUE)
 dir.create(dir_boundaries,showWarnings = FALSE, recursive = TRUE)
+
+```
+
+```{r}
+# ---- 2. GBIF Bat Occurrence Data ----
+
+#We will focus on these 3 bat species in CA:
+
+bat_species <- c(
+  "Myotis yumanensis",
+  "Myotis californicus",
+  "Lasiurus cinereus"
+)
+
+
+# GBIF (Global Biodiversity Information Facility) is an international database of biodiversity records.
+# Each species in GBIF is assigned a unique numeric identifier: "speciesKey",
+# which we must use when requesting occurrence data through the GBIF API.
+
+bat_taxa <- map_df(bat_species, ~ {
+  rgbif::name_backbone(name = .x) %>%
+    as_tibble() %>%
+    select(scientificName, speciesKey, rank, status)
+})
+
+bat_taxa
+bat_keys <- bat_taxa$speciesKey
+print(bat_keys)
+
+```
+
+
+
+
+
+
+
