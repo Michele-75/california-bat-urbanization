@@ -1,2 +1,3 @@
-# eds-capstone-bats-light-pollution
-Investigating Relationships Between Nighttime Light Intensity and Nocturnal Bat Activity Across California (2012–Present)
+# California Bats & Light Pollution
+
+This repository contains my Environmental Data Science capstone project exploring relationships between nighttime light intensity (VIIRS) and nocturnal bat activity across California.
