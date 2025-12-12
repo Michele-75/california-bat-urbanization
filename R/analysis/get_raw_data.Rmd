@@ -1,0 +1,28 @@
+---
+title: "get_raw_data"
+output: html_notebook
+---
+
+#Install needed libraries once
+
+library(tidyverse)
+library(rgbif)
+library(sf)
+library(terra)
+library(janitor)
+library(tigris)
+
+options(tigris_use_cache = TRUE) #store downloaded shapefiles locally 
+
+
+# ---- 1. Paths ----
+
+dir_raw       <- "data/raw"
+dir_gbif      <- file.path(dir_raw, "gbif")
+dir_viirs     <- file.file(path = dir_raw, "viirs")
+dir_boundaries<- file.path(dir_raw, "boundaries")
+
+dir.create(dir_raw,       showWarnings = FALSE, recursive = TRUE)
+dir.create(dir_gbif,      showWarnings = FALSE, recursive = TRUE)
+dir.create(dir_viirs,     showWarnings = FALSE, recursive = TRUE)
+dir.create(dir_boundaries,showWarnings = FALSE, recursive = TRUE)
