@@ -22,6 +22,12 @@ if (file.exists(OUT_CSV)) {
 }
 
 # ---- Taxon keys ----
+
+# GBIF (Global Biodiversity Information Facility) is an international database of biodiversity records.
+# Each species in GBIF is assigned a unique numeric identifier: "speciesKey",
+# which we must use when requesting occurrence data through the GBIF API.
+
+
 bat_taxa <- purrr::map_df(BAT_SPECIES, ~ {
   rgbif::name_backbone(name = .x) |>
     as_tibble() |>
@@ -40,10 +46,12 @@ if (gbif_user == "" || gbif_pwd == "" || gbif_email == "") {
 }
 
 # ---- Submit download ----
+#Submits a request to GBIF’s Occurrence Download API for a custom dataset that matches our filters
 dl <- occ_download(
-  pred_in("taxonKey", bat_keys),
-  pred("hasCoordinate", TRUE),
-  pred_gte("year", 2012L),
+  pred_in("taxonKey", bat_keys), 
+  pred_in("taxonKey", bat_keys), #look up with species key
+  pred("hasCoordinate", TRUE), #exclude rows with missing coordinates
+  pred_gte("year", 2012L), #only include data from 2012 onward
   format = "SIMPLE_CSV",
   user   = gbif_user,
   pwd    = gbif_pwd,
@@ -55,17 +63,23 @@ occ_download_wait(dl)
 
 gbif_zip <- occ_download_get(dl, path = DIR_GBIF_RAW, overwrite = TRUE)
 
-# Import
+# Import- This can take up to 5 minutes.
 bats_raw <- occ_download_import(gbif_zip) |>
   as_tibble() |>
   janitor::clean_names()
 
-# Save raw CSV (this is your “raw snapshot”)
+# Save raw CSV in data/raw/gbif
 readr::write_csv(bats_raw, OUT_CSV)
 
-# Save provenance metadata 
+# ---- Save provenance metadata ----
+download_key <- if (is.list(dl) && "key" %in% names(dl)) {
+  dl$key
+} else {
+  as.character(dl)
+}
+
 meta <- tibble::tibble(
-  download_key = dl$key,
+  download_key = download_key,
   created      = as.character(Sys.time()),
   n_records    = nrow(bats_raw),
   species      = paste(BAT_SPECIES, collapse = "; "),
