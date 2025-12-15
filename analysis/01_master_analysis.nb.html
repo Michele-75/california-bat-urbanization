@@ -1752,33 +1752,60 @@ display: none;
 
 
 <!-- rnb-text-begin -->
-<p>This is an <a href="http://rmarkdown.rstudio.com">R Markdown</a>
-Notebook. When you execute code within the notebook, the results appear
-beneath the code.</p>
-<p>Try executing this chunk by clicking the <em>Run</em> button within
-the chunk or by placing your cursor inside it and pressing
-<em>Ctrl+Shift+Enter</em>.</p>
+<div id="prerequisites" class="section level2">
+<h2>Prerequisites</h2>
+<p>This analysis notebook assumes that all data acquisition and
+processing scripts in the <code>R/</code> directory have already been
+executed.</p>
+<p>Specifically, the following scripts should be run <strong>once, in
+order</strong>, prior to rendering this notebook:</p>
+<ol style="list-style-type: decimal">
+<li><code>R/01_get_gbif_bats.R</code> — download raw GBIF bat occurrence
+data (2012–present)</li>
+<li><code>R/02_get_ca_counties.R</code> — acquire California county
+boundaries</li>
+<li><code>R/03_process_viirs_county_year.R</code> — summarize annual
+VIIRS nighttime lights to county × year</li>
+<li><code>R/04_clean_gbif_to_ca.R</code> — spatially filter GBIF
+occurrences to California</li>
+<li><code>R/05_aggregate_bats_county_year.R</code> — aggregate bat
+counts to county × year × species</li>
+</ol>
+<p>These scripts write processed datasets to the
+<code>data/processed/</code> directory, which are read by this
+notebook.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVjR3h2ZENoallYSnpLVnh1WUdCZ0luMD0gLS0+XG5cbmBgYHJcbnBsb3QoY2FycylcbmBgYFxuXG48IS0tIHJuYi1zb3VyY2UtZW5kIC0tPlxuIn0= -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucGxvdChjYXJzKVxuYGBgIn0= -->
-<pre class="r"><code>plot(cars)</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHViR2xpY21GeWVTaDBhV1I1ZG1WeWMyVXBYRzVzYVdKeVlYSjVLSE5tS1Z4dWJHbGljbUZ5ZVNob1pYSmxLVnh1WEc1eVpYRjFhWEpsWkY5bWFXeGxjeUE4TFNCaktGeHVJQ0JjSW1SaGRHRXZjbUYzTDJkaWFXWXZZbUYwYzE5eVlYZGZNakF4TW5Cc2RYTXVZM04yWENJc1hHNGdJRndpWkdGMFlTOXdjbTlqWlhOelpXUXZZbTkxYm1SaGNtbGxjeTlqWVY5amIzVnVkR2xsY3k1bmNHdG5YQ0lzWEc0Z0lGd2laR0YwWVM5d2NtOWpaWE56WldRdmRtbHBjbk12ZG1scGNuTmZZMjkxYm5SNVgzbGxZWEl1WTNOMlhDSXNYRzRnSUZ3aVpHRjBZUzl3Y205alpYTnpaV1F2WjJKcFppOWlZWFJ6WDJOdmRXNTBlVjk1WldGeUxtTnpkbHdpWEc0cFhHNWNibTFwYzNOcGJtY2dQQzBnY21WeGRXbHlaV1JmWm1sc1pYTmJJV1pwYkdVdVpYaHBjM1J6S0dobGNtVW9jbVZ4ZFdseVpXUmZabWxzWlhNcEtWMWNibHh1YVdZZ0tHeGxibWQwYUNodGFYTnphVzVuS1NBK0lEQXBJSHRjYmlBZ2MzUnZjQ2hjYmlBZ0lDQmNJazFwYzNOcGJtY2djbVZ4ZFdseVpXUWdaR0YwWVNCbWFXeGxjenBjWEc1Y0lpeGNiaUFnSUNCd1lYTjBaU2h0YVhOemFXNW5MQ0JqYjJ4c1lYQnpaU0E5SUZ3aVhGeHVYQ0lwTEZ4dUlDQWdJRndpWEZ4dVhGeHVVR3hsWVhObElISjFiaUIwYUdVZ2MyTnlhWEIwY3lCcGJpQjBhR1VnVWk4Z1pHbHlaV04wYjNKNUlHSmxabTl5WlNCeVpXNWtaWEpwYm1jZ2RHaHBjeUJ1YjNSbFltOXZheTVjSWx4dUlDQXBYRzU5WEc1Z1lHQWlmUT09IC0tPlxuXG5gYGByXG5saWJyYXJ5KHRpZHl2ZXJzZSlcbmxpYnJhcnkoc2YpXG5saWJyYXJ5KGhlcmUpXG5cbnJlcXVpcmVkX2ZpbGVzIDwtIGMoXG4gIFwiZGF0YS9yYXcvZ2JpZi9iYXRzX3Jhd18yMDEycGx1cy5jc3ZcIixcbiAgXCJkYXRhL3Byb2Nlc3NlZC9ib3VuZGFyaWVzL2NhX2NvdW50aWVzLmdwa2dcIixcbiAgXCJkYXRhL3Byb2Nlc3NlZC92aWlycy92aWlyc19jb3VudHlfeWVhci5jc3ZcIixcbiAgXCJkYXRhL3Byb2Nlc3NlZC9nYmlmL2JhdHNfY291bnR5X3llYXIuY3N2XCJcbilcblxubWlzc2luZyA8LSByZXF1aXJlZF9maWxlc1shZmlsZS5leGlzdHMoaGVyZShyZXF1aXJlZF9maWxlcykpXVxuXG5pZiAobGVuZ3RoKG1pc3NpbmcpID4gMCkge1xuICBzdG9wKFxuICAgIFwiTWlzc2luZyByZXF1aXJlZCBkYXRhIGZpbGVzOlxcblwiLFxuICAgIHBhc3RlKG1pc3NpbmcsIGNvbGxhcHNlID0gXCJcXG5cIiksXG4gICAgXCJcXG5cXG5QbGVhc2UgcnVuIHRoZSBzY3JpcHRzIGluIHRoZSBSLyBkaXJlY3RvcnkgYmVmb3JlIHJlbmRlcmluZyB0aGlzIG5vdGVib29rLlwiXG4gIClcbn1cbmBgYFxuXG48IS0tIHJuYi1zb3VyY2UtZW5kIC0tPlxuIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh0aWR5dmVyc2UpXG5saWJyYXJ5KHNmKVxubGlicmFyeShoZXJlKVxuXG5yZXF1aXJlZF9maWxlcyA8LSBjKFxuICBcImRhdGEvcmF3L2diaWYvYmF0c19yYXdfMjAxMnBsdXMuY3N2XCIsXG4gIFwiZGF0YS9wcm9jZXNzZWQvYm91bmRhcmllcy9jYV9jb3VudGllcy5ncGtnXCIsXG4gIFwiZGF0YS9wcm9jZXNzZWQvdmlpcnMvdmlpcnNfY291bnR5X3llYXIuY3N2XCIsXG4gIFwiZGF0YS9wcm9jZXNzZWQvZ2JpZi9iYXRzX2NvdW50eV95ZWFyLmNzdlwiXG4pXG5cbm1pc3NpbmcgPC0gcmVxdWlyZWRfZmlsZXNbIWZpbGUuZXhpc3RzKGhlcmUocmVxdWlyZWRfZmlsZXMpKV1cblxuaWYgKGxlbmd0aChtaXNzaW5nKSA+IDApIHtcbiAgc3RvcChcbiAgICBcIk1pc3NpbmcgcmVxdWlyZWQgZGF0YSBmaWxlczpcXG5cIixcbiAgICBwYXN0ZShtaXNzaW5nLCBjb2xsYXBzZSA9IFwiXFxuXCIpLFxuICAgIFwiXFxuXFxuUGxlYXNlIHJ1biB0aGUgc2NyaXB0cyBpbiB0aGUgUi8gZGlyZWN0b3J5IGJlZm9yZSByZW5kZXJpbmcgdGhpcyBub3RlYm9vay5cIlxuICApXG59XG5gYGAifQ== -->
+<pre class="r"><code>library(tidyverse)
+library(sf)
+library(here)
+
+required_files &lt;- c(
+  &quot;data/raw/gbif/bats_raw_2012plus.csv&quot;,
+  &quot;data/processed/boundaries/ca_counties.gpkg&quot;,
+  &quot;data/processed/viirs/viirs_county_year.csv&quot;,
+  &quot;data/processed/gbif/bats_county_year.csv&quot;
+)
+
+missing &lt;- required_files[!file.exists(here(required_files))]
+
+if (length(missing) &gt; 0) {
+  stop(
+    &quot;Missing required data files:\n&quot;,
+    paste(missing, collapse = &quot;\n&quot;),
+    &quot;\n\nPlease run the scripts in the R/ directory before rendering this notebook.&quot;
+  )
+}</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>Add a new chunk by clicking the <em>Insert Chunk</em> button on the
-toolbar or by pressing <em>Ctrl+Alt+I</em>.</p>
-<p>When you save the notebook, an HTML file containing the code and
-output will be saved alongside it (click the <em>Preview</em> button or
-press <em>Ctrl+Shift+K</em> to preview the HTML file).</p>
-<p>The preview shows you a rendered HTML copy of the contents of the
-editor. Consequently, unlike <em>Knit</em>, <em>Preview</em> does not
-run any R code chunks. Instead, the output of the chunk when it was last
-run in the editor is displayed.</p>
 <!-- rnb-text-end -->
+</div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIjAxX21hc3Rlcl9hbmFseXNpcyINCm91dHB1dDogaHRtbF9ub3RlYm9vaw0KLS0tDQoNClRoaXMgaXMgYW4gW1IgTWFya2Rvd25dKGh0dHA6Ly9ybWFya2Rvd24ucnN0dWRpby5jb20pIE5vdGVib29rLiBXaGVuIHlvdSBleGVjdXRlIGNvZGUgd2l0aGluIHRoZSBub3RlYm9vaywgdGhlIHJlc3VsdHMgYXBwZWFyIGJlbmVhdGggdGhlIGNvZGUuIA0KDQpUcnkgZXhlY3V0aW5nIHRoaXMgY2h1bmsgYnkgY2xpY2tpbmcgdGhlICpSdW4qIGJ1dHRvbiB3aXRoaW4gdGhlIGNodW5rIG9yIGJ5IHBsYWNpbmcgeW91ciBjdXJzb3IgaW5zaWRlIGl0IGFuZCBwcmVzc2luZyAqQ3RybCtTaGlmdCtFbnRlciouIA0KDQpgYGB7cn0NCnBsb3QoY2FycykNCmBgYA0KDQpBZGQgYSBuZXcgY2h1bmsgYnkgY2xpY2tpbmcgdGhlICpJbnNlcnQgQ2h1bmsqIGJ1dHRvbiBvbiB0aGUgdG9vbGJhciBvciBieSBwcmVzc2luZyAqQ3RybCtBbHQrSSouDQoNCldoZW4geW91IHNhdmUgdGhlIG5vdGVib29rLCBhbiBIVE1MIGZpbGUgY29udGFpbmluZyB0aGUgY29kZSBhbmQgb3V0cHV0IHdpbGwgYmUgc2F2ZWQgYWxvbmdzaWRlIGl0IChjbGljayB0aGUgKlByZXZpZXcqIGJ1dHRvbiBvciBwcmVzcyAqQ3RybCtTaGlmdCtLKiB0byBwcmV2aWV3IHRoZSBIVE1MIGZpbGUpLg0KDQpUaGUgcHJldmlldyBzaG93cyB5b3UgYSByZW5kZXJlZCBIVE1MIGNvcHkgb2YgdGhlIGNvbnRlbnRzIG9mIHRoZSBlZGl0b3IuIENvbnNlcXVlbnRseSwgdW5saWtlICpLbml0KiwgKlByZXZpZXcqIGRvZXMgbm90IHJ1biBhbnkgUiBjb2RlIGNodW5rcy4gSW5zdGVhZCwgdGhlIG91dHB1dCBvZiB0aGUgY2h1bmsgd2hlbiBpdCB3YXMgbGFzdCBydW4gaW4gdGhlIGVkaXRvciBpcyBkaXNwbGF5ZWQuDQo=</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIjAxX21hc3Rlcl9hbmFseXNpcyINCm91dHB1dDogaHRtbF9ub3RlYm9vaw0KLS0tDQoNCiMjIFByZXJlcXVpc2l0ZXMNCg0KVGhpcyBhbmFseXNpcyBub3RlYm9vayBhc3N1bWVzIHRoYXQgYWxsIGRhdGEgYWNxdWlzaXRpb24gYW5kIHByb2Nlc3Npbmcgc2NyaXB0cw0KaW4gdGhlIGBSL2AgZGlyZWN0b3J5IGhhdmUgYWxyZWFkeSBiZWVuIGV4ZWN1dGVkLg0KDQpTcGVjaWZpY2FsbHksIHRoZSBmb2xsb3dpbmcgc2NyaXB0cyBzaG91bGQgYmUgcnVuICoqb25jZSwgaW4gb3JkZXIqKiwgcHJpb3IgdG8NCnJlbmRlcmluZyB0aGlzIG5vdGVib29rOg0KDQoxLiBgUi8wMV9nZXRfZ2JpZl9iYXRzLlJgIOKAlCBkb3dubG9hZCByYXcgR0JJRiBiYXQgb2NjdXJyZW5jZSBkYXRhICgyMDEy4oCTcHJlc2VudCkNCjIuIGBSLzAyX2dldF9jYV9jb3VudGllcy5SYCDigJQgYWNxdWlyZSBDYWxpZm9ybmlhIGNvdW50eSBib3VuZGFyaWVzDQozLiBgUi8wM19wcm9jZXNzX3ZpaXJzX2NvdW50eV95ZWFyLlJgIOKAlCBzdW1tYXJpemUgYW5udWFsIFZJSVJTIG5pZ2h0dGltZSBsaWdodHMgdG8gY291bnR5IMOXIHllYXINCjQuIGBSLzA0X2NsZWFuX2diaWZfdG9fY2EuUmAg4oCUIHNwYXRpYWxseSBmaWx0ZXIgR0JJRiBvY2N1cnJlbmNlcyB0byBDYWxpZm9ybmlhDQo1LiBgUi8wNV9hZ2dyZWdhdGVfYmF0c19jb3VudHlfeWVhci5SYCDigJQgYWdncmVnYXRlIGJhdCBjb3VudHMgdG8gY291bnR5IMOXIHllYXIgw5cgc3BlY2llcw0KDQpUaGVzZSBzY3JpcHRzIHdyaXRlIHByb2Nlc3NlZCBkYXRhc2V0cyB0byB0aGUgYGRhdGEvcHJvY2Vzc2VkL2AgZGlyZWN0b3J5LCB3aGljaA0KYXJlIHJlYWQgYnkgdGhpcyBub3RlYm9vay4NCg0KYGBge3J9DQpsaWJyYXJ5KHRpZHl2ZXJzZSkNCmxpYnJhcnkoc2YpDQpsaWJyYXJ5KGhlcmUpDQoNCnJlcXVpcmVkX2ZpbGVzIDwtIGMoDQogICJkYXRhL3Jhdy9nYmlmL2JhdHNfcmF3XzIwMTJwbHVzLmNzdiIsDQogICJkYXRhL3Byb2Nlc3NlZC9ib3VuZGFyaWVzL2NhX2NvdW50aWVzLmdwa2ciLA0KICAiZGF0YS9wcm9jZXNzZWQvdmlpcnMvdmlpcnNfY291bnR5X3llYXIuY3N2IiwNCiAgImRhdGEvcHJvY2Vzc2VkL2diaWYvYmF0c19jb3VudHlfeWVhci5jc3YiDQopDQoNCm1pc3NpbmcgPC0gcmVxdWlyZWRfZmlsZXNbIWZpbGUuZXhpc3RzKGhlcmUocmVxdWlyZWRfZmlsZXMpKV0NCg0KaWYgKGxlbmd0aChtaXNzaW5nKSA+IDApIHsNCiAgc3RvcCgNCiAgICAiTWlzc2luZyByZXF1aXJlZCBkYXRhIGZpbGVzOlxuIiwNCiAgICBwYXN0ZShtaXNzaW5nLCBjb2xsYXBzZSA9ICJcbiIpLA0KICAgICJcblxuUGxlYXNlIHJ1biB0aGUgc2NyaXB0cyBpbiB0aGUgUi8gZGlyZWN0b3J5IGJlZm9yZSByZW5kZXJpbmcgdGhpcyBub3RlYm9vay4iDQogICkNCn0NCmBgYA0KDQo=</div>
 
 
 

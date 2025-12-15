@@ -3,16 +3,43 @@ title: "01_master_analysis"
 output: html_notebook
 ---
 
-This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+## Prerequisites
 
-Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+This analysis notebook assumes that all data acquisition and processing scripts
+in the `R/` directory have already been executed.
+
+Specifically, the following scripts should be run **once, in order**, prior to
+rendering this notebook:
+
+1. `R/01_get_gbif_bats.R` — download raw GBIF bat occurrence data (2012–present)
+2. `R/02_get_ca_counties.R` — acquire California county boundaries
+3. `R/03_process_viirs_county_year.R` — summarize annual VIIRS nighttime lights to county × year
+4. `R/04_clean_gbif_to_ca.R` — spatially filter GBIF occurrences to California
+5. `R/05_aggregate_bats_county_year.R` — aggregate bat counts to county × year × species
+
+These scripts write processed datasets to the `data/processed/` directory, which
+are read by this notebook.
 
 ```{r}
-plot(cars)
+library(tidyverse)
+library(sf)
+library(here)
+
+required_files <- c(
+  "data/raw/gbif/bats_raw_2012plus.csv",
+  "data/processed/boundaries/ca_counties.gpkg",
+  "data/processed/viirs/viirs_county_year.csv",
+  "data/processed/gbif/bats_county_year.csv"
+)
+
+missing <- required_files[!file.exists(here(required_files))]
+
+if (length(missing) > 0) {
+  stop(
+    "Missing required data files:\n",
+    paste(missing, collapse = "\n"),
+    "\n\nPlease run the scripts in the R/ directory before rendering this notebook."
+  )
+}
 ```
 
-Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
-
-When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
-
-The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.

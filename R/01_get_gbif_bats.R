@@ -1,0 +1,78 @@
+# R/01_get_gbif_bats.R
+source(here::here("R/00_setup.R"))
+
+library(rgbif)
+library(janitor)
+
+# ---- Parameters ----
+BAT_SPECIES <- c(
+  "Myotis yumanensis",
+  "Myotis californicus",
+  "Lasiurus cinereus"
+)
+
+OUT_CSV  <- file.path(DIR_GBIF_RAW, "bats_raw_2012plus.csv")
+OUT_META <- file.path(DIR_GBIF_RAW, "gbif_download_meta.csv")
+
+# ---- Early exit if already done ----
+if (file.exists(OUT_CSV)) {
+  message("Raw GBIF CSV already exists: ", OUT_CSV)
+  message("Skipping download. Delete the file if you want to re-run acquisition.")
+  quit(save = "no", status = 0)
+}
+
+# ---- Taxon keys ----
+bat_taxa <- purrr::map_df(BAT_SPECIES, ~ {
+  rgbif::name_backbone(name = .x) |>
+    as_tibble() |>
+    select(scientificName, speciesKey, rank, status)
+})
+
+bat_keys <- bat_taxa$speciesKey
+
+# ---- Credentials (from .Renviron) ----
+gbif_user  <- Sys.getenv("GBIF_USER")
+gbif_pwd   <- Sys.getenv("GBIF_PWD")
+gbif_email <- Sys.getenv("GBIF_EMAIL")
+
+if (gbif_user == "" || gbif_pwd == "" || gbif_email == "") {
+  stop("Missing GBIF credentials. Set GBIF_USER, GBIF_PWD, GBIF_EMAIL in .Renviron.")
+}
+
+# ---- Submit download ----
+dl <- occ_download(
+  pred_in("taxonKey", bat_keys),
+  pred("hasCoordinate", TRUE),
+  pred_gte("year", 2012L),
+  format = "SIMPLE_CSV",
+  user   = gbif_user,
+  pwd    = gbif_pwd,
+  email  = gbif_email
+)
+
+# Wait + fetch
+occ_download_wait(dl)
+
+gbif_zip <- occ_download_get(dl, path = DIR_GBIF_RAW, overwrite = TRUE)
+
+# Import
+bats_raw <- occ_download_import(gbif_zip) |>
+  as_tibble() |>
+  janitor::clean_names()
+
+# Save raw CSV (this is your “raw snapshot”)
+readr::write_csv(bats_raw, OUT_CSV)
+
+# Save provenance metadata 
+meta <- tibble::tibble(
+  download_key = dl$key,
+  created      = as.character(Sys.time()),
+  n_records    = nrow(bats_raw),
+  species      = paste(BAT_SPECIES, collapse = "; "),
+  filters      = "hasCoordinate==TRUE; year>=2012; taxonKey in focal species"
+)
+
+readr::write_csv(meta, OUT_META)
+
+message("Saved raw GBIF data to: ", OUT_CSV)
+message("Saved download metadata to: ", OUT_META)
