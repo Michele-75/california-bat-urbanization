@@ -1,0 +1,124 @@
+---
+title: "get_raw_data"
+output: html_notebook
+---
+
+```{r}
+# ---- Setup ----
+
+library(tidyverse)
+library(rgbif) #to retrieve species data
+library(sf)
+library(terra)
+library(janitor)
+library(tigris)
+library(here)
+
+options(tigris_use_cache = TRUE) #store downloaded shapefiles locally 
+
+# Set a seed for reproducibility 
+set.seed(123)
+
+```
+
+```{r}
+# ---- Paths ----
+
+# ---- Paths ----
+dir_raw        <- here("data", "raw")
+dir_gbif       <- here("data", "raw", "gbif")
+dir_viirs      <- here("data", "raw", "viirs")
+dir_boundaries <- here("data", "raw", "boundaries")
+
+dir.create(dir_raw,        showWarnings = FALSE, recursive = TRUE)
+dir.create(dir_gbif,       showWarnings = FALSE, recursive = TRUE)
+dir.create(dir_viirs,      showWarnings = FALSE, recursive = TRUE)
+dir.create(dir_boundaries, showWarnings = FALSE, recursive = TRUE)
+
+```
+
+```{r}
+# ---- 2. GBIF Bat Occurrence Data ----
+
+#We will focus on these 3 bat species in CA:
+
+bat_species <- c(
+  "Myotis yumanensis",
+  "Myotis californicus",
+  "Lasiurus cinereus"
+)
+
+
+# GBIF (Global Biodiversity Information Facility) is an international database of biodiversity records.
+# Each species in GBIF is assigned a unique numeric identifier: "speciesKey",
+# which we must use when requesting occurrence data through the GBIF API.
+
+bat_taxa <- map_df(bat_species, ~ {
+  rgbif::name_backbone(name = .x) %>% 
+    as_tibble() %>%
+    select(scientificName, speciesKey, rank, status)
+})
+
+bat_taxa
+bat_keys <- bat_taxa$speciesKey
+print(bat_keys)
+
+
+# GBIF credentials from environment variables. Set these log-in details in your .Renviron file.
+gbif_user  <- Sys.getenv("GBIF_USER")
+gbif_pwd   <- Sys.getenv("GBIF_PWD")
+gbif_email <- Sys.getenv("GBIF_EMAIL")
+
+if (gbif_user == "" || gbif_pwd == "" || gbif_email == "") {
+  stop("Please set GBIF_USER, GBIF_PWD, and GBIF_EMAIL in your .Renviron file.")
+}
+
+
+#Submits a request to GBIF’s Occurrence Download API for a custom dataset that matches our filters
+dl <- occ_download(
+  pred_in("taxonKey", bat_keys), #look up with species key
+  pred("hasCoordinate", TRUE), #exclude rows with missing coordinates 
+  pred_gte("year", 2012L), #only include data from 2012 onward
+  format = "SIMPLE_CSV",
+  user   = gbif_user,
+  pwd    = gbif_pwd,
+  email  = gbif_email
+)
+
+dl
+
+# Wait until GBIF has finished preparing the file
+occ_download_wait(dl)
+
+# Download the prepared zip file and save in /data/raw
+gbif_zip <- occ_download_get(dl, path = dir_gbif, overwrite = TRUE)
+
+gbif_zip
+
+# Import GBIF occurrence data
+bats_raw <- occ_download_import(gbif_zip) %>%
+  as_tibble()
+
+glimpse(bats_raw)
+
+# Save a CSV copy of the raw GBIF data for reference
+readr::write_csv(bats_raw, file.path(dir_gbif, "bats_raw_2012plus.csv"))
+
+bats_raw
+
+```
+
+
+```{r}
+#CA state boudary data
+
+
+
+
+
+```
+
+
+
+
+
