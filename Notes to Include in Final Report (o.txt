@@ -1,0 +1,25 @@
+Notes to Include in Final Report (or in metadata)
+
+
+
+“Annual nighttime light intensity was quantified using the VIIRS (Visible Infrared Imaging Radiometer Suite) Annual Visible Nighttime Lights (VNL) products produced by the Earth Observation Group (EOG), Payne Institute for Public Policy. These products provide globally consistent annual average radiance composites derived from cloud-free VIIRS Day/Night Band observations. Version 2.1 data were used for the period 2012–2021, and Version 2.2 data were used for 2022–2024, reflecting updates to processing methodology and the incorporation of multi-satellite observations in later years. Version changes were aligned with official EOG release boundaries, and no year was analyzed using mixed processing versions.”
+
+“For 2012, the Annual VNL v2.1 composite spanning April 2012–March 2013 was used, consistent with EOG recommendations for constructing a full-year baseline in the first year of VIIRS observations.”
+
+Each pixel in your GeoTIFF represents:
+*The average nighttime light radiance at that location during that year
+(measured in nW/cm²/sr)
+
+*yearly summaries of nighttime light intensity
+
+*derived from VIIRS Day/Night Band (DNB)
+
+*processed to remove: clouds, moonlight, sunlight, fires, aurora, background noise
+
+-Value we care about: average radiance (nW/cm²/sr) (our quantitive proxy for light pollution)
+
+-Spatial and temporal resolution
+
+*Spatial resolution: ~500 m × 500 m at the equator
+
+*Temporal resolution: one value per year per pixel
