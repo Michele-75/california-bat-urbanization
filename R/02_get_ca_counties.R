@@ -1,4 +1,6 @@
 # R/02_get_ca_counties.R
+#Run script with source(here::here("R", "02_get_ca_counties.R"))
+
 source(here::here("R/00_setup.R"))
 
 library(tigris) #access US county boundaries

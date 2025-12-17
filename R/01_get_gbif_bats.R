@@ -1,4 +1,6 @@
 # R/01_get_gbif_bats.R
+#Run script with source(here::here("R", "01_get_gbif_bats.R"))
+
 source(here::here("R/00_setup.R"))
 
 library(rgbif)
