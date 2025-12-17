@@ -66,7 +66,7 @@ gbif_zip <- occ_download_get(dl, path = DIR_GBIF_RAW, overwrite = TRUE)
 # Import- This can take up to 5 minutes.
 bats_raw <- occ_download_import(gbif_zip) |>
   as_tibble() |>
-  janitor::clean_names()
+  janitor::clean_names() #convert column names to snake_case & other tidying 
 
 # Save raw CSV in data/raw/gbif
 readr::write_csv(bats_raw, OUT_CSV)
