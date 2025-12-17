@@ -1,0 +1,20 @@
+4metric,n
+raw_rows,2115
+after_coord_and_year_filters,507
+after_spatial_join_to_ca_counties,455
+final_species: Aeorestes cinereus,202
+final_species: Myotis yumanensis,139
+final_species: Myotis californicus,114
+final_year: 2012,25
+final_year: 2013,23
+final_year: 2014,21
+final_year: 2015,50
+final_year: 2016,84
+final_year: 2017,44
+final_year: 2018,23
+final_year: 2019,22
+final_year: 2020,39
+final_year: 2021,39
+final_year: 2022,33
+final_year: 2023,24
+final_year: 2024,28

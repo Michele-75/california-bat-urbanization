@@ -115,7 +115,7 @@ gbif_sf <- st_as_sf( #turn rows into points stored in new column called "geometr
 
 
 # ---- Spatial join to counties (actual CA filter) ----
-gbif_ca <- st_join(
+gbif_ca <- st_join( #rows matched by their geometries instead of a key
   gbif_sf,
   ca_counties, 
   join = st_within, #only keep observations completely inside CA counties
