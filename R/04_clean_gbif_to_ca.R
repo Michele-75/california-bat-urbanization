@@ -70,6 +70,11 @@ gbif_keep <- gbif_raw %>%
     species         = as.character(species),
     scientific_name = as.character(scientific_name),
     
+    taxon_key   = suppressWarnings(as.integer(taxon_key)),
+    species_key = suppressWarnings(as.integer(species_key)),
+    # Keep GBIF backbone identifiers (taxon_key/species_key) to make downstream filtering robust
+    # to synonymy and genus reclassification (e.g., Lasiurus cinereus vs Aeorestes cinereus).
+    
     country_code    = as.character(country_code),
     state_province  = as.character(state_province),
     locality        = as.character(locality),

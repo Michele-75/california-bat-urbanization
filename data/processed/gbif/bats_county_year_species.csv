@@ -1,0 +1,2263 @@
+GEOID,year,species_key,n_obs,county_name,species_label
+06001,2012,2432425,0,Alameda,Myotis californicus
+06001,2012,2432461,0,Alameda,Myotis yumanensis
+06001,2012,11138256,0,Alameda,Aeorestes cinereus
+06003,2012,2432425,0,Alpine,Myotis californicus
+06003,2012,2432461,0,Alpine,Myotis yumanensis
+06003,2012,11138256,0,Alpine,Aeorestes cinereus
+06005,2012,2432425,0,Amador,Myotis californicus
+06005,2012,2432461,0,Amador,Myotis yumanensis
+06005,2012,11138256,0,Amador,Aeorestes cinereus
+06007,2012,2432425,0,Butte,Myotis californicus
+06007,2012,2432461,0,Butte,Myotis yumanensis
+06007,2012,11138256,1,Butte,Aeorestes cinereus
+06009,2012,2432425,0,Calaveras,Myotis californicus
+06009,2012,2432461,0,Calaveras,Myotis yumanensis
+06009,2012,11138256,0,Calaveras,Aeorestes cinereus
+06011,2012,2432425,0,Colusa,Myotis californicus
+06011,2012,2432461,0,Colusa,Myotis yumanensis
+06011,2012,11138256,0,Colusa,Aeorestes cinereus
+06013,2012,2432425,0,Contra Costa,Myotis californicus
+06013,2012,2432461,0,Contra Costa,Myotis yumanensis
+06013,2012,11138256,0,Contra Costa,Aeorestes cinereus
+06015,2012,2432425,0,Del Norte,Myotis californicus
+06015,2012,2432461,0,Del Norte,Myotis yumanensis
+06015,2012,11138256,0,Del Norte,Aeorestes cinereus
+06017,2012,2432425,0,El Dorado,Myotis californicus
+06017,2012,2432461,0,El Dorado,Myotis yumanensis
+06017,2012,11138256,0,El Dorado,Aeorestes cinereus
+06019,2012,2432425,0,Fresno,Myotis californicus
+06019,2012,2432461,0,Fresno,Myotis yumanensis
+06019,2012,11138256,0,Fresno,Aeorestes cinereus
+06021,2012,2432425,0,Glenn,Myotis californicus
+06021,2012,2432461,0,Glenn,Myotis yumanensis
+06021,2012,11138256,0,Glenn,Aeorestes cinereus
+06023,2012,2432425,0,Humboldt,Myotis californicus
+06023,2012,2432461,0,Humboldt,Myotis yumanensis
+06023,2012,11138256,0,Humboldt,Aeorestes cinereus
+06025,2012,2432425,0,Imperial,Myotis californicus
+06025,2012,2432461,0,Imperial,Myotis yumanensis
+06025,2012,11138256,0,Imperial,Aeorestes cinereus
+06027,2012,2432425,0,Inyo,Myotis californicus
+06027,2012,2432461,0,Inyo,Myotis yumanensis
+06027,2012,11138256,0,Inyo,Aeorestes cinereus
+06029,2012,2432425,0,Kern,Myotis californicus
+06029,2012,2432461,0,Kern,Myotis yumanensis
+06029,2012,11138256,0,Kern,Aeorestes cinereus
+06031,2012,2432425,0,Kings,Myotis californicus
+06031,2012,2432461,0,Kings,Myotis yumanensis
+06031,2012,11138256,0,Kings,Aeorestes cinereus
+06033,2012,2432425,0,Lake,Myotis californicus
+06033,2012,2432461,0,Lake,Myotis yumanensis
+06033,2012,11138256,0,Lake,Aeorestes cinereus
+06035,2012,2432425,0,Lassen,Myotis californicus
+06035,2012,2432461,0,Lassen,Myotis yumanensis
+06035,2012,11138256,0,Lassen,Aeorestes cinereus
+06037,2012,2432425,0,Los Angeles,Myotis californicus
+06037,2012,2432461,0,Los Angeles,Myotis yumanensis
+06037,2012,11138256,1,Los Angeles,Aeorestes cinereus
+06039,2012,2432425,0,Madera,Myotis californicus
+06039,2012,2432461,0,Madera,Myotis yumanensis
+06039,2012,11138256,0,Madera,Aeorestes cinereus
+06041,2012,2432425,1,Marin,Myotis californicus
+06041,2012,2432461,0,Marin,Myotis yumanensis
+06041,2012,11138256,0,Marin,Aeorestes cinereus
+06043,2012,2432425,0,Mariposa,Myotis californicus
+06043,2012,2432461,0,Mariposa,Myotis yumanensis
+06043,2012,11138256,0,Mariposa,Aeorestes cinereus
+06045,2012,2432425,0,Mendocino,Myotis californicus
+06045,2012,2432461,0,Mendocino,Myotis yumanensis
+06045,2012,11138256,0,Mendocino,Aeorestes cinereus
+06047,2012,2432425,0,Merced,Myotis californicus
+06047,2012,2432461,0,Merced,Myotis yumanensis
+06047,2012,11138256,0,Merced,Aeorestes cinereus
+06049,2012,2432425,0,Modoc,Myotis californicus
+06049,2012,2432461,0,Modoc,Myotis yumanensis
+06049,2012,11138256,0,Modoc,Aeorestes cinereus
+06051,2012,2432425,0,Mono,Myotis californicus
+06051,2012,2432461,0,Mono,Myotis yumanensis
+06051,2012,11138256,0,Mono,Aeorestes cinereus
+06053,2012,2432425,0,Monterey,Myotis californicus
+06053,2012,2432461,0,Monterey,Myotis yumanensis
+06053,2012,11138256,0,Monterey,Aeorestes cinereus
+06055,2012,2432425,0,Napa,Myotis californicus
+06055,2012,2432461,0,Napa,Myotis yumanensis
+06055,2012,11138256,0,Napa,Aeorestes cinereus
+06057,2012,2432425,0,Nevada,Myotis californicus
+06057,2012,2432461,0,Nevada,Myotis yumanensis
+06057,2012,11138256,0,Nevada,Aeorestes cinereus
+06059,2012,2432425,0,Orange,Myotis californicus
+06059,2012,2432461,0,Orange,Myotis yumanensis
+06059,2012,11138256,0,Orange,Aeorestes cinereus
+06061,2012,2432425,0,Placer,Myotis californicus
+06061,2012,2432461,0,Placer,Myotis yumanensis
+06061,2012,11138256,0,Placer,Aeorestes cinereus
+06063,2012,2432425,0,Plumas,Myotis californicus
+06063,2012,2432461,0,Plumas,Myotis yumanensis
+06063,2012,11138256,0,Plumas,Aeorestes cinereus
+06065,2012,2432425,1,Riverside,Myotis californicus
+06065,2012,2432461,1,Riverside,Myotis yumanensis
+06065,2012,11138256,0,Riverside,Aeorestes cinereus
+06067,2012,2432425,0,Sacramento,Myotis californicus
+06067,2012,2432461,0,Sacramento,Myotis yumanensis
+06067,2012,11138256,0,Sacramento,Aeorestes cinereus
+06069,2012,2432425,0,San Benito,Myotis californicus
+06069,2012,2432461,0,San Benito,Myotis yumanensis
+06069,2012,11138256,0,San Benito,Aeorestes cinereus
+06071,2012,2432425,1,San Bernardino,Myotis californicus
+06071,2012,2432461,1,San Bernardino,Myotis yumanensis
+06071,2012,11138256,3,San Bernardino,Aeorestes cinereus
+06073,2012,2432425,1,San Diego,Myotis californicus
+06073,2012,2432461,3,San Diego,Myotis yumanensis
+06073,2012,11138256,8,San Diego,Aeorestes cinereus
+06075,2012,2432425,0,San Francisco,Myotis californicus
+06075,2012,2432461,0,San Francisco,Myotis yumanensis
+06075,2012,11138256,0,San Francisco,Aeorestes cinereus
+06077,2012,2432425,0,San Joaquin,Myotis californicus
+06077,2012,2432461,0,San Joaquin,Myotis yumanensis
+06077,2012,11138256,0,San Joaquin,Aeorestes cinereus
+06079,2012,2432425,1,San Luis Obispo,Myotis californicus
+06079,2012,2432461,0,San Luis Obispo,Myotis yumanensis
+06079,2012,11138256,0,San Luis Obispo,Aeorestes cinereus
+06081,2012,2432425,0,San Mateo,Myotis californicus
+06081,2012,2432461,0,San Mateo,Myotis yumanensis
+06081,2012,11138256,1,San Mateo,Aeorestes cinereus
+06083,2012,2432425,0,Santa Barbara,Myotis californicus
+06083,2012,2432461,0,Santa Barbara,Myotis yumanensis
+06083,2012,11138256,0,Santa Barbara,Aeorestes cinereus
+06085,2012,2432425,0,Santa Clara,Myotis californicus
+06085,2012,2432461,0,Santa Clara,Myotis yumanensis
+06085,2012,11138256,0,Santa Clara,Aeorestes cinereus
+06087,2012,2432425,0,Santa Cruz,Myotis californicus
+06087,2012,2432461,0,Santa Cruz,Myotis yumanensis
+06087,2012,11138256,0,Santa Cruz,Aeorestes cinereus
+06089,2012,2432425,0,Shasta,Myotis californicus
+06089,2012,2432461,0,Shasta,Myotis yumanensis
+06089,2012,11138256,1,Shasta,Aeorestes cinereus
+06091,2012,2432425,0,Sierra,Myotis californicus
+06091,2012,2432461,0,Sierra,Myotis yumanensis
+06091,2012,11138256,0,Sierra,Aeorestes cinereus
+06093,2012,2432425,0,Siskiyou,Myotis californicus
+06093,2012,2432461,0,Siskiyou,Myotis yumanensis
+06093,2012,11138256,0,Siskiyou,Aeorestes cinereus
+06095,2012,2432425,0,Solano,Myotis californicus
+06095,2012,2432461,0,Solano,Myotis yumanensis
+06095,2012,11138256,0,Solano,Aeorestes cinereus
+06097,2012,2432425,0,Sonoma,Myotis californicus
+06097,2012,2432461,0,Sonoma,Myotis yumanensis
+06097,2012,11138256,0,Sonoma,Aeorestes cinereus
+06099,2012,2432425,0,Stanislaus,Myotis californicus
+06099,2012,2432461,0,Stanislaus,Myotis yumanensis
+06099,2012,11138256,0,Stanislaus,Aeorestes cinereus
+06101,2012,2432425,0,Sutter,Myotis californicus
+06101,2012,2432461,0,Sutter,Myotis yumanensis
+06101,2012,11138256,0,Sutter,Aeorestes cinereus
+06103,2012,2432425,0,Tehama,Myotis californicus
+06103,2012,2432461,0,Tehama,Myotis yumanensis
+06103,2012,11138256,0,Tehama,Aeorestes cinereus
+06105,2012,2432425,0,Trinity,Myotis californicus
+06105,2012,2432461,0,Trinity,Myotis yumanensis
+06105,2012,11138256,0,Trinity,Aeorestes cinereus
+06107,2012,2432425,0,Tulare,Myotis californicus
+06107,2012,2432461,0,Tulare,Myotis yumanensis
+06107,2012,11138256,0,Tulare,Aeorestes cinereus
+06109,2012,2432425,0,Tuolumne,Myotis californicus
+06109,2012,2432461,0,Tuolumne,Myotis yumanensis
+06109,2012,11138256,0,Tuolumne,Aeorestes cinereus
+06111,2012,2432425,0,Ventura,Myotis californicus
+06111,2012,2432461,0,Ventura,Myotis yumanensis
+06111,2012,11138256,0,Ventura,Aeorestes cinereus
+06113,2012,2432425,0,Yolo,Myotis californicus
+06113,2012,2432461,0,Yolo,Myotis yumanensis
+06113,2012,11138256,0,Yolo,Aeorestes cinereus
+06115,2012,2432425,0,Yuba,Myotis californicus
+06115,2012,2432461,0,Yuba,Myotis yumanensis
+06115,2012,11138256,0,Yuba,Aeorestes cinereus
+06001,2013,2432425,1,Alameda,Myotis californicus
+06001,2013,2432461,0,Alameda,Myotis yumanensis
+06001,2013,11138256,1,Alameda,Aeorestes cinereus
+06003,2013,2432425,0,Alpine,Myotis californicus
+06003,2013,2432461,0,Alpine,Myotis yumanensis
+06003,2013,11138256,0,Alpine,Aeorestes cinereus
+06005,2013,2432425,0,Amador,Myotis californicus
+06005,2013,2432461,0,Amador,Myotis yumanensis
+06005,2013,11138256,0,Amador,Aeorestes cinereus
+06007,2013,2432425,0,Butte,Myotis californicus
+06007,2013,2432461,0,Butte,Myotis yumanensis
+06007,2013,11138256,0,Butte,Aeorestes cinereus
+06009,2013,2432425,0,Calaveras,Myotis californicus
+06009,2013,2432461,0,Calaveras,Myotis yumanensis
+06009,2013,11138256,0,Calaveras,Aeorestes cinereus
+06011,2013,2432425,0,Colusa,Myotis californicus
+06011,2013,2432461,0,Colusa,Myotis yumanensis
+06011,2013,11138256,0,Colusa,Aeorestes cinereus
+06013,2013,2432425,0,Contra Costa,Myotis californicus
+06013,2013,2432461,0,Contra Costa,Myotis yumanensis
+06013,2013,11138256,0,Contra Costa,Aeorestes cinereus
+06015,2013,2432425,0,Del Norte,Myotis californicus
+06015,2013,2432461,0,Del Norte,Myotis yumanensis
+06015,2013,11138256,0,Del Norte,Aeorestes cinereus
+06017,2013,2432425,0,El Dorado,Myotis californicus
+06017,2013,2432461,0,El Dorado,Myotis yumanensis
+06017,2013,11138256,0,El Dorado,Aeorestes cinereus
+06019,2013,2432425,0,Fresno,Myotis californicus
+06019,2013,2432461,0,Fresno,Myotis yumanensis
+06019,2013,11138256,0,Fresno,Aeorestes cinereus
+06021,2013,2432425,0,Glenn,Myotis californicus
+06021,2013,2432461,0,Glenn,Myotis yumanensis
+06021,2013,11138256,0,Glenn,Aeorestes cinereus
+06023,2013,2432425,0,Humboldt,Myotis californicus
+06023,2013,2432461,0,Humboldt,Myotis yumanensis
+06023,2013,11138256,2,Humboldt,Aeorestes cinereus
+06025,2013,2432425,0,Imperial,Myotis californicus
+06025,2013,2432461,0,Imperial,Myotis yumanensis
+06025,2013,11138256,0,Imperial,Aeorestes cinereus
+06027,2013,2432425,0,Inyo,Myotis californicus
+06027,2013,2432461,0,Inyo,Myotis yumanensis
+06027,2013,11138256,0,Inyo,Aeorestes cinereus
+06029,2013,2432425,0,Kern,Myotis californicus
+06029,2013,2432461,0,Kern,Myotis yumanensis
+06029,2013,11138256,0,Kern,Aeorestes cinereus
+06031,2013,2432425,0,Kings,Myotis californicus
+06031,2013,2432461,0,Kings,Myotis yumanensis
+06031,2013,11138256,0,Kings,Aeorestes cinereus
+06033,2013,2432425,0,Lake,Myotis californicus
+06033,2013,2432461,0,Lake,Myotis yumanensis
+06033,2013,11138256,0,Lake,Aeorestes cinereus
+06035,2013,2432425,0,Lassen,Myotis californicus
+06035,2013,2432461,0,Lassen,Myotis yumanensis
+06035,2013,11138256,0,Lassen,Aeorestes cinereus
+06037,2013,2432425,1,Los Angeles,Myotis californicus
+06037,2013,2432461,0,Los Angeles,Myotis yumanensis
+06037,2013,11138256,0,Los Angeles,Aeorestes cinereus
+06039,2013,2432425,0,Madera,Myotis californicus
+06039,2013,2432461,0,Madera,Myotis yumanensis
+06039,2013,11138256,0,Madera,Aeorestes cinereus
+06041,2013,2432425,0,Marin,Myotis californicus
+06041,2013,2432461,0,Marin,Myotis yumanensis
+06041,2013,11138256,0,Marin,Aeorestes cinereus
+06043,2013,2432425,0,Mariposa,Myotis californicus
+06043,2013,2432461,0,Mariposa,Myotis yumanensis
+06043,2013,11138256,0,Mariposa,Aeorestes cinereus
+06045,2013,2432425,0,Mendocino,Myotis californicus
+06045,2013,2432461,0,Mendocino,Myotis yumanensis
+06045,2013,11138256,0,Mendocino,Aeorestes cinereus
+06047,2013,2432425,0,Merced,Myotis californicus
+06047,2013,2432461,0,Merced,Myotis yumanensis
+06047,2013,11138256,0,Merced,Aeorestes cinereus
+06049,2013,2432425,0,Modoc,Myotis californicus
+06049,2013,2432461,0,Modoc,Myotis yumanensis
+06049,2013,11138256,0,Modoc,Aeorestes cinereus
+06051,2013,2432425,0,Mono,Myotis californicus
+06051,2013,2432461,0,Mono,Myotis yumanensis
+06051,2013,11138256,0,Mono,Aeorestes cinereus
+06053,2013,2432425,0,Monterey,Myotis californicus
+06053,2013,2432461,0,Monterey,Myotis yumanensis
+06053,2013,11138256,0,Monterey,Aeorestes cinereus
+06055,2013,2432425,0,Napa,Myotis californicus
+06055,2013,2432461,0,Napa,Myotis yumanensis
+06055,2013,11138256,0,Napa,Aeorestes cinereus
+06057,2013,2432425,0,Nevada,Myotis californicus
+06057,2013,2432461,0,Nevada,Myotis yumanensis
+06057,2013,11138256,0,Nevada,Aeorestes cinereus
+06059,2013,2432425,0,Orange,Myotis californicus
+06059,2013,2432461,0,Orange,Myotis yumanensis
+06059,2013,11138256,0,Orange,Aeorestes cinereus
+06061,2013,2432425,0,Placer,Myotis californicus
+06061,2013,2432461,0,Placer,Myotis yumanensis
+06061,2013,11138256,0,Placer,Aeorestes cinereus
+06063,2013,2432425,0,Plumas,Myotis californicus
+06063,2013,2432461,0,Plumas,Myotis yumanensis
+06063,2013,11138256,0,Plumas,Aeorestes cinereus
+06065,2013,2432425,2,Riverside,Myotis californicus
+06065,2013,2432461,0,Riverside,Myotis yumanensis
+06065,2013,11138256,1,Riverside,Aeorestes cinereus
+06067,2013,2432425,0,Sacramento,Myotis californicus
+06067,2013,2432461,0,Sacramento,Myotis yumanensis
+06067,2013,11138256,0,Sacramento,Aeorestes cinereus
+06069,2013,2432425,0,San Benito,Myotis californicus
+06069,2013,2432461,0,San Benito,Myotis yumanensis
+06069,2013,11138256,0,San Benito,Aeorestes cinereus
+06071,2013,2432425,0,San Bernardino,Myotis californicus
+06071,2013,2432461,0,San Bernardino,Myotis yumanensis
+06071,2013,11138256,0,San Bernardino,Aeorestes cinereus
+06073,2013,2432425,4,San Diego,Myotis californicus
+06073,2013,2432461,7,San Diego,Myotis yumanensis
+06073,2013,11138256,0,San Diego,Aeorestes cinereus
+06075,2013,2432425,0,San Francisco,Myotis californicus
+06075,2013,2432461,0,San Francisco,Myotis yumanensis
+06075,2013,11138256,0,San Francisco,Aeorestes cinereus
+06077,2013,2432425,0,San Joaquin,Myotis californicus
+06077,2013,2432461,0,San Joaquin,Myotis yumanensis
+06077,2013,11138256,0,San Joaquin,Aeorestes cinereus
+06079,2013,2432425,1,San Luis Obispo,Myotis californicus
+06079,2013,2432461,1,San Luis Obispo,Myotis yumanensis
+06079,2013,11138256,0,San Luis Obispo,Aeorestes cinereus
+06081,2013,2432425,0,San Mateo,Myotis californicus
+06081,2013,2432461,0,San Mateo,Myotis yumanensis
+06081,2013,11138256,0,San Mateo,Aeorestes cinereus
+06083,2013,2432425,0,Santa Barbara,Myotis californicus
+06083,2013,2432461,0,Santa Barbara,Myotis yumanensis
+06083,2013,11138256,0,Santa Barbara,Aeorestes cinereus
+06085,2013,2432425,0,Santa Clara,Myotis californicus
+06085,2013,2432461,0,Santa Clara,Myotis yumanensis
+06085,2013,11138256,0,Santa Clara,Aeorestes cinereus
+06087,2013,2432425,0,Santa Cruz,Myotis californicus
+06087,2013,2432461,0,Santa Cruz,Myotis yumanensis
+06087,2013,11138256,0,Santa Cruz,Aeorestes cinereus
+06089,2013,2432425,0,Shasta,Myotis californicus
+06089,2013,2432461,0,Shasta,Myotis yumanensis
+06089,2013,11138256,0,Shasta,Aeorestes cinereus
+06091,2013,2432425,0,Sierra,Myotis californicus
+06091,2013,2432461,0,Sierra,Myotis yumanensis
+06091,2013,11138256,0,Sierra,Aeorestes cinereus
+06093,2013,2432425,0,Siskiyou,Myotis californicus
+06093,2013,2432461,0,Siskiyou,Myotis yumanensis
+06093,2013,11138256,0,Siskiyou,Aeorestes cinereus
+06095,2013,2432425,0,Solano,Myotis californicus
+06095,2013,2432461,0,Solano,Myotis yumanensis
+06095,2013,11138256,0,Solano,Aeorestes cinereus
+06097,2013,2432425,1,Sonoma,Myotis californicus
+06097,2013,2432461,1,Sonoma,Myotis yumanensis
+06097,2013,11138256,0,Sonoma,Aeorestes cinereus
+06099,2013,2432425,0,Stanislaus,Myotis californicus
+06099,2013,2432461,0,Stanislaus,Myotis yumanensis
+06099,2013,11138256,0,Stanislaus,Aeorestes cinereus
+06101,2013,2432425,0,Sutter,Myotis californicus
+06101,2013,2432461,0,Sutter,Myotis yumanensis
+06101,2013,11138256,0,Sutter,Aeorestes cinereus
+06103,2013,2432425,0,Tehama,Myotis californicus
+06103,2013,2432461,0,Tehama,Myotis yumanensis
+06103,2013,11138256,0,Tehama,Aeorestes cinereus
+06105,2013,2432425,0,Trinity,Myotis californicus
+06105,2013,2432461,0,Trinity,Myotis yumanensis
+06105,2013,11138256,0,Trinity,Aeorestes cinereus
+06107,2013,2432425,0,Tulare,Myotis californicus
+06107,2013,2432461,0,Tulare,Myotis yumanensis
+06107,2013,11138256,0,Tulare,Aeorestes cinereus
+06109,2013,2432425,0,Tuolumne,Myotis californicus
+06109,2013,2432461,0,Tuolumne,Myotis yumanensis
+06109,2013,11138256,0,Tuolumne,Aeorestes cinereus
+06111,2013,2432425,0,Ventura,Myotis californicus
+06111,2013,2432461,0,Ventura,Myotis yumanensis
+06111,2013,11138256,0,Ventura,Aeorestes cinereus
+06113,2013,2432425,0,Yolo,Myotis californicus
+06113,2013,2432461,0,Yolo,Myotis yumanensis
+06113,2013,11138256,0,Yolo,Aeorestes cinereus
+06115,2013,2432425,0,Yuba,Myotis californicus
+06115,2013,2432461,0,Yuba,Myotis yumanensis
+06115,2013,11138256,0,Yuba,Aeorestes cinereus
+06001,2014,2432425,0,Alameda,Myotis californicus
+06001,2014,2432461,0,Alameda,Myotis yumanensis
+06001,2014,11138256,0,Alameda,Aeorestes cinereus
+06003,2014,2432425,0,Alpine,Myotis californicus
+06003,2014,2432461,0,Alpine,Myotis yumanensis
+06003,2014,11138256,0,Alpine,Aeorestes cinereus
+06005,2014,2432425,0,Amador,Myotis californicus
+06005,2014,2432461,0,Amador,Myotis yumanensis
+06005,2014,11138256,0,Amador,Aeorestes cinereus
+06007,2014,2432425,0,Butte,Myotis californicus
+06007,2014,2432461,0,Butte,Myotis yumanensis
+06007,2014,11138256,0,Butte,Aeorestes cinereus
+06009,2014,2432425,0,Calaveras,Myotis californicus
+06009,2014,2432461,0,Calaveras,Myotis yumanensis
+06009,2014,11138256,0,Calaveras,Aeorestes cinereus
+06011,2014,2432425,0,Colusa,Myotis californicus
+06011,2014,2432461,0,Colusa,Myotis yumanensis
+06011,2014,11138256,0,Colusa,Aeorestes cinereus
+06013,2014,2432425,0,Contra Costa,Myotis californicus
+06013,2014,2432461,0,Contra Costa,Myotis yumanensis
+06013,2014,11138256,0,Contra Costa,Aeorestes cinereus
+06015,2014,2432425,0,Del Norte,Myotis californicus
+06015,2014,2432461,0,Del Norte,Myotis yumanensis
+06015,2014,11138256,0,Del Norte,Aeorestes cinereus
+06017,2014,2432425,0,El Dorado,Myotis californicus
+06017,2014,2432461,0,El Dorado,Myotis yumanensis
+06017,2014,11138256,0,El Dorado,Aeorestes cinereus
+06019,2014,2432425,0,Fresno,Myotis californicus
+06019,2014,2432461,0,Fresno,Myotis yumanensis
+06019,2014,11138256,0,Fresno,Aeorestes cinereus
+06021,2014,2432425,0,Glenn,Myotis californicus
+06021,2014,2432461,0,Glenn,Myotis yumanensis
+06021,2014,11138256,0,Glenn,Aeorestes cinereus
+06023,2014,2432425,0,Humboldt,Myotis californicus
+06023,2014,2432461,0,Humboldt,Myotis yumanensis
+06023,2014,11138256,0,Humboldt,Aeorestes cinereus
+06025,2014,2432425,0,Imperial,Myotis californicus
+06025,2014,2432461,0,Imperial,Myotis yumanensis
+06025,2014,11138256,0,Imperial,Aeorestes cinereus
+06027,2014,2432425,0,Inyo,Myotis californicus
+06027,2014,2432461,0,Inyo,Myotis yumanensis
+06027,2014,11138256,0,Inyo,Aeorestes cinereus
+06029,2014,2432425,0,Kern,Myotis californicus
+06029,2014,2432461,0,Kern,Myotis yumanensis
+06029,2014,11138256,0,Kern,Aeorestes cinereus
+06031,2014,2432425,0,Kings,Myotis californicus
+06031,2014,2432461,0,Kings,Myotis yumanensis
+06031,2014,11138256,0,Kings,Aeorestes cinereus
+06033,2014,2432425,0,Lake,Myotis californicus
+06033,2014,2432461,0,Lake,Myotis yumanensis
+06033,2014,11138256,0,Lake,Aeorestes cinereus
+06035,2014,2432425,0,Lassen,Myotis californicus
+06035,2014,2432461,0,Lassen,Myotis yumanensis
+06035,2014,11138256,0,Lassen,Aeorestes cinereus
+06037,2014,2432425,0,Los Angeles,Myotis californicus
+06037,2014,2432461,0,Los Angeles,Myotis yumanensis
+06037,2014,11138256,2,Los Angeles,Aeorestes cinereus
+06039,2014,2432425,0,Madera,Myotis californicus
+06039,2014,2432461,0,Madera,Myotis yumanensis
+06039,2014,11138256,0,Madera,Aeorestes cinereus
+06041,2014,2432425,0,Marin,Myotis californicus
+06041,2014,2432461,0,Marin,Myotis yumanensis
+06041,2014,11138256,3,Marin,Aeorestes cinereus
+06043,2014,2432425,0,Mariposa,Myotis californicus
+06043,2014,2432461,0,Mariposa,Myotis yumanensis
+06043,2014,11138256,0,Mariposa,Aeorestes cinereus
+06045,2014,2432425,0,Mendocino,Myotis californicus
+06045,2014,2432461,0,Mendocino,Myotis yumanensis
+06045,2014,11138256,0,Mendocino,Aeorestes cinereus
+06047,2014,2432425,0,Merced,Myotis californicus
+06047,2014,2432461,0,Merced,Myotis yumanensis
+06047,2014,11138256,0,Merced,Aeorestes cinereus
+06049,2014,2432425,0,Modoc,Myotis californicus
+06049,2014,2432461,0,Modoc,Myotis yumanensis
+06049,2014,11138256,0,Modoc,Aeorestes cinereus
+06051,2014,2432425,0,Mono,Myotis californicus
+06051,2014,2432461,0,Mono,Myotis yumanensis
+06051,2014,11138256,0,Mono,Aeorestes cinereus
+06053,2014,2432425,0,Monterey,Myotis californicus
+06053,2014,2432461,0,Monterey,Myotis yumanensis
+06053,2014,11138256,0,Monterey,Aeorestes cinereus
+06055,2014,2432425,0,Napa,Myotis californicus
+06055,2014,2432461,0,Napa,Myotis yumanensis
+06055,2014,11138256,0,Napa,Aeorestes cinereus
+06057,2014,2432425,0,Nevada,Myotis californicus
+06057,2014,2432461,0,Nevada,Myotis yumanensis
+06057,2014,11138256,0,Nevada,Aeorestes cinereus
+06059,2014,2432425,0,Orange,Myotis californicus
+06059,2014,2432461,0,Orange,Myotis yumanensis
+06059,2014,11138256,0,Orange,Aeorestes cinereus
+06061,2014,2432425,0,Placer,Myotis californicus
+06061,2014,2432461,0,Placer,Myotis yumanensis
+06061,2014,11138256,0,Placer,Aeorestes cinereus
+06063,2014,2432425,0,Plumas,Myotis californicus
+06063,2014,2432461,0,Plumas,Myotis yumanensis
+06063,2014,11138256,0,Plumas,Aeorestes cinereus
+06065,2014,2432425,0,Riverside,Myotis californicus
+06065,2014,2432461,0,Riverside,Myotis yumanensis
+06065,2014,11138256,0,Riverside,Aeorestes cinereus
+06067,2014,2432425,0,Sacramento,Myotis californicus
+06067,2014,2432461,0,Sacramento,Myotis yumanensis
+06067,2014,11138256,0,Sacramento,Aeorestes cinereus
+06069,2014,2432425,0,San Benito,Myotis californicus
+06069,2014,2432461,0,San Benito,Myotis yumanensis
+06069,2014,11138256,0,San Benito,Aeorestes cinereus
+06071,2014,2432425,0,San Bernardino,Myotis californicus
+06071,2014,2432461,0,San Bernardino,Myotis yumanensis
+06071,2014,11138256,0,San Bernardino,Aeorestes cinereus
+06073,2014,2432425,2,San Diego,Myotis californicus
+06073,2014,2432461,10,San Diego,Myotis yumanensis
+06073,2014,11138256,2,San Diego,Aeorestes cinereus
+06075,2014,2432425,0,San Francisco,Myotis californicus
+06075,2014,2432461,0,San Francisco,Myotis yumanensis
+06075,2014,11138256,1,San Francisco,Aeorestes cinereus
+06077,2014,2432425,0,San Joaquin,Myotis californicus
+06077,2014,2432461,0,San Joaquin,Myotis yumanensis
+06077,2014,11138256,0,San Joaquin,Aeorestes cinereus
+06079,2014,2432425,0,San Luis Obispo,Myotis californicus
+06079,2014,2432461,0,San Luis Obispo,Myotis yumanensis
+06079,2014,11138256,0,San Luis Obispo,Aeorestes cinereus
+06081,2014,2432425,1,San Mateo,Myotis californicus
+06081,2014,2432461,0,San Mateo,Myotis yumanensis
+06081,2014,11138256,0,San Mateo,Aeorestes cinereus
+06083,2014,2432425,0,Santa Barbara,Myotis californicus
+06083,2014,2432461,0,Santa Barbara,Myotis yumanensis
+06083,2014,11138256,0,Santa Barbara,Aeorestes cinereus
+06085,2014,2432425,0,Santa Clara,Myotis californicus
+06085,2014,2432461,0,Santa Clara,Myotis yumanensis
+06085,2014,11138256,0,Santa Clara,Aeorestes cinereus
+06087,2014,2432425,0,Santa Cruz,Myotis californicus
+06087,2014,2432461,0,Santa Cruz,Myotis yumanensis
+06087,2014,11138256,0,Santa Cruz,Aeorestes cinereus
+06089,2014,2432425,0,Shasta,Myotis californicus
+06089,2014,2432461,0,Shasta,Myotis yumanensis
+06089,2014,11138256,0,Shasta,Aeorestes cinereus
+06091,2014,2432425,0,Sierra,Myotis californicus
+06091,2014,2432461,0,Sierra,Myotis yumanensis
+06091,2014,11138256,0,Sierra,Aeorestes cinereus
+06093,2014,2432425,0,Siskiyou,Myotis californicus
+06093,2014,2432461,0,Siskiyou,Myotis yumanensis
+06093,2014,11138256,0,Siskiyou,Aeorestes cinereus
+06095,2014,2432425,0,Solano,Myotis californicus
+06095,2014,2432461,0,Solano,Myotis yumanensis
+06095,2014,11138256,0,Solano,Aeorestes cinereus
+06097,2014,2432425,0,Sonoma,Myotis californicus
+06097,2014,2432461,0,Sonoma,Myotis yumanensis
+06097,2014,11138256,0,Sonoma,Aeorestes cinereus
+06099,2014,2432425,0,Stanislaus,Myotis californicus
+06099,2014,2432461,0,Stanislaus,Myotis yumanensis
+06099,2014,11138256,0,Stanislaus,Aeorestes cinereus
+06101,2014,2432425,0,Sutter,Myotis californicus
+06101,2014,2432461,0,Sutter,Myotis yumanensis
+06101,2014,11138256,0,Sutter,Aeorestes cinereus
+06103,2014,2432425,0,Tehama,Myotis californicus
+06103,2014,2432461,0,Tehama,Myotis yumanensis
+06103,2014,11138256,0,Tehama,Aeorestes cinereus
+06105,2014,2432425,0,Trinity,Myotis californicus
+06105,2014,2432461,0,Trinity,Myotis yumanensis
+06105,2014,11138256,0,Trinity,Aeorestes cinereus
+06107,2014,2432425,0,Tulare,Myotis californicus
+06107,2014,2432461,0,Tulare,Myotis yumanensis
+06107,2014,11138256,0,Tulare,Aeorestes cinereus
+06109,2014,2432425,0,Tuolumne,Myotis californicus
+06109,2014,2432461,0,Tuolumne,Myotis yumanensis
+06109,2014,11138256,0,Tuolumne,Aeorestes cinereus
+06111,2014,2432425,0,Ventura,Myotis californicus
+06111,2014,2432461,0,Ventura,Myotis yumanensis
+06111,2014,11138256,0,Ventura,Aeorestes cinereus
+06113,2014,2432425,0,Yolo,Myotis californicus
+06113,2014,2432461,0,Yolo,Myotis yumanensis
+06113,2014,11138256,0,Yolo,Aeorestes cinereus
+06115,2014,2432425,0,Yuba,Myotis californicus
+06115,2014,2432461,0,Yuba,Myotis yumanensis
+06115,2014,11138256,0,Yuba,Aeorestes cinereus
+06001,2015,2432425,0,Alameda,Myotis californicus
+06001,2015,2432461,0,Alameda,Myotis yumanensis
+06001,2015,11138256,0,Alameda,Aeorestes cinereus
+06003,2015,2432425,0,Alpine,Myotis californicus
+06003,2015,2432461,0,Alpine,Myotis yumanensis
+06003,2015,11138256,0,Alpine,Aeorestes cinereus
+06005,2015,2432425,0,Amador,Myotis californicus
+06005,2015,2432461,0,Amador,Myotis yumanensis
+06005,2015,11138256,0,Amador,Aeorestes cinereus
+06007,2015,2432425,1,Butte,Myotis californicus
+06007,2015,2432461,0,Butte,Myotis yumanensis
+06007,2015,11138256,0,Butte,Aeorestes cinereus
+06009,2015,2432425,0,Calaveras,Myotis californicus
+06009,2015,2432461,0,Calaveras,Myotis yumanensis
+06009,2015,11138256,0,Calaveras,Aeorestes cinereus
+06011,2015,2432425,0,Colusa,Myotis californicus
+06011,2015,2432461,0,Colusa,Myotis yumanensis
+06011,2015,11138256,0,Colusa,Aeorestes cinereus
+06013,2015,2432425,0,Contra Costa,Myotis californicus
+06013,2015,2432461,0,Contra Costa,Myotis yumanensis
+06013,2015,11138256,0,Contra Costa,Aeorestes cinereus
+06015,2015,2432425,0,Del Norte,Myotis californicus
+06015,2015,2432461,0,Del Norte,Myotis yumanensis
+06015,2015,11138256,0,Del Norte,Aeorestes cinereus
+06017,2015,2432425,6,El Dorado,Myotis californicus
+06017,2015,2432461,2,El Dorado,Myotis yumanensis
+06017,2015,11138256,0,El Dorado,Aeorestes cinereus
+06019,2015,2432425,0,Fresno,Myotis californicus
+06019,2015,2432461,0,Fresno,Myotis yumanensis
+06019,2015,11138256,0,Fresno,Aeorestes cinereus
+06021,2015,2432425,0,Glenn,Myotis californicus
+06021,2015,2432461,0,Glenn,Myotis yumanensis
+06021,2015,11138256,0,Glenn,Aeorestes cinereus
+06023,2015,2432425,0,Humboldt,Myotis californicus
+06023,2015,2432461,0,Humboldt,Myotis yumanensis
+06023,2015,11138256,0,Humboldt,Aeorestes cinereus
+06025,2015,2432425,0,Imperial,Myotis californicus
+06025,2015,2432461,0,Imperial,Myotis yumanensis
+06025,2015,11138256,0,Imperial,Aeorestes cinereus
+06027,2015,2432425,0,Inyo,Myotis californicus
+06027,2015,2432461,0,Inyo,Myotis yumanensis
+06027,2015,11138256,0,Inyo,Aeorestes cinereus
+06029,2015,2432425,0,Kern,Myotis californicus
+06029,2015,2432461,0,Kern,Myotis yumanensis
+06029,2015,11138256,1,Kern,Aeorestes cinereus
+06031,2015,2432425,0,Kings,Myotis californicus
+06031,2015,2432461,0,Kings,Myotis yumanensis
+06031,2015,11138256,0,Kings,Aeorestes cinereus
+06033,2015,2432425,0,Lake,Myotis californicus
+06033,2015,2432461,0,Lake,Myotis yumanensis
+06033,2015,11138256,0,Lake,Aeorestes cinereus
+06035,2015,2432425,0,Lassen,Myotis californicus
+06035,2015,2432461,0,Lassen,Myotis yumanensis
+06035,2015,11138256,0,Lassen,Aeorestes cinereus
+06037,2015,2432425,3,Los Angeles,Myotis californicus
+06037,2015,2432461,5,Los Angeles,Myotis yumanensis
+06037,2015,11138256,0,Los Angeles,Aeorestes cinereus
+06039,2015,2432425,0,Madera,Myotis californicus
+06039,2015,2432461,0,Madera,Myotis yumanensis
+06039,2015,11138256,0,Madera,Aeorestes cinereus
+06041,2015,2432425,0,Marin,Myotis californicus
+06041,2015,2432461,0,Marin,Myotis yumanensis
+06041,2015,11138256,0,Marin,Aeorestes cinereus
+06043,2015,2432425,0,Mariposa,Myotis californicus
+06043,2015,2432461,0,Mariposa,Myotis yumanensis
+06043,2015,11138256,0,Mariposa,Aeorestes cinereus
+06045,2015,2432425,0,Mendocino,Myotis californicus
+06045,2015,2432461,0,Mendocino,Myotis yumanensis
+06045,2015,11138256,0,Mendocino,Aeorestes cinereus
+06047,2015,2432425,0,Merced,Myotis californicus
+06047,2015,2432461,0,Merced,Myotis yumanensis
+06047,2015,11138256,0,Merced,Aeorestes cinereus
+06049,2015,2432425,0,Modoc,Myotis californicus
+06049,2015,2432461,0,Modoc,Myotis yumanensis
+06049,2015,11138256,0,Modoc,Aeorestes cinereus
+06051,2015,2432425,0,Mono,Myotis californicus
+06051,2015,2432461,0,Mono,Myotis yumanensis
+06051,2015,11138256,0,Mono,Aeorestes cinereus
+06053,2015,2432425,0,Monterey,Myotis californicus
+06053,2015,2432461,0,Monterey,Myotis yumanensis
+06053,2015,11138256,2,Monterey,Aeorestes cinereus
+06055,2015,2432425,0,Napa,Myotis californicus
+06055,2015,2432461,0,Napa,Myotis yumanensis
+06055,2015,11138256,0,Napa,Aeorestes cinereus
+06057,2015,2432425,0,Nevada,Myotis californicus
+06057,2015,2432461,0,Nevada,Myotis yumanensis
+06057,2015,11138256,0,Nevada,Aeorestes cinereus
+06059,2015,2432425,0,Orange,Myotis californicus
+06059,2015,2432461,0,Orange,Myotis yumanensis
+06059,2015,11138256,0,Orange,Aeorestes cinereus
+06061,2015,2432425,0,Placer,Myotis californicus
+06061,2015,2432461,0,Placer,Myotis yumanensis
+06061,2015,11138256,0,Placer,Aeorestes cinereus
+06063,2015,2432425,0,Plumas,Myotis californicus
+06063,2015,2432461,0,Plumas,Myotis yumanensis
+06063,2015,11138256,0,Plumas,Aeorestes cinereus
+06065,2015,2432425,0,Riverside,Myotis californicus
+06065,2015,2432461,0,Riverside,Myotis yumanensis
+06065,2015,11138256,0,Riverside,Aeorestes cinereus
+06067,2015,2432425,0,Sacramento,Myotis californicus
+06067,2015,2432461,0,Sacramento,Myotis yumanensis
+06067,2015,11138256,0,Sacramento,Aeorestes cinereus
+06069,2015,2432425,0,San Benito,Myotis californicus
+06069,2015,2432461,0,San Benito,Myotis yumanensis
+06069,2015,11138256,0,San Benito,Aeorestes cinereus
+06071,2015,2432425,1,San Bernardino,Myotis californicus
+06071,2015,2432461,0,San Bernardino,Myotis yumanensis
+06071,2015,11138256,0,San Bernardino,Aeorestes cinereus
+06073,2015,2432425,2,San Diego,Myotis californicus
+06073,2015,2432461,13,San Diego,Myotis yumanensis
+06073,2015,11138256,0,San Diego,Aeorestes cinereus
+06075,2015,2432425,0,San Francisco,Myotis californicus
+06075,2015,2432461,0,San Francisco,Myotis yumanensis
+06075,2015,11138256,0,San Francisco,Aeorestes cinereus
+06077,2015,2432425,0,San Joaquin,Myotis californicus
+06077,2015,2432461,0,San Joaquin,Myotis yumanensis
+06077,2015,11138256,1,San Joaquin,Aeorestes cinereus
+06079,2015,2432425,2,San Luis Obispo,Myotis californicus
+06079,2015,2432461,0,San Luis Obispo,Myotis yumanensis
+06079,2015,11138256,0,San Luis Obispo,Aeorestes cinereus
+06081,2015,2432425,0,San Mateo,Myotis californicus
+06081,2015,2432461,0,San Mateo,Myotis yumanensis
+06081,2015,11138256,1,San Mateo,Aeorestes cinereus
+06083,2015,2432425,0,Santa Barbara,Myotis californicus
+06083,2015,2432461,0,Santa Barbara,Myotis yumanensis
+06083,2015,11138256,0,Santa Barbara,Aeorestes cinereus
+06085,2015,2432425,0,Santa Clara,Myotis californicus
+06085,2015,2432461,0,Santa Clara,Myotis yumanensis
+06085,2015,11138256,0,Santa Clara,Aeorestes cinereus
+06087,2015,2432425,0,Santa Cruz,Myotis californicus
+06087,2015,2432461,0,Santa Cruz,Myotis yumanensis
+06087,2015,11138256,0,Santa Cruz,Aeorestes cinereus
+06089,2015,2432425,0,Shasta,Myotis californicus
+06089,2015,2432461,0,Shasta,Myotis yumanensis
+06089,2015,11138256,0,Shasta,Aeorestes cinereus
+06091,2015,2432425,0,Sierra,Myotis californicus
+06091,2015,2432461,0,Sierra,Myotis yumanensis
+06091,2015,11138256,0,Sierra,Aeorestes cinereus
+06093,2015,2432425,0,Siskiyou,Myotis californicus
+06093,2015,2432461,0,Siskiyou,Myotis yumanensis
+06093,2015,11138256,0,Siskiyou,Aeorestes cinereus
+06095,2015,2432425,0,Solano,Myotis californicus
+06095,2015,2432461,0,Solano,Myotis yumanensis
+06095,2015,11138256,0,Solano,Aeorestes cinereus
+06097,2015,2432425,0,Sonoma,Myotis californicus
+06097,2015,2432461,0,Sonoma,Myotis yumanensis
+06097,2015,11138256,0,Sonoma,Aeorestes cinereus
+06099,2015,2432425,0,Stanislaus,Myotis californicus
+06099,2015,2432461,0,Stanislaus,Myotis yumanensis
+06099,2015,11138256,0,Stanislaus,Aeorestes cinereus
+06101,2015,2432425,3,Sutter,Myotis californicus
+06101,2015,2432461,6,Sutter,Myotis yumanensis
+06101,2015,11138256,1,Sutter,Aeorestes cinereus
+06103,2015,2432425,0,Tehama,Myotis californicus
+06103,2015,2432461,0,Tehama,Myotis yumanensis
+06103,2015,11138256,0,Tehama,Aeorestes cinereus
+06105,2015,2432425,0,Trinity,Myotis californicus
+06105,2015,2432461,0,Trinity,Myotis yumanensis
+06105,2015,11138256,0,Trinity,Aeorestes cinereus
+06107,2015,2432425,0,Tulare,Myotis californicus
+06107,2015,2432461,0,Tulare,Myotis yumanensis
+06107,2015,11138256,0,Tulare,Aeorestes cinereus
+06109,2015,2432425,0,Tuolumne,Myotis californicus
+06109,2015,2432461,0,Tuolumne,Myotis yumanensis
+06109,2015,11138256,0,Tuolumne,Aeorestes cinereus
+06111,2015,2432425,0,Ventura,Myotis californicus
+06111,2015,2432461,0,Ventura,Myotis yumanensis
+06111,2015,11138256,0,Ventura,Aeorestes cinereus
+06113,2015,2432425,0,Yolo,Myotis californicus
+06113,2015,2432461,0,Yolo,Myotis yumanensis
+06113,2015,11138256,0,Yolo,Aeorestes cinereus
+06115,2015,2432425,0,Yuba,Myotis californicus
+06115,2015,2432461,0,Yuba,Myotis yumanensis
+06115,2015,11138256,0,Yuba,Aeorestes cinereus
+06001,2016,2432425,0,Alameda,Myotis californicus
+06001,2016,2432461,0,Alameda,Myotis yumanensis
+06001,2016,11138256,0,Alameda,Aeorestes cinereus
+06003,2016,2432425,0,Alpine,Myotis californicus
+06003,2016,2432461,0,Alpine,Myotis yumanensis
+06003,2016,11138256,0,Alpine,Aeorestes cinereus
+06005,2016,2432425,0,Amador,Myotis californicus
+06005,2016,2432461,0,Amador,Myotis yumanensis
+06005,2016,11138256,0,Amador,Aeorestes cinereus
+06007,2016,2432425,1,Butte,Myotis californicus
+06007,2016,2432461,0,Butte,Myotis yumanensis
+06007,2016,11138256,0,Butte,Aeorestes cinereus
+06009,2016,2432425,0,Calaveras,Myotis californicus
+06009,2016,2432461,0,Calaveras,Myotis yumanensis
+06009,2016,11138256,0,Calaveras,Aeorestes cinereus
+06011,2016,2432425,0,Colusa,Myotis californicus
+06011,2016,2432461,0,Colusa,Myotis yumanensis
+06011,2016,11138256,0,Colusa,Aeorestes cinereus
+06013,2016,2432425,0,Contra Costa,Myotis californicus
+06013,2016,2432461,0,Contra Costa,Myotis yumanensis
+06013,2016,11138256,0,Contra Costa,Aeorestes cinereus
+06015,2016,2432425,0,Del Norte,Myotis californicus
+06015,2016,2432461,0,Del Norte,Myotis yumanensis
+06015,2016,11138256,0,Del Norte,Aeorestes cinereus
+06017,2016,2432425,0,El Dorado,Myotis californicus
+06017,2016,2432461,0,El Dorado,Myotis yumanensis
+06017,2016,11138256,1,El Dorado,Aeorestes cinereus
+06019,2016,2432425,0,Fresno,Myotis californicus
+06019,2016,2432461,0,Fresno,Myotis yumanensis
+06019,2016,11138256,0,Fresno,Aeorestes cinereus
+06021,2016,2432425,0,Glenn,Myotis californicus
+06021,2016,2432461,0,Glenn,Myotis yumanensis
+06021,2016,11138256,0,Glenn,Aeorestes cinereus
+06023,2016,2432425,0,Humboldt,Myotis californicus
+06023,2016,2432461,0,Humboldt,Myotis yumanensis
+06023,2016,11138256,1,Humboldt,Aeorestes cinereus
+06025,2016,2432425,0,Imperial,Myotis californicus
+06025,2016,2432461,0,Imperial,Myotis yumanensis
+06025,2016,11138256,1,Imperial,Aeorestes cinereus
+06027,2016,2432425,0,Inyo,Myotis californicus
+06027,2016,2432461,0,Inyo,Myotis yumanensis
+06027,2016,11138256,0,Inyo,Aeorestes cinereus
+06029,2016,2432425,0,Kern,Myotis californicus
+06029,2016,2432461,0,Kern,Myotis yumanensis
+06029,2016,11138256,0,Kern,Aeorestes cinereus
+06031,2016,2432425,0,Kings,Myotis californicus
+06031,2016,2432461,0,Kings,Myotis yumanensis
+06031,2016,11138256,0,Kings,Aeorestes cinereus
+06033,2016,2432425,0,Lake,Myotis californicus
+06033,2016,2432461,0,Lake,Myotis yumanensis
+06033,2016,11138256,0,Lake,Aeorestes cinereus
+06035,2016,2432425,0,Lassen,Myotis californicus
+06035,2016,2432461,0,Lassen,Myotis yumanensis
+06035,2016,11138256,0,Lassen,Aeorestes cinereus
+06037,2016,2432425,0,Los Angeles,Myotis californicus
+06037,2016,2432461,1,Los Angeles,Myotis yumanensis
+06037,2016,11138256,2,Los Angeles,Aeorestes cinereus
+06039,2016,2432425,0,Madera,Myotis californicus
+06039,2016,2432461,0,Madera,Myotis yumanensis
+06039,2016,11138256,0,Madera,Aeorestes cinereus
+06041,2016,2432425,19,Marin,Myotis californicus
+06041,2016,2432461,5,Marin,Myotis yumanensis
+06041,2016,11138256,0,Marin,Aeorestes cinereus
+06043,2016,2432425,0,Mariposa,Myotis californicus
+06043,2016,2432461,0,Mariposa,Myotis yumanensis
+06043,2016,11138256,0,Mariposa,Aeorestes cinereus
+06045,2016,2432425,0,Mendocino,Myotis californicus
+06045,2016,2432461,0,Mendocino,Myotis yumanensis
+06045,2016,11138256,0,Mendocino,Aeorestes cinereus
+06047,2016,2432425,0,Merced,Myotis californicus
+06047,2016,2432461,0,Merced,Myotis yumanensis
+06047,2016,11138256,0,Merced,Aeorestes cinereus
+06049,2016,2432425,0,Modoc,Myotis californicus
+06049,2016,2432461,0,Modoc,Myotis yumanensis
+06049,2016,11138256,0,Modoc,Aeorestes cinereus
+06051,2016,2432425,0,Mono,Myotis californicus
+06051,2016,2432461,0,Mono,Myotis yumanensis
+06051,2016,11138256,0,Mono,Aeorestes cinereus
+06053,2016,2432425,0,Monterey,Myotis californicus
+06053,2016,2432461,0,Monterey,Myotis yumanensis
+06053,2016,11138256,0,Monterey,Aeorestes cinereus
+06055,2016,2432425,8,Napa,Myotis californicus
+06055,2016,2432461,1,Napa,Myotis yumanensis
+06055,2016,11138256,0,Napa,Aeorestes cinereus
+06057,2016,2432425,0,Nevada,Myotis californicus
+06057,2016,2432461,0,Nevada,Myotis yumanensis
+06057,2016,11138256,0,Nevada,Aeorestes cinereus
+06059,2016,2432425,1,Orange,Myotis californicus
+06059,2016,2432461,0,Orange,Myotis yumanensis
+06059,2016,11138256,0,Orange,Aeorestes cinereus
+06061,2016,2432425,0,Placer,Myotis californicus
+06061,2016,2432461,0,Placer,Myotis yumanensis
+06061,2016,11138256,0,Placer,Aeorestes cinereus
+06063,2016,2432425,0,Plumas,Myotis californicus
+06063,2016,2432461,0,Plumas,Myotis yumanensis
+06063,2016,11138256,0,Plumas,Aeorestes cinereus
+06065,2016,2432425,0,Riverside,Myotis californicus
+06065,2016,2432461,0,Riverside,Myotis yumanensis
+06065,2016,11138256,0,Riverside,Aeorestes cinereus
+06067,2016,2432425,0,Sacramento,Myotis californicus
+06067,2016,2432461,0,Sacramento,Myotis yumanensis
+06067,2016,11138256,1,Sacramento,Aeorestes cinereus
+06069,2016,2432425,0,San Benito,Myotis californicus
+06069,2016,2432461,0,San Benito,Myotis yumanensis
+06069,2016,11138256,0,San Benito,Aeorestes cinereus
+06071,2016,2432425,0,San Bernardino,Myotis californicus
+06071,2016,2432461,0,San Bernardino,Myotis yumanensis
+06071,2016,11138256,1,San Bernardino,Aeorestes cinereus
+06073,2016,2432425,4,San Diego,Myotis californicus
+06073,2016,2432461,10,San Diego,Myotis yumanensis
+06073,2016,11138256,1,San Diego,Aeorestes cinereus
+06075,2016,2432425,0,San Francisco,Myotis californicus
+06075,2016,2432461,0,San Francisco,Myotis yumanensis
+06075,2016,11138256,0,San Francisco,Aeorestes cinereus
+06077,2016,2432425,0,San Joaquin,Myotis californicus
+06077,2016,2432461,0,San Joaquin,Myotis yumanensis
+06077,2016,11138256,0,San Joaquin,Aeorestes cinereus
+06079,2016,2432425,2,San Luis Obispo,Myotis californicus
+06079,2016,2432461,1,San Luis Obispo,Myotis yumanensis
+06079,2016,11138256,0,San Luis Obispo,Aeorestes cinereus
+06081,2016,2432425,0,San Mateo,Myotis californicus
+06081,2016,2432461,0,San Mateo,Myotis yumanensis
+06081,2016,11138256,0,San Mateo,Aeorestes cinereus
+06083,2016,2432425,0,Santa Barbara,Myotis californicus
+06083,2016,2432461,0,Santa Barbara,Myotis yumanensis
+06083,2016,11138256,1,Santa Barbara,Aeorestes cinereus
+06085,2016,2432425,0,Santa Clara,Myotis californicus
+06085,2016,2432461,0,Santa Clara,Myotis yumanensis
+06085,2016,11138256,0,Santa Clara,Aeorestes cinereus
+06087,2016,2432425,0,Santa Cruz,Myotis californicus
+06087,2016,2432461,0,Santa Cruz,Myotis yumanensis
+06087,2016,11138256,1,Santa Cruz,Aeorestes cinereus
+06089,2016,2432425,0,Shasta,Myotis californicus
+06089,2016,2432461,0,Shasta,Myotis yumanensis
+06089,2016,11138256,0,Shasta,Aeorestes cinereus
+06091,2016,2432425,0,Sierra,Myotis californicus
+06091,2016,2432461,0,Sierra,Myotis yumanensis
+06091,2016,11138256,0,Sierra,Aeorestes cinereus
+06093,2016,2432425,0,Siskiyou,Myotis californicus
+06093,2016,2432461,0,Siskiyou,Myotis yumanensis
+06093,2016,11138256,0,Siskiyou,Aeorestes cinereus
+06095,2016,2432425,0,Solano,Myotis californicus
+06095,2016,2432461,1,Solano,Myotis yumanensis
+06095,2016,11138256,0,Solano,Aeorestes cinereus
+06097,2016,2432425,6,Sonoma,Myotis californicus
+06097,2016,2432461,5,Sonoma,Myotis yumanensis
+06097,2016,11138256,0,Sonoma,Aeorestes cinereus
+06099,2016,2432425,0,Stanislaus,Myotis californicus
+06099,2016,2432461,0,Stanislaus,Myotis yumanensis
+06099,2016,11138256,0,Stanislaus,Aeorestes cinereus
+06101,2016,2432425,0,Sutter,Myotis californicus
+06101,2016,2432461,0,Sutter,Myotis yumanensis
+06101,2016,11138256,3,Sutter,Aeorestes cinereus
+06103,2016,2432425,0,Tehama,Myotis californicus
+06103,2016,2432461,0,Tehama,Myotis yumanensis
+06103,2016,11138256,0,Tehama,Aeorestes cinereus
+06105,2016,2432425,0,Trinity,Myotis californicus
+06105,2016,2432461,0,Trinity,Myotis yumanensis
+06105,2016,11138256,0,Trinity,Aeorestes cinereus
+06107,2016,2432425,0,Tulare,Myotis californicus
+06107,2016,2432461,0,Tulare,Myotis yumanensis
+06107,2016,11138256,0,Tulare,Aeorestes cinereus
+06109,2016,2432425,0,Tuolumne,Myotis californicus
+06109,2016,2432461,0,Tuolumne,Myotis yumanensis
+06109,2016,11138256,0,Tuolumne,Aeorestes cinereus
+06111,2016,2432425,1,Ventura,Myotis californicus
+06111,2016,2432461,4,Ventura,Myotis yumanensis
+06111,2016,11138256,1,Ventura,Aeorestes cinereus
+06113,2016,2432425,0,Yolo,Myotis californicus
+06113,2016,2432461,0,Yolo,Myotis yumanensis
+06113,2016,11138256,0,Yolo,Aeorestes cinereus
+06115,2016,2432425,0,Yuba,Myotis californicus
+06115,2016,2432461,0,Yuba,Myotis yumanensis
+06115,2016,11138256,0,Yuba,Aeorestes cinereus
+06001,2017,2432425,0,Alameda,Myotis californicus
+06001,2017,2432461,0,Alameda,Myotis yumanensis
+06001,2017,11138256,0,Alameda,Aeorestes cinereus
+06003,2017,2432425,0,Alpine,Myotis californicus
+06003,2017,2432461,0,Alpine,Myotis yumanensis
+06003,2017,11138256,0,Alpine,Aeorestes cinereus
+06005,2017,2432425,0,Amador,Myotis californicus
+06005,2017,2432461,0,Amador,Myotis yumanensis
+06005,2017,11138256,0,Amador,Aeorestes cinereus
+06007,2017,2432425,0,Butte,Myotis californicus
+06007,2017,2432461,0,Butte,Myotis yumanensis
+06007,2017,11138256,1,Butte,Aeorestes cinereus
+06009,2017,2432425,0,Calaveras,Myotis californicus
+06009,2017,2432461,0,Calaveras,Myotis yumanensis
+06009,2017,11138256,0,Calaveras,Aeorestes cinereus
+06011,2017,2432425,0,Colusa,Myotis californicus
+06011,2017,2432461,0,Colusa,Myotis yumanensis
+06011,2017,11138256,0,Colusa,Aeorestes cinereus
+06013,2017,2432425,0,Contra Costa,Myotis californicus
+06013,2017,2432461,0,Contra Costa,Myotis yumanensis
+06013,2017,11138256,0,Contra Costa,Aeorestes cinereus
+06015,2017,2432425,0,Del Norte,Myotis californicus
+06015,2017,2432461,0,Del Norte,Myotis yumanensis
+06015,2017,11138256,0,Del Norte,Aeorestes cinereus
+06017,2017,2432425,0,El Dorado,Myotis californicus
+06017,2017,2432461,0,El Dorado,Myotis yumanensis
+06017,2017,11138256,0,El Dorado,Aeorestes cinereus
+06019,2017,2432425,0,Fresno,Myotis californicus
+06019,2017,2432461,0,Fresno,Myotis yumanensis
+06019,2017,11138256,0,Fresno,Aeorestes cinereus
+06021,2017,2432425,0,Glenn,Myotis californicus
+06021,2017,2432461,0,Glenn,Myotis yumanensis
+06021,2017,11138256,0,Glenn,Aeorestes cinereus
+06023,2017,2432425,0,Humboldt,Myotis californicus
+06023,2017,2432461,0,Humboldt,Myotis yumanensis
+06023,2017,11138256,0,Humboldt,Aeorestes cinereus
+06025,2017,2432425,0,Imperial,Myotis californicus
+06025,2017,2432461,0,Imperial,Myotis yumanensis
+06025,2017,11138256,0,Imperial,Aeorestes cinereus
+06027,2017,2432425,0,Inyo,Myotis californicus
+06027,2017,2432461,0,Inyo,Myotis yumanensis
+06027,2017,11138256,0,Inyo,Aeorestes cinereus
+06029,2017,2432425,0,Kern,Myotis californicus
+06029,2017,2432461,0,Kern,Myotis yumanensis
+06029,2017,11138256,0,Kern,Aeorestes cinereus
+06031,2017,2432425,0,Kings,Myotis californicus
+06031,2017,2432461,0,Kings,Myotis yumanensis
+06031,2017,11138256,1,Kings,Aeorestes cinereus
+06033,2017,2432425,0,Lake,Myotis californicus
+06033,2017,2432461,0,Lake,Myotis yumanensis
+06033,2017,11138256,0,Lake,Aeorestes cinereus
+06035,2017,2432425,0,Lassen,Myotis californicus
+06035,2017,2432461,0,Lassen,Myotis yumanensis
+06035,2017,11138256,0,Lassen,Aeorestes cinereus
+06037,2017,2432425,0,Los Angeles,Myotis californicus
+06037,2017,2432461,0,Los Angeles,Myotis yumanensis
+06037,2017,11138256,0,Los Angeles,Aeorestes cinereus
+06039,2017,2432425,0,Madera,Myotis californicus
+06039,2017,2432461,0,Madera,Myotis yumanensis
+06039,2017,11138256,0,Madera,Aeorestes cinereus
+06041,2017,2432425,1,Marin,Myotis californicus
+06041,2017,2432461,2,Marin,Myotis yumanensis
+06041,2017,11138256,10,Marin,Aeorestes cinereus
+06043,2017,2432425,0,Mariposa,Myotis californicus
+06043,2017,2432461,0,Mariposa,Myotis yumanensis
+06043,2017,11138256,0,Mariposa,Aeorestes cinereus
+06045,2017,2432425,0,Mendocino,Myotis californicus
+06045,2017,2432461,0,Mendocino,Myotis yumanensis
+06045,2017,11138256,0,Mendocino,Aeorestes cinereus
+06047,2017,2432425,0,Merced,Myotis californicus
+06047,2017,2432461,0,Merced,Myotis yumanensis
+06047,2017,11138256,0,Merced,Aeorestes cinereus
+06049,2017,2432425,0,Modoc,Myotis californicus
+06049,2017,2432461,0,Modoc,Myotis yumanensis
+06049,2017,11138256,0,Modoc,Aeorestes cinereus
+06051,2017,2432425,0,Mono,Myotis californicus
+06051,2017,2432461,0,Mono,Myotis yumanensis
+06051,2017,11138256,0,Mono,Aeorestes cinereus
+06053,2017,2432425,0,Monterey,Myotis californicus
+06053,2017,2432461,0,Monterey,Myotis yumanensis
+06053,2017,11138256,0,Monterey,Aeorestes cinereus
+06055,2017,2432425,0,Napa,Myotis californicus
+06055,2017,2432461,0,Napa,Myotis yumanensis
+06055,2017,11138256,0,Napa,Aeorestes cinereus
+06057,2017,2432425,0,Nevada,Myotis californicus
+06057,2017,2432461,0,Nevada,Myotis yumanensis
+06057,2017,11138256,0,Nevada,Aeorestes cinereus
+06059,2017,2432425,0,Orange,Myotis californicus
+06059,2017,2432461,0,Orange,Myotis yumanensis
+06059,2017,11138256,0,Orange,Aeorestes cinereus
+06061,2017,2432425,0,Placer,Myotis californicus
+06061,2017,2432461,0,Placer,Myotis yumanensis
+06061,2017,11138256,0,Placer,Aeorestes cinereus
+06063,2017,2432425,0,Plumas,Myotis californicus
+06063,2017,2432461,0,Plumas,Myotis yumanensis
+06063,2017,11138256,0,Plumas,Aeorestes cinereus
+06065,2017,2432425,0,Riverside,Myotis californicus
+06065,2017,2432461,0,Riverside,Myotis yumanensis
+06065,2017,11138256,0,Riverside,Aeorestes cinereus
+06067,2017,2432425,0,Sacramento,Myotis californicus
+06067,2017,2432461,0,Sacramento,Myotis yumanensis
+06067,2017,11138256,0,Sacramento,Aeorestes cinereus
+06069,2017,2432425,3,San Benito,Myotis californicus
+06069,2017,2432461,1,San Benito,Myotis yumanensis
+06069,2017,11138256,2,San Benito,Aeorestes cinereus
+06071,2017,2432425,0,San Bernardino,Myotis californicus
+06071,2017,2432461,0,San Bernardino,Myotis yumanensis
+06071,2017,11138256,0,San Bernardino,Aeorestes cinereus
+06073,2017,2432425,4,San Diego,Myotis californicus
+06073,2017,2432461,7,San Diego,Myotis yumanensis
+06073,2017,11138256,1,San Diego,Aeorestes cinereus
+06075,2017,2432425,0,San Francisco,Myotis californicus
+06075,2017,2432461,3,San Francisco,Myotis yumanensis
+06075,2017,11138256,7,San Francisco,Aeorestes cinereus
+06077,2017,2432425,0,San Joaquin,Myotis californicus
+06077,2017,2432461,0,San Joaquin,Myotis yumanensis
+06077,2017,11138256,0,San Joaquin,Aeorestes cinereus
+06079,2017,2432425,0,San Luis Obispo,Myotis californicus
+06079,2017,2432461,0,San Luis Obispo,Myotis yumanensis
+06079,2017,11138256,0,San Luis Obispo,Aeorestes cinereus
+06081,2017,2432425,0,San Mateo,Myotis californicus
+06081,2017,2432461,0,San Mateo,Myotis yumanensis
+06081,2017,11138256,0,San Mateo,Aeorestes cinereus
+06083,2017,2432425,0,Santa Barbara,Myotis californicus
+06083,2017,2432461,0,Santa Barbara,Myotis yumanensis
+06083,2017,11138256,0,Santa Barbara,Aeorestes cinereus
+06085,2017,2432425,1,Santa Clara,Myotis californicus
+06085,2017,2432461,0,Santa Clara,Myotis yumanensis
+06085,2017,11138256,0,Santa Clara,Aeorestes cinereus
+06087,2017,2432425,0,Santa Cruz,Myotis californicus
+06087,2017,2432461,0,Santa Cruz,Myotis yumanensis
+06087,2017,11138256,0,Santa Cruz,Aeorestes cinereus
+06089,2017,2432425,0,Shasta,Myotis californicus
+06089,2017,2432461,0,Shasta,Myotis yumanensis
+06089,2017,11138256,0,Shasta,Aeorestes cinereus
+06091,2017,2432425,0,Sierra,Myotis californicus
+06091,2017,2432461,0,Sierra,Myotis yumanensis
+06091,2017,11138256,0,Sierra,Aeorestes cinereus
+06093,2017,2432425,0,Siskiyou,Myotis californicus
+06093,2017,2432461,0,Siskiyou,Myotis yumanensis
+06093,2017,11138256,0,Siskiyou,Aeorestes cinereus
+06095,2017,2432425,0,Solano,Myotis californicus
+06095,2017,2432461,0,Solano,Myotis yumanensis
+06095,2017,11138256,0,Solano,Aeorestes cinereus
+06097,2017,2432425,0,Sonoma,Myotis californicus
+06097,2017,2432461,0,Sonoma,Myotis yumanensis
+06097,2017,11138256,0,Sonoma,Aeorestes cinereus
+06099,2017,2432425,0,Stanislaus,Myotis californicus
+06099,2017,2432461,0,Stanislaus,Myotis yumanensis
+06099,2017,11138256,0,Stanislaus,Aeorestes cinereus
+06101,2017,2432425,0,Sutter,Myotis californicus
+06101,2017,2432461,0,Sutter,Myotis yumanensis
+06101,2017,11138256,0,Sutter,Aeorestes cinereus
+06103,2017,2432425,0,Tehama,Myotis californicus
+06103,2017,2432461,0,Tehama,Myotis yumanensis
+06103,2017,11138256,0,Tehama,Aeorestes cinereus
+06105,2017,2432425,0,Trinity,Myotis californicus
+06105,2017,2432461,0,Trinity,Myotis yumanensis
+06105,2017,11138256,0,Trinity,Aeorestes cinereus
+06107,2017,2432425,0,Tulare,Myotis californicus
+06107,2017,2432461,0,Tulare,Myotis yumanensis
+06107,2017,11138256,0,Tulare,Aeorestes cinereus
+06109,2017,2432425,0,Tuolumne,Myotis californicus
+06109,2017,2432461,0,Tuolumne,Myotis yumanensis
+06109,2017,11138256,0,Tuolumne,Aeorestes cinereus
+06111,2017,2432425,0,Ventura,Myotis californicus
+06111,2017,2432461,0,Ventura,Myotis yumanensis
+06111,2017,11138256,0,Ventura,Aeorestes cinereus
+06113,2017,2432425,0,Yolo,Myotis californicus
+06113,2017,2432461,0,Yolo,Myotis yumanensis
+06113,2017,11138256,0,Yolo,Aeorestes cinereus
+06115,2017,2432425,0,Yuba,Myotis californicus
+06115,2017,2432461,0,Yuba,Myotis yumanensis
+06115,2017,11138256,0,Yuba,Aeorestes cinereus
+06001,2018,2432425,0,Alameda,Myotis californicus
+06001,2018,2432461,0,Alameda,Myotis yumanensis
+06001,2018,11138256,0,Alameda,Aeorestes cinereus
+06003,2018,2432425,0,Alpine,Myotis californicus
+06003,2018,2432461,0,Alpine,Myotis yumanensis
+06003,2018,11138256,0,Alpine,Aeorestes cinereus
+06005,2018,2432425,0,Amador,Myotis californicus
+06005,2018,2432461,0,Amador,Myotis yumanensis
+06005,2018,11138256,0,Amador,Aeorestes cinereus
+06007,2018,2432425,0,Butte,Myotis californicus
+06007,2018,2432461,0,Butte,Myotis yumanensis
+06007,2018,11138256,0,Butte,Aeorestes cinereus
+06009,2018,2432425,0,Calaveras,Myotis californicus
+06009,2018,2432461,0,Calaveras,Myotis yumanensis
+06009,2018,11138256,0,Calaveras,Aeorestes cinereus
+06011,2018,2432425,0,Colusa,Myotis californicus
+06011,2018,2432461,0,Colusa,Myotis yumanensis
+06011,2018,11138256,0,Colusa,Aeorestes cinereus
+06013,2018,2432425,0,Contra Costa,Myotis californicus
+06013,2018,2432461,0,Contra Costa,Myotis yumanensis
+06013,2018,11138256,0,Contra Costa,Aeorestes cinereus
+06015,2018,2432425,0,Del Norte,Myotis californicus
+06015,2018,2432461,0,Del Norte,Myotis yumanensis
+06015,2018,11138256,0,Del Norte,Aeorestes cinereus
+06017,2018,2432425,0,El Dorado,Myotis californicus
+06017,2018,2432461,0,El Dorado,Myotis yumanensis
+06017,2018,11138256,0,El Dorado,Aeorestes cinereus
+06019,2018,2432425,0,Fresno,Myotis californicus
+06019,2018,2432461,0,Fresno,Myotis yumanensis
+06019,2018,11138256,0,Fresno,Aeorestes cinereus
+06021,2018,2432425,0,Glenn,Myotis californicus
+06021,2018,2432461,0,Glenn,Myotis yumanensis
+06021,2018,11138256,0,Glenn,Aeorestes cinereus
+06023,2018,2432425,0,Humboldt,Myotis californicus
+06023,2018,2432461,0,Humboldt,Myotis yumanensis
+06023,2018,11138256,1,Humboldt,Aeorestes cinereus
+06025,2018,2432425,1,Imperial,Myotis californicus
+06025,2018,2432461,0,Imperial,Myotis yumanensis
+06025,2018,11138256,0,Imperial,Aeorestes cinereus
+06027,2018,2432425,1,Inyo,Myotis californicus
+06027,2018,2432461,0,Inyo,Myotis yumanensis
+06027,2018,11138256,0,Inyo,Aeorestes cinereus
+06029,2018,2432425,0,Kern,Myotis californicus
+06029,2018,2432461,0,Kern,Myotis yumanensis
+06029,2018,11138256,0,Kern,Aeorestes cinereus
+06031,2018,2432425,0,Kings,Myotis californicus
+06031,2018,2432461,0,Kings,Myotis yumanensis
+06031,2018,11138256,0,Kings,Aeorestes cinereus
+06033,2018,2432425,0,Lake,Myotis californicus
+06033,2018,2432461,0,Lake,Myotis yumanensis
+06033,2018,11138256,0,Lake,Aeorestes cinereus
+06035,2018,2432425,0,Lassen,Myotis californicus
+06035,2018,2432461,0,Lassen,Myotis yumanensis
+06035,2018,11138256,0,Lassen,Aeorestes cinereus
+06037,2018,2432425,0,Los Angeles,Myotis californicus
+06037,2018,2432461,0,Los Angeles,Myotis yumanensis
+06037,2018,11138256,3,Los Angeles,Aeorestes cinereus
+06039,2018,2432425,0,Madera,Myotis californicus
+06039,2018,2432461,0,Madera,Myotis yumanensis
+06039,2018,11138256,0,Madera,Aeorestes cinereus
+06041,2018,2432425,1,Marin,Myotis californicus
+06041,2018,2432461,0,Marin,Myotis yumanensis
+06041,2018,11138256,0,Marin,Aeorestes cinereus
+06043,2018,2432425,0,Mariposa,Myotis californicus
+06043,2018,2432461,0,Mariposa,Myotis yumanensis
+06043,2018,11138256,0,Mariposa,Aeorestes cinereus
+06045,2018,2432425,0,Mendocino,Myotis californicus
+06045,2018,2432461,0,Mendocino,Myotis yumanensis
+06045,2018,11138256,0,Mendocino,Aeorestes cinereus
+06047,2018,2432425,0,Merced,Myotis californicus
+06047,2018,2432461,0,Merced,Myotis yumanensis
+06047,2018,11138256,0,Merced,Aeorestes cinereus
+06049,2018,2432425,0,Modoc,Myotis californicus
+06049,2018,2432461,0,Modoc,Myotis yumanensis
+06049,2018,11138256,0,Modoc,Aeorestes cinereus
+06051,2018,2432425,0,Mono,Myotis californicus
+06051,2018,2432461,0,Mono,Myotis yumanensis
+06051,2018,11138256,0,Mono,Aeorestes cinereus
+06053,2018,2432425,0,Monterey,Myotis californicus
+06053,2018,2432461,0,Monterey,Myotis yumanensis
+06053,2018,11138256,0,Monterey,Aeorestes cinereus
+06055,2018,2432425,0,Napa,Myotis californicus
+06055,2018,2432461,0,Napa,Myotis yumanensis
+06055,2018,11138256,0,Napa,Aeorestes cinereus
+06057,2018,2432425,0,Nevada,Myotis californicus
+06057,2018,2432461,0,Nevada,Myotis yumanensis
+06057,2018,11138256,0,Nevada,Aeorestes cinereus
+06059,2018,2432425,0,Orange,Myotis californicus
+06059,2018,2432461,1,Orange,Myotis yumanensis
+06059,2018,11138256,1,Orange,Aeorestes cinereus
+06061,2018,2432425,0,Placer,Myotis californicus
+06061,2018,2432461,0,Placer,Myotis yumanensis
+06061,2018,11138256,0,Placer,Aeorestes cinereus
+06063,2018,2432425,0,Plumas,Myotis californicus
+06063,2018,2432461,0,Plumas,Myotis yumanensis
+06063,2018,11138256,0,Plumas,Aeorestes cinereus
+06065,2018,2432425,1,Riverside,Myotis californicus
+06065,2018,2432461,0,Riverside,Myotis yumanensis
+06065,2018,11138256,0,Riverside,Aeorestes cinereus
+06067,2018,2432425,0,Sacramento,Myotis californicus
+06067,2018,2432461,0,Sacramento,Myotis yumanensis
+06067,2018,11138256,0,Sacramento,Aeorestes cinereus
+06069,2018,2432425,0,San Benito,Myotis californicus
+06069,2018,2432461,0,San Benito,Myotis yumanensis
+06069,2018,11138256,1,San Benito,Aeorestes cinereus
+06071,2018,2432425,2,San Bernardino,Myotis californicus
+06071,2018,2432461,1,San Bernardino,Myotis yumanensis
+06071,2018,11138256,0,San Bernardino,Aeorestes cinereus
+06073,2018,2432425,0,San Diego,Myotis californicus
+06073,2018,2432461,1,San Diego,Myotis yumanensis
+06073,2018,11138256,3,San Diego,Aeorestes cinereus
+06075,2018,2432425,0,San Francisco,Myotis californicus
+06075,2018,2432461,0,San Francisco,Myotis yumanensis
+06075,2018,11138256,1,San Francisco,Aeorestes cinereus
+06077,2018,2432425,0,San Joaquin,Myotis californicus
+06077,2018,2432461,0,San Joaquin,Myotis yumanensis
+06077,2018,11138256,0,San Joaquin,Aeorestes cinereus
+06079,2018,2432425,0,San Luis Obispo,Myotis californicus
+06079,2018,2432461,0,San Luis Obispo,Myotis yumanensis
+06079,2018,11138256,0,San Luis Obispo,Aeorestes cinereus
+06081,2018,2432425,0,San Mateo,Myotis californicus
+06081,2018,2432461,0,San Mateo,Myotis yumanensis
+06081,2018,11138256,0,San Mateo,Aeorestes cinereus
+06083,2018,2432425,0,Santa Barbara,Myotis californicus
+06083,2018,2432461,0,Santa Barbara,Myotis yumanensis
+06083,2018,11138256,1,Santa Barbara,Aeorestes cinereus
+06085,2018,2432425,0,Santa Clara,Myotis californicus
+06085,2018,2432461,0,Santa Clara,Myotis yumanensis
+06085,2018,11138256,2,Santa Clara,Aeorestes cinereus
+06087,2018,2432425,0,Santa Cruz,Myotis californicus
+06087,2018,2432461,0,Santa Cruz,Myotis yumanensis
+06087,2018,11138256,0,Santa Cruz,Aeorestes cinereus
+06089,2018,2432425,0,Shasta,Myotis californicus
+06089,2018,2432461,0,Shasta,Myotis yumanensis
+06089,2018,11138256,0,Shasta,Aeorestes cinereus
+06091,2018,2432425,0,Sierra,Myotis californicus
+06091,2018,2432461,0,Sierra,Myotis yumanensis
+06091,2018,11138256,0,Sierra,Aeorestes cinereus
+06093,2018,2432425,0,Siskiyou,Myotis californicus
+06093,2018,2432461,0,Siskiyou,Myotis yumanensis
+06093,2018,11138256,0,Siskiyou,Aeorestes cinereus
+06095,2018,2432425,0,Solano,Myotis californicus
+06095,2018,2432461,0,Solano,Myotis yumanensis
+06095,2018,11138256,0,Solano,Aeorestes cinereus
+06097,2018,2432425,0,Sonoma,Myotis californicus
+06097,2018,2432461,0,Sonoma,Myotis yumanensis
+06097,2018,11138256,0,Sonoma,Aeorestes cinereus
+06099,2018,2432425,0,Stanislaus,Myotis californicus
+06099,2018,2432461,0,Stanislaus,Myotis yumanensis
+06099,2018,11138256,0,Stanislaus,Aeorestes cinereus
+06101,2018,2432425,0,Sutter,Myotis californicus
+06101,2018,2432461,0,Sutter,Myotis yumanensis
+06101,2018,11138256,0,Sutter,Aeorestes cinereus
+06103,2018,2432425,0,Tehama,Myotis californicus
+06103,2018,2432461,0,Tehama,Myotis yumanensis
+06103,2018,11138256,0,Tehama,Aeorestes cinereus
+06105,2018,2432425,0,Trinity,Myotis californicus
+06105,2018,2432461,0,Trinity,Myotis yumanensis
+06105,2018,11138256,0,Trinity,Aeorestes cinereus
+06107,2018,2432425,0,Tulare,Myotis californicus
+06107,2018,2432461,0,Tulare,Myotis yumanensis
+06107,2018,11138256,0,Tulare,Aeorestes cinereus
+06109,2018,2432425,0,Tuolumne,Myotis californicus
+06109,2018,2432461,0,Tuolumne,Myotis yumanensis
+06109,2018,11138256,0,Tuolumne,Aeorestes cinereus
+06111,2018,2432425,1,Ventura,Myotis californicus
+06111,2018,2432461,0,Ventura,Myotis yumanensis
+06111,2018,11138256,0,Ventura,Aeorestes cinereus
+06113,2018,2432425,0,Yolo,Myotis californicus
+06113,2018,2432461,0,Yolo,Myotis yumanensis
+06113,2018,11138256,0,Yolo,Aeorestes cinereus
+06115,2018,2432425,0,Yuba,Myotis californicus
+06115,2018,2432461,0,Yuba,Myotis yumanensis
+06115,2018,11138256,0,Yuba,Aeorestes cinereus
+06001,2019,2432425,0,Alameda,Myotis californicus
+06001,2019,2432461,1,Alameda,Myotis yumanensis
+06001,2019,11138256,0,Alameda,Aeorestes cinereus
+06003,2019,2432425,0,Alpine,Myotis californicus
+06003,2019,2432461,0,Alpine,Myotis yumanensis
+06003,2019,11138256,0,Alpine,Aeorestes cinereus
+06005,2019,2432425,0,Amador,Myotis californicus
+06005,2019,2432461,0,Amador,Myotis yumanensis
+06005,2019,11138256,0,Amador,Aeorestes cinereus
+06007,2019,2432425,0,Butte,Myotis californicus
+06007,2019,2432461,0,Butte,Myotis yumanensis
+06007,2019,11138256,0,Butte,Aeorestes cinereus
+06009,2019,2432425,0,Calaveras,Myotis californicus
+06009,2019,2432461,0,Calaveras,Myotis yumanensis
+06009,2019,11138256,0,Calaveras,Aeorestes cinereus
+06011,2019,2432425,0,Colusa,Myotis californicus
+06011,2019,2432461,0,Colusa,Myotis yumanensis
+06011,2019,11138256,0,Colusa,Aeorestes cinereus
+06013,2019,2432425,0,Contra Costa,Myotis californicus
+06013,2019,2432461,0,Contra Costa,Myotis yumanensis
+06013,2019,11138256,0,Contra Costa,Aeorestes cinereus
+06015,2019,2432425,0,Del Norte,Myotis californicus
+06015,2019,2432461,0,Del Norte,Myotis yumanensis
+06015,2019,11138256,0,Del Norte,Aeorestes cinereus
+06017,2019,2432425,0,El Dorado,Myotis californicus
+06017,2019,2432461,0,El Dorado,Myotis yumanensis
+06017,2019,11138256,0,El Dorado,Aeorestes cinereus
+06019,2019,2432425,0,Fresno,Myotis californicus
+06019,2019,2432461,0,Fresno,Myotis yumanensis
+06019,2019,11138256,0,Fresno,Aeorestes cinereus
+06021,2019,2432425,0,Glenn,Myotis californicus
+06021,2019,2432461,0,Glenn,Myotis yumanensis
+06021,2019,11138256,0,Glenn,Aeorestes cinereus
+06023,2019,2432425,0,Humboldt,Myotis californicus
+06023,2019,2432461,0,Humboldt,Myotis yumanensis
+06023,2019,11138256,0,Humboldt,Aeorestes cinereus
+06025,2019,2432425,0,Imperial,Myotis californicus
+06025,2019,2432461,0,Imperial,Myotis yumanensis
+06025,2019,11138256,0,Imperial,Aeorestes cinereus
+06027,2019,2432425,0,Inyo,Myotis californicus
+06027,2019,2432461,0,Inyo,Myotis yumanensis
+06027,2019,11138256,0,Inyo,Aeorestes cinereus
+06029,2019,2432425,0,Kern,Myotis californicus
+06029,2019,2432461,0,Kern,Myotis yumanensis
+06029,2019,11138256,0,Kern,Aeorestes cinereus
+06031,2019,2432425,0,Kings,Myotis californicus
+06031,2019,2432461,0,Kings,Myotis yumanensis
+06031,2019,11138256,0,Kings,Aeorestes cinereus
+06033,2019,2432425,0,Lake,Myotis californicus
+06033,2019,2432461,0,Lake,Myotis yumanensis
+06033,2019,11138256,0,Lake,Aeorestes cinereus
+06035,2019,2432425,0,Lassen,Myotis californicus
+06035,2019,2432461,0,Lassen,Myotis yumanensis
+06035,2019,11138256,0,Lassen,Aeorestes cinereus
+06037,2019,2432425,0,Los Angeles,Myotis californicus
+06037,2019,2432461,0,Los Angeles,Myotis yumanensis
+06037,2019,11138256,2,Los Angeles,Aeorestes cinereus
+06039,2019,2432425,0,Madera,Myotis californicus
+06039,2019,2432461,0,Madera,Myotis yumanensis
+06039,2019,11138256,0,Madera,Aeorestes cinereus
+06041,2019,2432425,2,Marin,Myotis californicus
+06041,2019,2432461,5,Marin,Myotis yumanensis
+06041,2019,11138256,1,Marin,Aeorestes cinereus
+06043,2019,2432425,0,Mariposa,Myotis californicus
+06043,2019,2432461,0,Mariposa,Myotis yumanensis
+06043,2019,11138256,0,Mariposa,Aeorestes cinereus
+06045,2019,2432425,0,Mendocino,Myotis californicus
+06045,2019,2432461,0,Mendocino,Myotis yumanensis
+06045,2019,11138256,0,Mendocino,Aeorestes cinereus
+06047,2019,2432425,0,Merced,Myotis californicus
+06047,2019,2432461,0,Merced,Myotis yumanensis
+06047,2019,11138256,0,Merced,Aeorestes cinereus
+06049,2019,2432425,0,Modoc,Myotis californicus
+06049,2019,2432461,0,Modoc,Myotis yumanensis
+06049,2019,11138256,0,Modoc,Aeorestes cinereus
+06051,2019,2432425,0,Mono,Myotis californicus
+06051,2019,2432461,0,Mono,Myotis yumanensis
+06051,2019,11138256,0,Mono,Aeorestes cinereus
+06053,2019,2432425,0,Monterey,Myotis californicus
+06053,2019,2432461,0,Monterey,Myotis yumanensis
+06053,2019,11138256,1,Monterey,Aeorestes cinereus
+06055,2019,2432425,0,Napa,Myotis californicus
+06055,2019,2432461,0,Napa,Myotis yumanensis
+06055,2019,11138256,0,Napa,Aeorestes cinereus
+06057,2019,2432425,0,Nevada,Myotis californicus
+06057,2019,2432461,0,Nevada,Myotis yumanensis
+06057,2019,11138256,0,Nevada,Aeorestes cinereus
+06059,2019,2432425,0,Orange,Myotis californicus
+06059,2019,2432461,1,Orange,Myotis yumanensis
+06059,2019,11138256,1,Orange,Aeorestes cinereus
+06061,2019,2432425,0,Placer,Myotis californicus
+06061,2019,2432461,0,Placer,Myotis yumanensis
+06061,2019,11138256,0,Placer,Aeorestes cinereus
+06063,2019,2432425,0,Plumas,Myotis californicus
+06063,2019,2432461,0,Plumas,Myotis yumanensis
+06063,2019,11138256,0,Plumas,Aeorestes cinereus
+06065,2019,2432425,1,Riverside,Myotis californicus
+06065,2019,2432461,0,Riverside,Myotis yumanensis
+06065,2019,11138256,0,Riverside,Aeorestes cinereus
+06067,2019,2432425,0,Sacramento,Myotis californicus
+06067,2019,2432461,0,Sacramento,Myotis yumanensis
+06067,2019,11138256,0,Sacramento,Aeorestes cinereus
+06069,2019,2432425,0,San Benito,Myotis californicus
+06069,2019,2432461,0,San Benito,Myotis yumanensis
+06069,2019,11138256,0,San Benito,Aeorestes cinereus
+06071,2019,2432425,0,San Bernardino,Myotis californicus
+06071,2019,2432461,0,San Bernardino,Myotis yumanensis
+06071,2019,11138256,1,San Bernardino,Aeorestes cinereus
+06073,2019,2432425,0,San Diego,Myotis californicus
+06073,2019,2432461,1,San Diego,Myotis yumanensis
+06073,2019,11138256,1,San Diego,Aeorestes cinereus
+06075,2019,2432425,0,San Francisco,Myotis californicus
+06075,2019,2432461,0,San Francisco,Myotis yumanensis
+06075,2019,11138256,0,San Francisco,Aeorestes cinereus
+06077,2019,2432425,0,San Joaquin,Myotis californicus
+06077,2019,2432461,0,San Joaquin,Myotis yumanensis
+06077,2019,11138256,0,San Joaquin,Aeorestes cinereus
+06079,2019,2432425,0,San Luis Obispo,Myotis californicus
+06079,2019,2432461,0,San Luis Obispo,Myotis yumanensis
+06079,2019,11138256,0,San Luis Obispo,Aeorestes cinereus
+06081,2019,2432425,0,San Mateo,Myotis californicus
+06081,2019,2432461,0,San Mateo,Myotis yumanensis
+06081,2019,11138256,0,San Mateo,Aeorestes cinereus
+06083,2019,2432425,0,Santa Barbara,Myotis californicus
+06083,2019,2432461,0,Santa Barbara,Myotis yumanensis
+06083,2019,11138256,0,Santa Barbara,Aeorestes cinereus
+06085,2019,2432425,0,Santa Clara,Myotis californicus
+06085,2019,2432461,0,Santa Clara,Myotis yumanensis
+06085,2019,11138256,0,Santa Clara,Aeorestes cinereus
+06087,2019,2432425,0,Santa Cruz,Myotis californicus
+06087,2019,2432461,0,Santa Cruz,Myotis yumanensis
+06087,2019,11138256,0,Santa Cruz,Aeorestes cinereus
+06089,2019,2432425,0,Shasta,Myotis californicus
+06089,2019,2432461,0,Shasta,Myotis yumanensis
+06089,2019,11138256,0,Shasta,Aeorestes cinereus
+06091,2019,2432425,0,Sierra,Myotis californicus
+06091,2019,2432461,0,Sierra,Myotis yumanensis
+06091,2019,11138256,0,Sierra,Aeorestes cinereus
+06093,2019,2432425,0,Siskiyou,Myotis californicus
+06093,2019,2432461,0,Siskiyou,Myotis yumanensis
+06093,2019,11138256,0,Siskiyou,Aeorestes cinereus
+06095,2019,2432425,0,Solano,Myotis californicus
+06095,2019,2432461,0,Solano,Myotis yumanensis
+06095,2019,11138256,0,Solano,Aeorestes cinereus
+06097,2019,2432425,0,Sonoma,Myotis californicus
+06097,2019,2432461,0,Sonoma,Myotis yumanensis
+06097,2019,11138256,1,Sonoma,Aeorestes cinereus
+06099,2019,2432425,0,Stanislaus,Myotis californicus
+06099,2019,2432461,0,Stanislaus,Myotis yumanensis
+06099,2019,11138256,0,Stanislaus,Aeorestes cinereus
+06101,2019,2432425,0,Sutter,Myotis californicus
+06101,2019,2432461,0,Sutter,Myotis yumanensis
+06101,2019,11138256,0,Sutter,Aeorestes cinereus
+06103,2019,2432425,0,Tehama,Myotis californicus
+06103,2019,2432461,0,Tehama,Myotis yumanensis
+06103,2019,11138256,0,Tehama,Aeorestes cinereus
+06105,2019,2432425,0,Trinity,Myotis californicus
+06105,2019,2432461,0,Trinity,Myotis yumanensis
+06105,2019,11138256,0,Trinity,Aeorestes cinereus
+06107,2019,2432425,0,Tulare,Myotis californicus
+06107,2019,2432461,0,Tulare,Myotis yumanensis
+06107,2019,11138256,0,Tulare,Aeorestes cinereus
+06109,2019,2432425,0,Tuolumne,Myotis californicus
+06109,2019,2432461,0,Tuolumne,Myotis yumanensis
+06109,2019,11138256,0,Tuolumne,Aeorestes cinereus
+06111,2019,2432425,0,Ventura,Myotis californicus
+06111,2019,2432461,1,Ventura,Myotis yumanensis
+06111,2019,11138256,0,Ventura,Aeorestes cinereus
+06113,2019,2432425,0,Yolo,Myotis californicus
+06113,2019,2432461,2,Yolo,Myotis yumanensis
+06113,2019,11138256,0,Yolo,Aeorestes cinereus
+06115,2019,2432425,0,Yuba,Myotis californicus
+06115,2019,2432461,0,Yuba,Myotis yumanensis
+06115,2019,11138256,0,Yuba,Aeorestes cinereus
+06001,2020,2432425,0,Alameda,Myotis californicus
+06001,2020,2432461,0,Alameda,Myotis yumanensis
+06001,2020,11138256,1,Alameda,Aeorestes cinereus
+06003,2020,2432425,0,Alpine,Myotis californicus
+06003,2020,2432461,0,Alpine,Myotis yumanensis
+06003,2020,11138256,0,Alpine,Aeorestes cinereus
+06005,2020,2432425,0,Amador,Myotis californicus
+06005,2020,2432461,0,Amador,Myotis yumanensis
+06005,2020,11138256,0,Amador,Aeorestes cinereus
+06007,2020,2432425,0,Butte,Myotis californicus
+06007,2020,2432461,0,Butte,Myotis yumanensis
+06007,2020,11138256,0,Butte,Aeorestes cinereus
+06009,2020,2432425,0,Calaveras,Myotis californicus
+06009,2020,2432461,0,Calaveras,Myotis yumanensis
+06009,2020,11138256,0,Calaveras,Aeorestes cinereus
+06011,2020,2432425,0,Colusa,Myotis californicus
+06011,2020,2432461,0,Colusa,Myotis yumanensis
+06011,2020,11138256,0,Colusa,Aeorestes cinereus
+06013,2020,2432425,0,Contra Costa,Myotis californicus
+06013,2020,2432461,0,Contra Costa,Myotis yumanensis
+06013,2020,11138256,0,Contra Costa,Aeorestes cinereus
+06015,2020,2432425,0,Del Norte,Myotis californicus
+06015,2020,2432461,0,Del Norte,Myotis yumanensis
+06015,2020,11138256,0,Del Norte,Aeorestes cinereus
+06017,2020,2432425,0,El Dorado,Myotis californicus
+06017,2020,2432461,0,El Dorado,Myotis yumanensis
+06017,2020,11138256,0,El Dorado,Aeorestes cinereus
+06019,2020,2432425,0,Fresno,Myotis californicus
+06019,2020,2432461,0,Fresno,Myotis yumanensis
+06019,2020,11138256,0,Fresno,Aeorestes cinereus
+06021,2020,2432425,0,Glenn,Myotis californicus
+06021,2020,2432461,0,Glenn,Myotis yumanensis
+06021,2020,11138256,1,Glenn,Aeorestes cinereus
+06023,2020,2432425,3,Humboldt,Myotis californicus
+06023,2020,2432461,2,Humboldt,Myotis yumanensis
+06023,2020,11138256,4,Humboldt,Aeorestes cinereus
+06025,2020,2432425,0,Imperial,Myotis californicus
+06025,2020,2432461,0,Imperial,Myotis yumanensis
+06025,2020,11138256,0,Imperial,Aeorestes cinereus
+06027,2020,2432425,0,Inyo,Myotis californicus
+06027,2020,2432461,0,Inyo,Myotis yumanensis
+06027,2020,11138256,3,Inyo,Aeorestes cinereus
+06029,2020,2432425,0,Kern,Myotis californicus
+06029,2020,2432461,0,Kern,Myotis yumanensis
+06029,2020,11138256,0,Kern,Aeorestes cinereus
+06031,2020,2432425,0,Kings,Myotis californicus
+06031,2020,2432461,0,Kings,Myotis yumanensis
+06031,2020,11138256,0,Kings,Aeorestes cinereus
+06033,2020,2432425,0,Lake,Myotis californicus
+06033,2020,2432461,0,Lake,Myotis yumanensis
+06033,2020,11138256,0,Lake,Aeorestes cinereus
+06035,2020,2432425,0,Lassen,Myotis californicus
+06035,2020,2432461,0,Lassen,Myotis yumanensis
+06035,2020,11138256,0,Lassen,Aeorestes cinereus
+06037,2020,2432425,0,Los Angeles,Myotis californicus
+06037,2020,2432461,0,Los Angeles,Myotis yumanensis
+06037,2020,11138256,4,Los Angeles,Aeorestes cinereus
+06039,2020,2432425,0,Madera,Myotis californicus
+06039,2020,2432461,0,Madera,Myotis yumanensis
+06039,2020,11138256,0,Madera,Aeorestes cinereus
+06041,2020,2432425,0,Marin,Myotis californicus
+06041,2020,2432461,1,Marin,Myotis yumanensis
+06041,2020,11138256,0,Marin,Aeorestes cinereus
+06043,2020,2432425,0,Mariposa,Myotis californicus
+06043,2020,2432461,0,Mariposa,Myotis yumanensis
+06043,2020,11138256,0,Mariposa,Aeorestes cinereus
+06045,2020,2432425,0,Mendocino,Myotis californicus
+06045,2020,2432461,0,Mendocino,Myotis yumanensis
+06045,2020,11138256,0,Mendocino,Aeorestes cinereus
+06047,2020,2432425,0,Merced,Myotis californicus
+06047,2020,2432461,0,Merced,Myotis yumanensis
+06047,2020,11138256,0,Merced,Aeorestes cinereus
+06049,2020,2432425,0,Modoc,Myotis californicus
+06049,2020,2432461,0,Modoc,Myotis yumanensis
+06049,2020,11138256,0,Modoc,Aeorestes cinereus
+06051,2020,2432425,0,Mono,Myotis californicus
+06051,2020,2432461,0,Mono,Myotis yumanensis
+06051,2020,11138256,0,Mono,Aeorestes cinereus
+06053,2020,2432425,0,Monterey,Myotis californicus
+06053,2020,2432461,0,Monterey,Myotis yumanensis
+06053,2020,11138256,0,Monterey,Aeorestes cinereus
+06055,2020,2432425,0,Napa,Myotis californicus
+06055,2020,2432461,0,Napa,Myotis yumanensis
+06055,2020,11138256,0,Napa,Aeorestes cinereus
+06057,2020,2432425,0,Nevada,Myotis californicus
+06057,2020,2432461,0,Nevada,Myotis yumanensis
+06057,2020,11138256,0,Nevada,Aeorestes cinereus
+06059,2020,2432425,0,Orange,Myotis californicus
+06059,2020,2432461,0,Orange,Myotis yumanensis
+06059,2020,11138256,0,Orange,Aeorestes cinereus
+06061,2020,2432425,0,Placer,Myotis californicus
+06061,2020,2432461,0,Placer,Myotis yumanensis
+06061,2020,11138256,0,Placer,Aeorestes cinereus
+06063,2020,2432425,0,Plumas,Myotis californicus
+06063,2020,2432461,1,Plumas,Myotis yumanensis
+06063,2020,11138256,0,Plumas,Aeorestes cinereus
+06065,2020,2432425,1,Riverside,Myotis californicus
+06065,2020,2432461,1,Riverside,Myotis yumanensis
+06065,2020,11138256,1,Riverside,Aeorestes cinereus
+06067,2020,2432425,0,Sacramento,Myotis californicus
+06067,2020,2432461,0,Sacramento,Myotis yumanensis
+06067,2020,11138256,0,Sacramento,Aeorestes cinereus
+06069,2020,2432425,0,San Benito,Myotis californicus
+06069,2020,2432461,0,San Benito,Myotis yumanensis
+06069,2020,11138256,0,San Benito,Aeorestes cinereus
+06071,2020,2432425,0,San Bernardino,Myotis californicus
+06071,2020,2432461,0,San Bernardino,Myotis yumanensis
+06071,2020,11138256,1,San Bernardino,Aeorestes cinereus
+06073,2020,2432425,2,San Diego,Myotis californicus
+06073,2020,2432461,6,San Diego,Myotis yumanensis
+06073,2020,11138256,4,San Diego,Aeorestes cinereus
+06075,2020,2432425,0,San Francisco,Myotis californicus
+06075,2020,2432461,0,San Francisco,Myotis yumanensis
+06075,2020,11138256,0,San Francisco,Aeorestes cinereus
+06077,2020,2432425,0,San Joaquin,Myotis californicus
+06077,2020,2432461,0,San Joaquin,Myotis yumanensis
+06077,2020,11138256,0,San Joaquin,Aeorestes cinereus
+06079,2020,2432425,0,San Luis Obispo,Myotis californicus
+06079,2020,2432461,0,San Luis Obispo,Myotis yumanensis
+06079,2020,11138256,0,San Luis Obispo,Aeorestes cinereus
+06081,2020,2432425,0,San Mateo,Myotis californicus
+06081,2020,2432461,0,San Mateo,Myotis yumanensis
+06081,2020,11138256,1,San Mateo,Aeorestes cinereus
+06083,2020,2432425,0,Santa Barbara,Myotis californicus
+06083,2020,2432461,0,Santa Barbara,Myotis yumanensis
+06083,2020,11138256,0,Santa Barbara,Aeorestes cinereus
+06085,2020,2432425,0,Santa Clara,Myotis californicus
+06085,2020,2432461,0,Santa Clara,Myotis yumanensis
+06085,2020,11138256,1,Santa Clara,Aeorestes cinereus
+06087,2020,2432425,0,Santa Cruz,Myotis californicus
+06087,2020,2432461,0,Santa Cruz,Myotis yumanensis
+06087,2020,11138256,0,Santa Cruz,Aeorestes cinereus
+06089,2020,2432425,0,Shasta,Myotis californicus
+06089,2020,2432461,0,Shasta,Myotis yumanensis
+06089,2020,11138256,0,Shasta,Aeorestes cinereus
+06091,2020,2432425,0,Sierra,Myotis californicus
+06091,2020,2432461,0,Sierra,Myotis yumanensis
+06091,2020,11138256,0,Sierra,Aeorestes cinereus
+06093,2020,2432425,0,Siskiyou,Myotis californicus
+06093,2020,2432461,0,Siskiyou,Myotis yumanensis
+06093,2020,11138256,1,Siskiyou,Aeorestes cinereus
+06095,2020,2432425,0,Solano,Myotis californicus
+06095,2020,2432461,0,Solano,Myotis yumanensis
+06095,2020,11138256,0,Solano,Aeorestes cinereus
+06097,2020,2432425,0,Sonoma,Myotis californicus
+06097,2020,2432461,0,Sonoma,Myotis yumanensis
+06097,2020,11138256,0,Sonoma,Aeorestes cinereus
+06099,2020,2432425,0,Stanislaus,Myotis californicus
+06099,2020,2432461,0,Stanislaus,Myotis yumanensis
+06099,2020,11138256,0,Stanislaus,Aeorestes cinereus
+06101,2020,2432425,0,Sutter,Myotis californicus
+06101,2020,2432461,0,Sutter,Myotis yumanensis
+06101,2020,11138256,0,Sutter,Aeorestes cinereus
+06103,2020,2432425,0,Tehama,Myotis californicus
+06103,2020,2432461,0,Tehama,Myotis yumanensis
+06103,2020,11138256,0,Tehama,Aeorestes cinereus
+06105,2020,2432425,0,Trinity,Myotis californicus
+06105,2020,2432461,0,Trinity,Myotis yumanensis
+06105,2020,11138256,0,Trinity,Aeorestes cinereus
+06107,2020,2432425,0,Tulare,Myotis californicus
+06107,2020,2432461,0,Tulare,Myotis yumanensis
+06107,2020,11138256,0,Tulare,Aeorestes cinereus
+06109,2020,2432425,0,Tuolumne,Myotis californicus
+06109,2020,2432461,0,Tuolumne,Myotis yumanensis
+06109,2020,11138256,0,Tuolumne,Aeorestes cinereus
+06111,2020,2432425,0,Ventura,Myotis californicus
+06111,2020,2432461,0,Ventura,Myotis yumanensis
+06111,2020,11138256,0,Ventura,Aeorestes cinereus
+06113,2020,2432425,0,Yolo,Myotis californicus
+06113,2020,2432461,0,Yolo,Myotis yumanensis
+06113,2020,11138256,0,Yolo,Aeorestes cinereus
+06115,2020,2432425,0,Yuba,Myotis californicus
+06115,2020,2432461,0,Yuba,Myotis yumanensis
+06115,2020,11138256,0,Yuba,Aeorestes cinereus
+06001,2021,2432425,0,Alameda,Myotis californicus
+06001,2021,2432461,0,Alameda,Myotis yumanensis
+06001,2021,11138256,0,Alameda,Aeorestes cinereus
+06003,2021,2432425,0,Alpine,Myotis californicus
+06003,2021,2432461,0,Alpine,Myotis yumanensis
+06003,2021,11138256,0,Alpine,Aeorestes cinereus
+06005,2021,2432425,0,Amador,Myotis californicus
+06005,2021,2432461,0,Amador,Myotis yumanensis
+06005,2021,11138256,0,Amador,Aeorestes cinereus
+06007,2021,2432425,0,Butte,Myotis californicus
+06007,2021,2432461,0,Butte,Myotis yumanensis
+06007,2021,11138256,0,Butte,Aeorestes cinereus
+06009,2021,2432425,0,Calaveras,Myotis californicus
+06009,2021,2432461,0,Calaveras,Myotis yumanensis
+06009,2021,11138256,0,Calaveras,Aeorestes cinereus
+06011,2021,2432425,0,Colusa,Myotis californicus
+06011,2021,2432461,0,Colusa,Myotis yumanensis
+06011,2021,11138256,0,Colusa,Aeorestes cinereus
+06013,2021,2432425,0,Contra Costa,Myotis californicus
+06013,2021,2432461,0,Contra Costa,Myotis yumanensis
+06013,2021,11138256,2,Contra Costa,Aeorestes cinereus
+06015,2021,2432425,0,Del Norte,Myotis californicus
+06015,2021,2432461,0,Del Norte,Myotis yumanensis
+06015,2021,11138256,0,Del Norte,Aeorestes cinereus
+06017,2021,2432425,0,El Dorado,Myotis californicus
+06017,2021,2432461,0,El Dorado,Myotis yumanensis
+06017,2021,11138256,0,El Dorado,Aeorestes cinereus
+06019,2021,2432425,0,Fresno,Myotis californicus
+06019,2021,2432461,0,Fresno,Myotis yumanensis
+06019,2021,11138256,0,Fresno,Aeorestes cinereus
+06021,2021,2432425,0,Glenn,Myotis californicus
+06021,2021,2432461,0,Glenn,Myotis yumanensis
+06021,2021,11138256,0,Glenn,Aeorestes cinereus
+06023,2021,2432425,0,Humboldt,Myotis californicus
+06023,2021,2432461,0,Humboldt,Myotis yumanensis
+06023,2021,11138256,0,Humboldt,Aeorestes cinereus
+06025,2021,2432425,0,Imperial,Myotis californicus
+06025,2021,2432461,0,Imperial,Myotis yumanensis
+06025,2021,11138256,1,Imperial,Aeorestes cinereus
+06027,2021,2432425,0,Inyo,Myotis californicus
+06027,2021,2432461,0,Inyo,Myotis yumanensis
+06027,2021,11138256,1,Inyo,Aeorestes cinereus
+06029,2021,2432425,0,Kern,Myotis californicus
+06029,2021,2432461,0,Kern,Myotis yumanensis
+06029,2021,11138256,0,Kern,Aeorestes cinereus
+06031,2021,2432425,0,Kings,Myotis californicus
+06031,2021,2432461,0,Kings,Myotis yumanensis
+06031,2021,11138256,0,Kings,Aeorestes cinereus
+06033,2021,2432425,0,Lake,Myotis californicus
+06033,2021,2432461,0,Lake,Myotis yumanensis
+06033,2021,11138256,0,Lake,Aeorestes cinereus
+06035,2021,2432425,0,Lassen,Myotis californicus
+06035,2021,2432461,0,Lassen,Myotis yumanensis
+06035,2021,11138256,0,Lassen,Aeorestes cinereus
+06037,2021,2432425,0,Los Angeles,Myotis californicus
+06037,2021,2432461,0,Los Angeles,Myotis yumanensis
+06037,2021,11138256,5,Los Angeles,Aeorestes cinereus
+06039,2021,2432425,0,Madera,Myotis californicus
+06039,2021,2432461,0,Madera,Myotis yumanensis
+06039,2021,11138256,0,Madera,Aeorestes cinereus
+06041,2021,2432425,0,Marin,Myotis californicus
+06041,2021,2432461,0,Marin,Myotis yumanensis
+06041,2021,11138256,0,Marin,Aeorestes cinereus
+06043,2021,2432425,0,Mariposa,Myotis californicus
+06043,2021,2432461,1,Mariposa,Myotis yumanensis
+06043,2021,11138256,0,Mariposa,Aeorestes cinereus
+06045,2021,2432425,0,Mendocino,Myotis californicus
+06045,2021,2432461,0,Mendocino,Myotis yumanensis
+06045,2021,11138256,0,Mendocino,Aeorestes cinereus
+06047,2021,2432425,0,Merced,Myotis californicus
+06047,2021,2432461,0,Merced,Myotis yumanensis
+06047,2021,11138256,0,Merced,Aeorestes cinereus
+06049,2021,2432425,0,Modoc,Myotis californicus
+06049,2021,2432461,0,Modoc,Myotis yumanensis
+06049,2021,11138256,0,Modoc,Aeorestes cinereus
+06051,2021,2432425,0,Mono,Myotis californicus
+06051,2021,2432461,0,Mono,Myotis yumanensis
+06051,2021,11138256,0,Mono,Aeorestes cinereus
+06053,2021,2432425,0,Monterey,Myotis californicus
+06053,2021,2432461,0,Monterey,Myotis yumanensis
+06053,2021,11138256,0,Monterey,Aeorestes cinereus
+06055,2021,2432425,0,Napa,Myotis californicus
+06055,2021,2432461,0,Napa,Myotis yumanensis
+06055,2021,11138256,0,Napa,Aeorestes cinereus
+06057,2021,2432425,0,Nevada,Myotis californicus
+06057,2021,2432461,0,Nevada,Myotis yumanensis
+06057,2021,11138256,0,Nevada,Aeorestes cinereus
+06059,2021,2432425,0,Orange,Myotis californicus
+06059,2021,2432461,0,Orange,Myotis yumanensis
+06059,2021,11138256,0,Orange,Aeorestes cinereus
+06061,2021,2432425,0,Placer,Myotis californicus
+06061,2021,2432461,0,Placer,Myotis yumanensis
+06061,2021,11138256,0,Placer,Aeorestes cinereus
+06063,2021,2432425,0,Plumas,Myotis californicus
+06063,2021,2432461,1,Plumas,Myotis yumanensis
+06063,2021,11138256,0,Plumas,Aeorestes cinereus
+06065,2021,2432425,0,Riverside,Myotis californicus
+06065,2021,2432461,0,Riverside,Myotis yumanensis
+06065,2021,11138256,0,Riverside,Aeorestes cinereus
+06067,2021,2432425,0,Sacramento,Myotis californicus
+06067,2021,2432461,0,Sacramento,Myotis yumanensis
+06067,2021,11138256,0,Sacramento,Aeorestes cinereus
+06069,2021,2432425,0,San Benito,Myotis californicus
+06069,2021,2432461,0,San Benito,Myotis yumanensis
+06069,2021,11138256,0,San Benito,Aeorestes cinereus
+06071,2021,2432425,1,San Bernardino,Myotis californicus
+06071,2021,2432461,0,San Bernardino,Myotis yumanensis
+06071,2021,11138256,0,San Bernardino,Aeorestes cinereus
+06073,2021,2432425,1,San Diego,Myotis californicus
+06073,2021,2432461,6,San Diego,Myotis yumanensis
+06073,2021,11138256,4,San Diego,Aeorestes cinereus
+06075,2021,2432425,0,San Francisco,Myotis californicus
+06075,2021,2432461,0,San Francisco,Myotis yumanensis
+06075,2021,11138256,2,San Francisco,Aeorestes cinereus
+06077,2021,2432425,0,San Joaquin,Myotis californicus
+06077,2021,2432461,0,San Joaquin,Myotis yumanensis
+06077,2021,11138256,0,San Joaquin,Aeorestes cinereus
+06079,2021,2432425,0,San Luis Obispo,Myotis californicus
+06079,2021,2432461,0,San Luis Obispo,Myotis yumanensis
+06079,2021,11138256,0,San Luis Obispo,Aeorestes cinereus
+06081,2021,2432425,0,San Mateo,Myotis californicus
+06081,2021,2432461,0,San Mateo,Myotis yumanensis
+06081,2021,11138256,1,San Mateo,Aeorestes cinereus
+06083,2021,2432425,2,Santa Barbara,Myotis californicus
+06083,2021,2432461,1,Santa Barbara,Myotis yumanensis
+06083,2021,11138256,0,Santa Barbara,Aeorestes cinereus
+06085,2021,2432425,0,Santa Clara,Myotis californicus
+06085,2021,2432461,0,Santa Clara,Myotis yumanensis
+06085,2021,11138256,7,Santa Clara,Aeorestes cinereus
+06087,2021,2432425,0,Santa Cruz,Myotis californicus
+06087,2021,2432461,0,Santa Cruz,Myotis yumanensis
+06087,2021,11138256,1,Santa Cruz,Aeorestes cinereus
+06089,2021,2432425,0,Shasta,Myotis californicus
+06089,2021,2432461,0,Shasta,Myotis yumanensis
+06089,2021,11138256,0,Shasta,Aeorestes cinereus
+06091,2021,2432425,0,Sierra,Myotis californicus
+06091,2021,2432461,0,Sierra,Myotis yumanensis
+06091,2021,11138256,0,Sierra,Aeorestes cinereus
+06093,2021,2432425,0,Siskiyou,Myotis californicus
+06093,2021,2432461,0,Siskiyou,Myotis yumanensis
+06093,2021,11138256,0,Siskiyou,Aeorestes cinereus
+06095,2021,2432425,0,Solano,Myotis californicus
+06095,2021,2432461,0,Solano,Myotis yumanensis
+06095,2021,11138256,0,Solano,Aeorestes cinereus
+06097,2021,2432425,0,Sonoma,Myotis californicus
+06097,2021,2432461,0,Sonoma,Myotis yumanensis
+06097,2021,11138256,1,Sonoma,Aeorestes cinereus
+06099,2021,2432425,0,Stanislaus,Myotis californicus
+06099,2021,2432461,0,Stanislaus,Myotis yumanensis
+06099,2021,11138256,0,Stanislaus,Aeorestes cinereus
+06101,2021,2432425,0,Sutter,Myotis californicus
+06101,2021,2432461,0,Sutter,Myotis yumanensis
+06101,2021,11138256,0,Sutter,Aeorestes cinereus
+06103,2021,2432425,0,Tehama,Myotis californicus
+06103,2021,2432461,0,Tehama,Myotis yumanensis
+06103,2021,11138256,0,Tehama,Aeorestes cinereus
+06105,2021,2432425,0,Trinity,Myotis californicus
+06105,2021,2432461,0,Trinity,Myotis yumanensis
+06105,2021,11138256,0,Trinity,Aeorestes cinereus
+06107,2021,2432425,0,Tulare,Myotis californicus
+06107,2021,2432461,0,Tulare,Myotis yumanensis
+06107,2021,11138256,0,Tulare,Aeorestes cinereus
+06109,2021,2432425,0,Tuolumne,Myotis californicus
+06109,2021,2432461,0,Tuolumne,Myotis yumanensis
+06109,2021,11138256,0,Tuolumne,Aeorestes cinereus
+06111,2021,2432425,0,Ventura,Myotis californicus
+06111,2021,2432461,0,Ventura,Myotis yumanensis
+06111,2021,11138256,1,Ventura,Aeorestes cinereus
+06113,2021,2432425,0,Yolo,Myotis californicus
+06113,2021,2432461,0,Yolo,Myotis yumanensis
+06113,2021,11138256,0,Yolo,Aeorestes cinereus
+06115,2021,2432425,0,Yuba,Myotis californicus
+06115,2021,2432461,0,Yuba,Myotis yumanensis
+06115,2021,11138256,0,Yuba,Aeorestes cinereus
+06001,2022,2432425,0,Alameda,Myotis californicus
+06001,2022,2432461,0,Alameda,Myotis yumanensis
+06001,2022,11138256,0,Alameda,Aeorestes cinereus
+06003,2022,2432425,0,Alpine,Myotis californicus
+06003,2022,2432461,0,Alpine,Myotis yumanensis
+06003,2022,11138256,0,Alpine,Aeorestes cinereus
+06005,2022,2432425,0,Amador,Myotis californicus
+06005,2022,2432461,0,Amador,Myotis yumanensis
+06005,2022,11138256,0,Amador,Aeorestes cinereus
+06007,2022,2432425,0,Butte,Myotis californicus
+06007,2022,2432461,0,Butte,Myotis yumanensis
+06007,2022,11138256,0,Butte,Aeorestes cinereus
+06009,2022,2432425,1,Calaveras,Myotis californicus
+06009,2022,2432461,0,Calaveras,Myotis yumanensis
+06009,2022,11138256,0,Calaveras,Aeorestes cinereus
+06011,2022,2432425,0,Colusa,Myotis californicus
+06011,2022,2432461,0,Colusa,Myotis yumanensis
+06011,2022,11138256,0,Colusa,Aeorestes cinereus
+06013,2022,2432425,0,Contra Costa,Myotis californicus
+06013,2022,2432461,0,Contra Costa,Myotis yumanensis
+06013,2022,11138256,1,Contra Costa,Aeorestes cinereus
+06015,2022,2432425,0,Del Norte,Myotis californicus
+06015,2022,2432461,0,Del Norte,Myotis yumanensis
+06015,2022,11138256,0,Del Norte,Aeorestes cinereus
+06017,2022,2432425,0,El Dorado,Myotis californicus
+06017,2022,2432461,0,El Dorado,Myotis yumanensis
+06017,2022,11138256,0,El Dorado,Aeorestes cinereus
+06019,2022,2432425,0,Fresno,Myotis californicus
+06019,2022,2432461,0,Fresno,Myotis yumanensis
+06019,2022,11138256,0,Fresno,Aeorestes cinereus
+06021,2022,2432425,0,Glenn,Myotis californicus
+06021,2022,2432461,0,Glenn,Myotis yumanensis
+06021,2022,11138256,0,Glenn,Aeorestes cinereus
+06023,2022,2432425,0,Humboldt,Myotis californicus
+06023,2022,2432461,0,Humboldt,Myotis yumanensis
+06023,2022,11138256,3,Humboldt,Aeorestes cinereus
+06025,2022,2432425,0,Imperial,Myotis californicus
+06025,2022,2432461,0,Imperial,Myotis yumanensis
+06025,2022,11138256,0,Imperial,Aeorestes cinereus
+06027,2022,2432425,0,Inyo,Myotis californicus
+06027,2022,2432461,0,Inyo,Myotis yumanensis
+06027,2022,11138256,0,Inyo,Aeorestes cinereus
+06029,2022,2432425,0,Kern,Myotis californicus
+06029,2022,2432461,0,Kern,Myotis yumanensis
+06029,2022,11138256,0,Kern,Aeorestes cinereus
+06031,2022,2432425,0,Kings,Myotis californicus
+06031,2022,2432461,0,Kings,Myotis yumanensis
+06031,2022,11138256,0,Kings,Aeorestes cinereus
+06033,2022,2432425,0,Lake,Myotis californicus
+06033,2022,2432461,0,Lake,Myotis yumanensis
+06033,2022,11138256,0,Lake,Aeorestes cinereus
+06035,2022,2432425,0,Lassen,Myotis californicus
+06035,2022,2432461,0,Lassen,Myotis yumanensis
+06035,2022,11138256,0,Lassen,Aeorestes cinereus
+06037,2022,2432425,0,Los Angeles,Myotis californicus
+06037,2022,2432461,0,Los Angeles,Myotis yumanensis
+06037,2022,11138256,3,Los Angeles,Aeorestes cinereus
+06039,2022,2432425,0,Madera,Myotis californicus
+06039,2022,2432461,0,Madera,Myotis yumanensis
+06039,2022,11138256,0,Madera,Aeorestes cinereus
+06041,2022,2432425,0,Marin,Myotis californicus
+06041,2022,2432461,0,Marin,Myotis yumanensis
+06041,2022,11138256,1,Marin,Aeorestes cinereus
+06043,2022,2432425,0,Mariposa,Myotis californicus
+06043,2022,2432461,0,Mariposa,Myotis yumanensis
+06043,2022,11138256,0,Mariposa,Aeorestes cinereus
+06045,2022,2432425,0,Mendocino,Myotis californicus
+06045,2022,2432461,0,Mendocino,Myotis yumanensis
+06045,2022,11138256,0,Mendocino,Aeorestes cinereus
+06047,2022,2432425,0,Merced,Myotis californicus
+06047,2022,2432461,0,Merced,Myotis yumanensis
+06047,2022,11138256,0,Merced,Aeorestes cinereus
+06049,2022,2432425,0,Modoc,Myotis californicus
+06049,2022,2432461,0,Modoc,Myotis yumanensis
+06049,2022,11138256,0,Modoc,Aeorestes cinereus
+06051,2022,2432425,0,Mono,Myotis californicus
+06051,2022,2432461,0,Mono,Myotis yumanensis
+06051,2022,11138256,0,Mono,Aeorestes cinereus
+06053,2022,2432425,1,Monterey,Myotis californicus
+06053,2022,2432461,0,Monterey,Myotis yumanensis
+06053,2022,11138256,1,Monterey,Aeorestes cinereus
+06055,2022,2432425,0,Napa,Myotis californicus
+06055,2022,2432461,0,Napa,Myotis yumanensis
+06055,2022,11138256,0,Napa,Aeorestes cinereus
+06057,2022,2432425,0,Nevada,Myotis californicus
+06057,2022,2432461,0,Nevada,Myotis yumanensis
+06057,2022,11138256,0,Nevada,Aeorestes cinereus
+06059,2022,2432425,0,Orange,Myotis californicus
+06059,2022,2432461,0,Orange,Myotis yumanensis
+06059,2022,11138256,0,Orange,Aeorestes cinereus
+06061,2022,2432425,0,Placer,Myotis californicus
+06061,2022,2432461,0,Placer,Myotis yumanensis
+06061,2022,11138256,0,Placer,Aeorestes cinereus
+06063,2022,2432425,0,Plumas,Myotis californicus
+06063,2022,2432461,0,Plumas,Myotis yumanensis
+06063,2022,11138256,0,Plumas,Aeorestes cinereus
+06065,2022,2432425,1,Riverside,Myotis californicus
+06065,2022,2432461,0,Riverside,Myotis yumanensis
+06065,2022,11138256,0,Riverside,Aeorestes cinereus
+06067,2022,2432425,0,Sacramento,Myotis californicus
+06067,2022,2432461,0,Sacramento,Myotis yumanensis
+06067,2022,11138256,0,Sacramento,Aeorestes cinereus
+06069,2022,2432425,0,San Benito,Myotis californicus
+06069,2022,2432461,0,San Benito,Myotis yumanensis
+06069,2022,11138256,0,San Benito,Aeorestes cinereus
+06071,2022,2432425,0,San Bernardino,Myotis californicus
+06071,2022,2432461,0,San Bernardino,Myotis yumanensis
+06071,2022,11138256,0,San Bernardino,Aeorestes cinereus
+06073,2022,2432425,0,San Diego,Myotis californicus
+06073,2022,2432461,9,San Diego,Myotis yumanensis
+06073,2022,11138256,0,San Diego,Aeorestes cinereus
+06075,2022,2432425,0,San Francisco,Myotis californicus
+06075,2022,2432461,0,San Francisco,Myotis yumanensis
+06075,2022,11138256,3,San Francisco,Aeorestes cinereus
+06077,2022,2432425,0,San Joaquin,Myotis californicus
+06077,2022,2432461,0,San Joaquin,Myotis yumanensis
+06077,2022,11138256,0,San Joaquin,Aeorestes cinereus
+06079,2022,2432425,0,San Luis Obispo,Myotis californicus
+06079,2022,2432461,0,San Luis Obispo,Myotis yumanensis
+06079,2022,11138256,0,San Luis Obispo,Aeorestes cinereus
+06081,2022,2432425,0,San Mateo,Myotis californicus
+06081,2022,2432461,0,San Mateo,Myotis yumanensis
+06081,2022,11138256,0,San Mateo,Aeorestes cinereus
+06083,2022,2432425,0,Santa Barbara,Myotis californicus
+06083,2022,2432461,0,Santa Barbara,Myotis yumanensis
+06083,2022,11138256,0,Santa Barbara,Aeorestes cinereus
+06085,2022,2432425,0,Santa Clara,Myotis californicus
+06085,2022,2432461,0,Santa Clara,Myotis yumanensis
+06085,2022,11138256,3,Santa Clara,Aeorestes cinereus
+06087,2022,2432425,0,Santa Cruz,Myotis californicus
+06087,2022,2432461,0,Santa Cruz,Myotis yumanensis
+06087,2022,11138256,0,Santa Cruz,Aeorestes cinereus
+06089,2022,2432425,0,Shasta,Myotis californicus
+06089,2022,2432461,0,Shasta,Myotis yumanensis
+06089,2022,11138256,1,Shasta,Aeorestes cinereus
+06091,2022,2432425,0,Sierra,Myotis californicus
+06091,2022,2432461,0,Sierra,Myotis yumanensis
+06091,2022,11138256,0,Sierra,Aeorestes cinereus
+06093,2022,2432425,0,Siskiyou,Myotis californicus
+06093,2022,2432461,0,Siskiyou,Myotis yumanensis
+06093,2022,11138256,0,Siskiyou,Aeorestes cinereus
+06095,2022,2432425,0,Solano,Myotis californicus
+06095,2022,2432461,0,Solano,Myotis yumanensis
+06095,2022,11138256,0,Solano,Aeorestes cinereus
+06097,2022,2432425,0,Sonoma,Myotis californicus
+06097,2022,2432461,0,Sonoma,Myotis yumanensis
+06097,2022,11138256,1,Sonoma,Aeorestes cinereus
+06099,2022,2432425,0,Stanislaus,Myotis californicus
+06099,2022,2432461,0,Stanislaus,Myotis yumanensis
+06099,2022,11138256,1,Stanislaus,Aeorestes cinereus
+06101,2022,2432425,0,Sutter,Myotis californicus
+06101,2022,2432461,0,Sutter,Myotis yumanensis
+06101,2022,11138256,0,Sutter,Aeorestes cinereus
+06103,2022,2432425,0,Tehama,Myotis californicus
+06103,2022,2432461,0,Tehama,Myotis yumanensis
+06103,2022,11138256,0,Tehama,Aeorestes cinereus
+06105,2022,2432425,1,Trinity,Myotis californicus
+06105,2022,2432461,0,Trinity,Myotis yumanensis
+06105,2022,11138256,0,Trinity,Aeorestes cinereus
+06107,2022,2432425,0,Tulare,Myotis californicus
+06107,2022,2432461,0,Tulare,Myotis yumanensis
+06107,2022,11138256,0,Tulare,Aeorestes cinereus
+06109,2022,2432425,0,Tuolumne,Myotis californicus
+06109,2022,2432461,0,Tuolumne,Myotis yumanensis
+06109,2022,11138256,0,Tuolumne,Aeorestes cinereus
+06111,2022,2432425,0,Ventura,Myotis californicus
+06111,2022,2432461,0,Ventura,Myotis yumanensis
+06111,2022,11138256,1,Ventura,Aeorestes cinereus
+06113,2022,2432425,0,Yolo,Myotis californicus
+06113,2022,2432461,0,Yolo,Myotis yumanensis
+06113,2022,11138256,1,Yolo,Aeorestes cinereus
+06115,2022,2432425,0,Yuba,Myotis californicus
+06115,2022,2432461,0,Yuba,Myotis yumanensis
+06115,2022,11138256,0,Yuba,Aeorestes cinereus
+06001,2023,2432425,0,Alameda,Myotis californicus
+06001,2023,2432461,0,Alameda,Myotis yumanensis
+06001,2023,11138256,1,Alameda,Aeorestes cinereus
+06003,2023,2432425,0,Alpine,Myotis californicus
+06003,2023,2432461,0,Alpine,Myotis yumanensis
+06003,2023,11138256,0,Alpine,Aeorestes cinereus
+06005,2023,2432425,0,Amador,Myotis californicus
+06005,2023,2432461,0,Amador,Myotis yumanensis
+06005,2023,11138256,0,Amador,Aeorestes cinereus
+06007,2023,2432425,0,Butte,Myotis californicus
+06007,2023,2432461,0,Butte,Myotis yumanensis
+06007,2023,11138256,0,Butte,Aeorestes cinereus
+06009,2023,2432425,0,Calaveras,Myotis californicus
+06009,2023,2432461,0,Calaveras,Myotis yumanensis
+06009,2023,11138256,0,Calaveras,Aeorestes cinereus
+06011,2023,2432425,0,Colusa,Myotis californicus
+06011,2023,2432461,0,Colusa,Myotis yumanensis
+06011,2023,11138256,0,Colusa,Aeorestes cinereus
+06013,2023,2432425,0,Contra Costa,Myotis californicus
+06013,2023,2432461,0,Contra Costa,Myotis yumanensis
+06013,2023,11138256,0,Contra Costa,Aeorestes cinereus
+06015,2023,2432425,0,Del Norte,Myotis californicus
+06015,2023,2432461,0,Del Norte,Myotis yumanensis
+06015,2023,11138256,0,Del Norte,Aeorestes cinereus
+06017,2023,2432425,0,El Dorado,Myotis californicus
+06017,2023,2432461,0,El Dorado,Myotis yumanensis
+06017,2023,11138256,1,El Dorado,Aeorestes cinereus
+06019,2023,2432425,0,Fresno,Myotis californicus
+06019,2023,2432461,0,Fresno,Myotis yumanensis
+06019,2023,11138256,0,Fresno,Aeorestes cinereus
+06021,2023,2432425,0,Glenn,Myotis californicus
+06021,2023,2432461,0,Glenn,Myotis yumanensis
+06021,2023,11138256,0,Glenn,Aeorestes cinereus
+06023,2023,2432425,1,Humboldt,Myotis californicus
+06023,2023,2432461,0,Humboldt,Myotis yumanensis
+06023,2023,11138256,1,Humboldt,Aeorestes cinereus
+06025,2023,2432425,0,Imperial,Myotis californicus
+06025,2023,2432461,0,Imperial,Myotis yumanensis
+06025,2023,11138256,0,Imperial,Aeorestes cinereus
+06027,2023,2432425,0,Inyo,Myotis californicus
+06027,2023,2432461,0,Inyo,Myotis yumanensis
+06027,2023,11138256,0,Inyo,Aeorestes cinereus
+06029,2023,2432425,0,Kern,Myotis californicus
+06029,2023,2432461,0,Kern,Myotis yumanensis
+06029,2023,11138256,0,Kern,Aeorestes cinereus
+06031,2023,2432425,0,Kings,Myotis californicus
+06031,2023,2432461,0,Kings,Myotis yumanensis
+06031,2023,11138256,0,Kings,Aeorestes cinereus
+06033,2023,2432425,0,Lake,Myotis californicus
+06033,2023,2432461,0,Lake,Myotis yumanensis
+06033,2023,11138256,0,Lake,Aeorestes cinereus
+06035,2023,2432425,0,Lassen,Myotis californicus
+06035,2023,2432461,0,Lassen,Myotis yumanensis
+06035,2023,11138256,0,Lassen,Aeorestes cinereus
+06037,2023,2432425,1,Los Angeles,Myotis californicus
+06037,2023,2432461,0,Los Angeles,Myotis yumanensis
+06037,2023,11138256,3,Los Angeles,Aeorestes cinereus
+06039,2023,2432425,0,Madera,Myotis californicus
+06039,2023,2432461,0,Madera,Myotis yumanensis
+06039,2023,11138256,0,Madera,Aeorestes cinereus
+06041,2023,2432425,0,Marin,Myotis californicus
+06041,2023,2432461,1,Marin,Myotis yumanensis
+06041,2023,11138256,1,Marin,Aeorestes cinereus
+06043,2023,2432425,0,Mariposa,Myotis californicus
+06043,2023,2432461,0,Mariposa,Myotis yumanensis
+06043,2023,11138256,0,Mariposa,Aeorestes cinereus
+06045,2023,2432425,0,Mendocino,Myotis californicus
+06045,2023,2432461,0,Mendocino,Myotis yumanensis
+06045,2023,11138256,0,Mendocino,Aeorestes cinereus
+06047,2023,2432425,0,Merced,Myotis californicus
+06047,2023,2432461,0,Merced,Myotis yumanensis
+06047,2023,11138256,0,Merced,Aeorestes cinereus
+06049,2023,2432425,0,Modoc,Myotis californicus
+06049,2023,2432461,0,Modoc,Myotis yumanensis
+06049,2023,11138256,0,Modoc,Aeorestes cinereus
+06051,2023,2432425,0,Mono,Myotis californicus
+06051,2023,2432461,0,Mono,Myotis yumanensis
+06051,2023,11138256,0,Mono,Aeorestes cinereus
+06053,2023,2432425,0,Monterey,Myotis californicus
+06053,2023,2432461,0,Monterey,Myotis yumanensis
+06053,2023,11138256,0,Monterey,Aeorestes cinereus
+06055,2023,2432425,0,Napa,Myotis californicus
+06055,2023,2432461,0,Napa,Myotis yumanensis
+06055,2023,11138256,0,Napa,Aeorestes cinereus
+06057,2023,2432425,0,Nevada,Myotis californicus
+06057,2023,2432461,0,Nevada,Myotis yumanensis
+06057,2023,11138256,0,Nevada,Aeorestes cinereus
+06059,2023,2432425,0,Orange,Myotis californicus
+06059,2023,2432461,0,Orange,Myotis yumanensis
+06059,2023,11138256,1,Orange,Aeorestes cinereus
+06061,2023,2432425,0,Placer,Myotis californicus
+06061,2023,2432461,0,Placer,Myotis yumanensis
+06061,2023,11138256,0,Placer,Aeorestes cinereus
+06063,2023,2432425,0,Plumas,Myotis californicus
+06063,2023,2432461,0,Plumas,Myotis yumanensis
+06063,2023,11138256,0,Plumas,Aeorestes cinereus
+06065,2023,2432425,0,Riverside,Myotis californicus
+06065,2023,2432461,0,Riverside,Myotis yumanensis
+06065,2023,11138256,0,Riverside,Aeorestes cinereus
+06067,2023,2432425,0,Sacramento,Myotis californicus
+06067,2023,2432461,0,Sacramento,Myotis yumanensis
+06067,2023,11138256,1,Sacramento,Aeorestes cinereus
+06069,2023,2432425,0,San Benito,Myotis californicus
+06069,2023,2432461,1,San Benito,Myotis yumanensis
+06069,2023,11138256,2,San Benito,Aeorestes cinereus
+06071,2023,2432425,0,San Bernardino,Myotis californicus
+06071,2023,2432461,0,San Bernardino,Myotis yumanensis
+06071,2023,11138256,1,San Bernardino,Aeorestes cinereus
+06073,2023,2432425,0,San Diego,Myotis californicus
+06073,2023,2432461,0,San Diego,Myotis yumanensis
+06073,2023,11138256,2,San Diego,Aeorestes cinereus
+06075,2023,2432425,0,San Francisco,Myotis californicus
+06075,2023,2432461,0,San Francisco,Myotis yumanensis
+06075,2023,11138256,2,San Francisco,Aeorestes cinereus
+06077,2023,2432425,0,San Joaquin,Myotis californicus
+06077,2023,2432461,0,San Joaquin,Myotis yumanensis
+06077,2023,11138256,0,San Joaquin,Aeorestes cinereus
+06079,2023,2432425,0,San Luis Obispo,Myotis californicus
+06079,2023,2432461,0,San Luis Obispo,Myotis yumanensis
+06079,2023,11138256,1,San Luis Obispo,Aeorestes cinereus
+06081,2023,2432425,0,San Mateo,Myotis californicus
+06081,2023,2432461,0,San Mateo,Myotis yumanensis
+06081,2023,11138256,0,San Mateo,Aeorestes cinereus
+06083,2023,2432425,0,Santa Barbara,Myotis californicus
+06083,2023,2432461,0,Santa Barbara,Myotis yumanensis
+06083,2023,11138256,0,Santa Barbara,Aeorestes cinereus
+06085,2023,2432425,0,Santa Clara,Myotis californicus
+06085,2023,2432461,0,Santa Clara,Myotis yumanensis
+06085,2023,11138256,2,Santa Clara,Aeorestes cinereus
+06087,2023,2432425,0,Santa Cruz,Myotis californicus
+06087,2023,2432461,0,Santa Cruz,Myotis yumanensis
+06087,2023,11138256,0,Santa Cruz,Aeorestes cinereus
+06089,2023,2432425,0,Shasta,Myotis californicus
+06089,2023,2432461,0,Shasta,Myotis yumanensis
+06089,2023,11138256,0,Shasta,Aeorestes cinereus
+06091,2023,2432425,0,Sierra,Myotis californicus
+06091,2023,2432461,0,Sierra,Myotis yumanensis
+06091,2023,11138256,0,Sierra,Aeorestes cinereus
+06093,2023,2432425,0,Siskiyou,Myotis californicus
+06093,2023,2432461,0,Siskiyou,Myotis yumanensis
+06093,2023,11138256,0,Siskiyou,Aeorestes cinereus
+06095,2023,2432425,0,Solano,Myotis californicus
+06095,2023,2432461,0,Solano,Myotis yumanensis
+06095,2023,11138256,0,Solano,Aeorestes cinereus
+06097,2023,2432425,0,Sonoma,Myotis californicus
+06097,2023,2432461,0,Sonoma,Myotis yumanensis
+06097,2023,11138256,0,Sonoma,Aeorestes cinereus
+06099,2023,2432425,0,Stanislaus,Myotis californicus
+06099,2023,2432461,0,Stanislaus,Myotis yumanensis
+06099,2023,11138256,0,Stanislaus,Aeorestes cinereus
+06101,2023,2432425,0,Sutter,Myotis californicus
+06101,2023,2432461,0,Sutter,Myotis yumanensis
+06101,2023,11138256,0,Sutter,Aeorestes cinereus
+06103,2023,2432425,0,Tehama,Myotis californicus
+06103,2023,2432461,0,Tehama,Myotis yumanensis
+06103,2023,11138256,0,Tehama,Aeorestes cinereus
+06105,2023,2432425,0,Trinity,Myotis californicus
+06105,2023,2432461,0,Trinity,Myotis yumanensis
+06105,2023,11138256,0,Trinity,Aeorestes cinereus
+06107,2023,2432425,0,Tulare,Myotis californicus
+06107,2023,2432461,0,Tulare,Myotis yumanensis
+06107,2023,11138256,0,Tulare,Aeorestes cinereus
+06109,2023,2432425,0,Tuolumne,Myotis californicus
+06109,2023,2432461,0,Tuolumne,Myotis yumanensis
+06109,2023,11138256,0,Tuolumne,Aeorestes cinereus
+06111,2023,2432425,0,Ventura,Myotis californicus
+06111,2023,2432461,0,Ventura,Myotis yumanensis
+06111,2023,11138256,0,Ventura,Aeorestes cinereus
+06113,2023,2432425,0,Yolo,Myotis californicus
+06113,2023,2432461,0,Yolo,Myotis yumanensis
+06113,2023,11138256,1,Yolo,Aeorestes cinereus
+06115,2023,2432425,0,Yuba,Myotis californicus
+06115,2023,2432461,0,Yuba,Myotis yumanensis
+06115,2023,11138256,0,Yuba,Aeorestes cinereus
+06001,2024,2432425,0,Alameda,Myotis californicus
+06001,2024,2432461,0,Alameda,Myotis yumanensis
+06001,2024,11138256,1,Alameda,Aeorestes cinereus
+06003,2024,2432425,0,Alpine,Myotis californicus
+06003,2024,2432461,0,Alpine,Myotis yumanensis
+06003,2024,11138256,0,Alpine,Aeorestes cinereus
+06005,2024,2432425,0,Amador,Myotis californicus
+06005,2024,2432461,0,Amador,Myotis yumanensis
+06005,2024,11138256,0,Amador,Aeorestes cinereus
+06007,2024,2432425,0,Butte,Myotis californicus
+06007,2024,2432461,0,Butte,Myotis yumanensis
+06007,2024,11138256,0,Butte,Aeorestes cinereus
+06009,2024,2432425,0,Calaveras,Myotis californicus
+06009,2024,2432461,0,Calaveras,Myotis yumanensis
+06009,2024,11138256,0,Calaveras,Aeorestes cinereus
+06011,2024,2432425,0,Colusa,Myotis californicus
+06011,2024,2432461,0,Colusa,Myotis yumanensis
+06011,2024,11138256,0,Colusa,Aeorestes cinereus
+06013,2024,2432425,0,Contra Costa,Myotis californicus
+06013,2024,2432461,0,Contra Costa,Myotis yumanensis
+06013,2024,11138256,0,Contra Costa,Aeorestes cinereus
+06015,2024,2432425,0,Del Norte,Myotis californicus
+06015,2024,2432461,0,Del Norte,Myotis yumanensis
+06015,2024,11138256,0,Del Norte,Aeorestes cinereus
+06017,2024,2432425,0,El Dorado,Myotis californicus
+06017,2024,2432461,0,El Dorado,Myotis yumanensis
+06017,2024,11138256,1,El Dorado,Aeorestes cinereus
+06019,2024,2432425,0,Fresno,Myotis californicus
+06019,2024,2432461,0,Fresno,Myotis yumanensis
+06019,2024,11138256,0,Fresno,Aeorestes cinereus
+06021,2024,2432425,0,Glenn,Myotis californicus
+06021,2024,2432461,0,Glenn,Myotis yumanensis
+06021,2024,11138256,2,Glenn,Aeorestes cinereus
+06023,2024,2432425,0,Humboldt,Myotis californicus
+06023,2024,2432461,1,Humboldt,Myotis yumanensis
+06023,2024,11138256,3,Humboldt,Aeorestes cinereus
+06025,2024,2432425,0,Imperial,Myotis californicus
+06025,2024,2432461,0,Imperial,Myotis yumanensis
+06025,2024,11138256,0,Imperial,Aeorestes cinereus
+06027,2024,2432425,0,Inyo,Myotis californicus
+06027,2024,2432461,0,Inyo,Myotis yumanensis
+06027,2024,11138256,0,Inyo,Aeorestes cinereus
+06029,2024,2432425,0,Kern,Myotis californicus
+06029,2024,2432461,0,Kern,Myotis yumanensis
+06029,2024,11138256,0,Kern,Aeorestes cinereus
+06031,2024,2432425,0,Kings,Myotis californicus
+06031,2024,2432461,0,Kings,Myotis yumanensis
+06031,2024,11138256,0,Kings,Aeorestes cinereus
+06033,2024,2432425,0,Lake,Myotis californicus
+06033,2024,2432461,0,Lake,Myotis yumanensis
+06033,2024,11138256,0,Lake,Aeorestes cinereus
+06035,2024,2432425,0,Lassen,Myotis californicus
+06035,2024,2432461,0,Lassen,Myotis yumanensis
+06035,2024,11138256,0,Lassen,Aeorestes cinereus
+06037,2024,2432425,0,Los Angeles,Myotis californicus
+06037,2024,2432461,0,Los Angeles,Myotis yumanensis
+06037,2024,11138256,4,Los Angeles,Aeorestes cinereus
+06039,2024,2432425,0,Madera,Myotis californicus
+06039,2024,2432461,0,Madera,Myotis yumanensis
+06039,2024,11138256,0,Madera,Aeorestes cinereus
+06041,2024,2432425,0,Marin,Myotis californicus
+06041,2024,2432461,0,Marin,Myotis yumanensis
+06041,2024,11138256,3,Marin,Aeorestes cinereus
+06043,2024,2432425,0,Mariposa,Myotis californicus
+06043,2024,2432461,0,Mariposa,Myotis yumanensis
+06043,2024,11138256,0,Mariposa,Aeorestes cinereus
+06045,2024,2432425,0,Mendocino,Myotis californicus
+06045,2024,2432461,0,Mendocino,Myotis yumanensis
+06045,2024,11138256,0,Mendocino,Aeorestes cinereus
+06047,2024,2432425,0,Merced,Myotis californicus
+06047,2024,2432461,0,Merced,Myotis yumanensis
+06047,2024,11138256,0,Merced,Aeorestes cinereus
+06049,2024,2432425,0,Modoc,Myotis californicus
+06049,2024,2432461,0,Modoc,Myotis yumanensis
+06049,2024,11138256,0,Modoc,Aeorestes cinereus
+06051,2024,2432425,0,Mono,Myotis californicus
+06051,2024,2432461,0,Mono,Myotis yumanensis
+06051,2024,11138256,0,Mono,Aeorestes cinereus
+06053,2024,2432425,0,Monterey,Myotis californicus
+06053,2024,2432461,0,Monterey,Myotis yumanensis
+06053,2024,11138256,1,Monterey,Aeorestes cinereus
+06055,2024,2432425,0,Napa,Myotis californicus
+06055,2024,2432461,0,Napa,Myotis yumanensis
+06055,2024,11138256,1,Napa,Aeorestes cinereus
+06057,2024,2432425,0,Nevada,Myotis californicus
+06057,2024,2432461,0,Nevada,Myotis yumanensis
+06057,2024,11138256,0,Nevada,Aeorestes cinereus
+06059,2024,2432425,0,Orange,Myotis californicus
+06059,2024,2432461,0,Orange,Myotis yumanensis
+06059,2024,11138256,0,Orange,Aeorestes cinereus
+06061,2024,2432425,0,Placer,Myotis californicus
+06061,2024,2432461,0,Placer,Myotis yumanensis
+06061,2024,11138256,0,Placer,Aeorestes cinereus
+06063,2024,2432425,0,Plumas,Myotis californicus
+06063,2024,2432461,0,Plumas,Myotis yumanensis
+06063,2024,11138256,0,Plumas,Aeorestes cinereus
+06065,2024,2432425,0,Riverside,Myotis californicus
+06065,2024,2432461,0,Riverside,Myotis yumanensis
+06065,2024,11138256,0,Riverside,Aeorestes cinereus
+06067,2024,2432425,0,Sacramento,Myotis californicus
+06067,2024,2432461,0,Sacramento,Myotis yumanensis
+06067,2024,11138256,0,Sacramento,Aeorestes cinereus
+06069,2024,2432425,0,San Benito,Myotis californicus
+06069,2024,2432461,0,San Benito,Myotis yumanensis
+06069,2024,11138256,0,San Benito,Aeorestes cinereus
+06071,2024,2432425,1,San Bernardino,Myotis californicus
+06071,2024,2432461,0,San Bernardino,Myotis yumanensis
+06071,2024,11138256,0,San Bernardino,Aeorestes cinereus
+06073,2024,2432425,0,San Diego,Myotis californicus
+06073,2024,2432461,0,San Diego,Myotis yumanensis
+06073,2024,11138256,2,San Diego,Aeorestes cinereus
+06075,2024,2432425,0,San Francisco,Myotis californicus
+06075,2024,2432461,0,San Francisco,Myotis yumanensis
+06075,2024,11138256,1,San Francisco,Aeorestes cinereus
+06077,2024,2432425,0,San Joaquin,Myotis californicus
+06077,2024,2432461,0,San Joaquin,Myotis yumanensis
+06077,2024,11138256,0,San Joaquin,Aeorestes cinereus
+06079,2024,2432425,0,San Luis Obispo,Myotis californicus
+06079,2024,2432461,0,San Luis Obispo,Myotis yumanensis
+06079,2024,11138256,0,San Luis Obispo,Aeorestes cinereus
+06081,2024,2432425,0,San Mateo,Myotis californicus
+06081,2024,2432461,0,San Mateo,Myotis yumanensis
+06081,2024,11138256,0,San Mateo,Aeorestes cinereus
+06083,2024,2432425,0,Santa Barbara,Myotis californicus
+06083,2024,2432461,0,Santa Barbara,Myotis yumanensis
+06083,2024,11138256,2,Santa Barbara,Aeorestes cinereus
+06085,2024,2432425,0,Santa Clara,Myotis californicus
+06085,2024,2432461,0,Santa Clara,Myotis yumanensis
+06085,2024,11138256,0,Santa Clara,Aeorestes cinereus
+06087,2024,2432425,0,Santa Cruz,Myotis californicus
+06087,2024,2432461,0,Santa Cruz,Myotis yumanensis
+06087,2024,11138256,0,Santa Cruz,Aeorestes cinereus
+06089,2024,2432425,0,Shasta,Myotis californicus
+06089,2024,2432461,0,Shasta,Myotis yumanensis
+06089,2024,11138256,0,Shasta,Aeorestes cinereus
+06091,2024,2432425,0,Sierra,Myotis californicus
+06091,2024,2432461,0,Sierra,Myotis yumanensis
+06091,2024,11138256,0,Sierra,Aeorestes cinereus
+06093,2024,2432425,0,Siskiyou,Myotis californicus
+06093,2024,2432461,0,Siskiyou,Myotis yumanensis
+06093,2024,11138256,0,Siskiyou,Aeorestes cinereus
+06095,2024,2432425,0,Solano,Myotis californicus
+06095,2024,2432461,0,Solano,Myotis yumanensis
+06095,2024,11138256,2,Solano,Aeorestes cinereus
+06097,2024,2432425,0,Sonoma,Myotis californicus
+06097,2024,2432461,0,Sonoma,Myotis yumanensis
+06097,2024,11138256,0,Sonoma,Aeorestes cinereus
+06099,2024,2432425,0,Stanislaus,Myotis californicus
+06099,2024,2432461,0,Stanislaus,Myotis yumanensis
+06099,2024,11138256,0,Stanislaus,Aeorestes cinereus
+06101,2024,2432425,0,Sutter,Myotis californicus
+06101,2024,2432461,0,Sutter,Myotis yumanensis
+06101,2024,11138256,0,Sutter,Aeorestes cinereus
+06103,2024,2432425,0,Tehama,Myotis californicus
+06103,2024,2432461,0,Tehama,Myotis yumanensis
+06103,2024,11138256,0,Tehama,Aeorestes cinereus
+06105,2024,2432425,0,Trinity,Myotis californicus
+06105,2024,2432461,0,Trinity,Myotis yumanensis
+06105,2024,11138256,0,Trinity,Aeorestes cinereus
+06107,2024,2432425,0,Tulare,Myotis californicus
+06107,2024,2432461,0,Tulare,Myotis yumanensis
+06107,2024,11138256,0,Tulare,Aeorestes cinereus
+06109,2024,2432425,0,Tuolumne,Myotis californicus
+06109,2024,2432461,1,Tuolumne,Myotis yumanensis
+06109,2024,11138256,0,Tuolumne,Aeorestes cinereus
+06111,2024,2432425,0,Ventura,Myotis californicus
+06111,2024,2432461,1,Ventura,Myotis yumanensis
+06111,2024,11138256,0,Ventura,Aeorestes cinereus
+06113,2024,2432425,0,Yolo,Myotis californicus
+06113,2024,2432461,0,Yolo,Myotis yumanensis
+06113,2024,11138256,1,Yolo,Aeorestes cinereus
+06115,2024,2432425,0,Yuba,Myotis californicus
+06115,2024,2432461,0,Yuba,Myotis yumanensis
+06115,2024,11138256,0,Yuba,Aeorestes cinereus

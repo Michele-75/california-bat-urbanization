@@ -29,12 +29,17 @@ if (file.exists(OUT_CSV)) {
 # Each species in GBIF is assigned a unique numeric identifier: "speciesKey",
 # which we must use when requesting occurrence data through the GBIF API.
 
-
+#Note that taxonomy/backbone can map synonyms or reclassified genera
 bat_taxa <- purrr::map_df(BAT_SPECIES, ~ {
   rgbif::name_backbone(name = .x) |>
     as_tibble() |>
     select(scientificName, speciesKey, rank, status)
 })
+
+# Save the GBIF backbone resolution (species names -> GBIF keys) for provenance.
+# This documents exactly which taxonomic concepts were used to request occurrences.
+OUT_TAXA <- file.path(DIR_GBIF_RAW, "gbif_backbone_taxa.csv")
+readr::write_csv(bat_taxa, OUT_TAXA)
 
 bat_keys <- bat_taxa$speciesKey
 
@@ -50,7 +55,6 @@ if (gbif_user == "" || gbif_pwd == "" || gbif_email == "") {
 # ---- Submit download ----
 #Submits a request to GBIF’s Occurrence Download API for a custom dataset that matches our filters
 dl <- occ_download(
-  pred_in("taxonKey", bat_keys), 
   pred_in("taxonKey", bat_keys), #look up with species key
   pred("hasCoordinate", TRUE), #exclude rows with missing coordinates
   pred_gte("year", 2012L), #only include data from 2012 onward

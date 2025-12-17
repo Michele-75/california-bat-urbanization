@@ -1,0 +1,24 @@
+metric,value
+input_rows_point_level,455
+aggregated_nonzero_rows,211
+panel_rows_complete_grid,2262
+n_counties,58
+n_years,13
+n_species_keys,3
+total_obs_sum_n_obs,455
+total_obs_species_key=2432425 label=Myotis californicus,114
+total_obs_species_key=2432461 label=Myotis yumanensis,139
+total_obs_species_key=11138256 label=Aeorestes cinereus,202
+total_obs_year: 2012,25
+total_obs_year: 2013,23
+total_obs_year: 2014,21
+total_obs_year: 2015,50
+total_obs_year: 2016,84
+total_obs_year: 2017,44
+total_obs_year: 2018,23
+total_obs_year: 2019,22
+total_obs_year: 2020,39
+total_obs_year: 2021,39
+total_obs_year: 2022,33
+total_obs_year: 2023,24
+total_obs_year: 2024,28

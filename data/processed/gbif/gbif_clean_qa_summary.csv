@@ -1,4 +1,4 @@
-4metric,n
+metric,n
 raw_rows,2115
 after_coord_and_year_filters,507
 after_spatial_join_to_ca_counties,455
