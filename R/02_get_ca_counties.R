@@ -1,5 +1,27 @@
 # R/02_get_ca_counties.R
-#Run script with source(here::here("R", "02_get_ca_counties.R"))
+# Purpose:
+#   Download U.S. county boundaries and extract California counties.
+#   Reproject county polygons to a statewide projected CRS suitable
+#   for spatial analysis and raster aggregation.
+#
+# Inputs:
+#   - U.S. Census TIGER/Line county boundaries (via tigris package)
+#
+# Outputs:
+#   - data/processed/boundaries/ca_counties.gpkg
+#       * One row per California county (58 total)
+#       * Geometry: county polygons
+#       * CRS: EPSG:3310 (NAD83 / California Albers)
+#       * Attributes: GEOID, NAME (county name), STATEFP
+#
+# Notes:
+#   - GEOID is retained as the canonical county identifier for all
+#     downstream joins and aggregations.
+#   - County boundaries are stored as a GeoPackage to improve
+#     portability and GitHub compatibility.
+#
+# Run script with:
+#   source(here::here("R", "02_get_ca_counties.R"))
 
 source(here::here("R/00_setup.R"))
 
@@ -29,10 +51,6 @@ ca_counties <- counties_us |>
 
 # Write to GeoPackage (single file in place of shapefiles, GitHub-friendly)
 # Output: processed California county boundaries
-# - One row per county (58 total), 4 columns
-# - Geometry: county polygons
-# - CRS: EPSG:3310 (NAD83 / California Albers)
-# - Attributes retained: GEOID, NAME, STATEFP
 sf::st_write(ca_counties, OUT_GPKG, delete_dsn = TRUE)
 
 

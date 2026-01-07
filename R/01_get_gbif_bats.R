@@ -1,5 +1,29 @@
 # R/01_get_gbif_bats.R
-#Run script with source(here::here("R", "01_get_gbif_bats.R"))
+# Purpose:
+#   Download raw GBIF occurrence records for focal bat species
+#   using the GBIF Occurrence Download API. Restrict records to
+#   observations with coordinates and years >= 2012, and save
+#   raw data and provenance metadata for reproducibility.
+#
+# Inputs:
+#   - GBIF Occurrence Database (via rgbif API)
+#   - GBIF Backbone Taxonomy (species name → speciesKey resolution)
+#   - User GBIF credentials stored in .Renviron
+#
+# Outputs:
+#   - data/raw/gbif/bats_raw_2012plus.csv        (raw occurrence records)
+#   - data/raw/gbif/gbif_backbone_taxa.csv      (species → GBIF key mapping)
+#   - data/raw/gbif/gbif_download_meta.csv      (download metadata + filters)
+#
+# Notes:
+#   - Raw data are saved without spatial filtering to California;
+#     spatial subsetting and cleaning occur in R/04_clean_gbif_to_ca.R.
+#   - Species taxonomy is resolved via the GBIF Backbone to ensure
+#     reproducible and documented taxon concepts.
+#
+# Run script with:
+#   source(here::here("R", "01_get_gbif_bats.R"))
+
 
 source(here::here("R/00_setup.R"))
 

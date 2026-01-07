@@ -10,7 +10,8 @@
 # Outputs:
 #   - data/processed/gbif/gbif_bats_ca_clean.gpkg  (sf points w/ county fields)
 #   - data/processed/gbif/gbif_bats_ca_clean.rds   (same, for fast R loads)
-#   - data/processed/gbif/gbif_clean_qa_summary.csv
+#   - data/processed/gbif/gbif_clean_qa_summary.csv (Counts showing how many rows remain after each major 
+                                                    #filtering step)
 
 #Run script with source(here::here("R", "04_clean_gbif_to_ca.R"))
 

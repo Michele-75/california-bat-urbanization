@@ -2,6 +2,19 @@
 # Purpose:
 #   Join bats county×year×species panel to VIIRS county×year radiance,
 #   create analysis-ready dataset + QA checks.
+# Inputs:
+#   - data/processed/gbif/bats_county_year_species.rds   (from R/05_aggregate_bats_county_year.R)
+#       * One row per species × county × year with n_obs counts (includes zeros)
+#   - data/processed/viirs/viirs_county_year.csv         (from R/03_process_viirs_county_year.R)
+#       * One row per county × year with mean nighttime radiance
+#
+# Outputs:
+#   - data/processed/analysis/bats_viirs_county_year_species.csv
+#   - data/processed/analysis/bats_viirs_county_year_species.rds
+#       * Final analysis dataset with one row per species × county × year
+#       * Key fields include: n_obs, mean_radiance, log1p_radiance, has_viirs, vnl_version
+#   - data/processed/analysis/bats_viirs_join_qa_summary.csv
+#       * QA summary of join dimensions and VIIRS missingness (overall + by year)
 
 source(here::here("R/00_setup.R"))
 
