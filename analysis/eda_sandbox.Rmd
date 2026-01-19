@@ -29,7 +29,7 @@ data <- readr::read_csv(
 
 glimpse(data)
 
-summary(dat$n_obs)
+summary(data$n_obs)
 
 ```
 
@@ -73,7 +73,7 @@ The majority of species–county–year combinations contain zero reported obser
 
 ```{r}
 #Histogram of n_obs (raw scale)
-ggplot(dat, aes(n_obs)) +
+ggplot(data, aes(n_obs)) +
   geom_histogram(binwidth = 1, boundary = 0, color = "white") +
   labs(
     title = "Distribution of bat observation counts",
@@ -82,7 +82,7 @@ ggplot(dat, aes(n_obs)) +
   )
 
 #Histogram on log scale (to see tail structure)
-ggplot(dat %>% filter(n_obs > 0), aes(n_obs)) +
+ggplot(data %>% filter(n_obs > 0), aes(n_obs)) +
   geom_histogram(binwidth = 1, color = "white") +
   scale_x_log10() +
   labs(
@@ -93,7 +93,7 @@ ggplot(dat %>% filter(n_obs > 0), aes(n_obs)) +
 
 
 #Variance vs mean
-dat %>%
+data %>%
   summarise(
     mean_n_obs = mean(n_obs),
     var_n_obs  = var(n_obs)
@@ -108,7 +108,7 @@ Also, mean observations are 0.20 and variance of observations is 0.89. Variance 
 
 ```{r}
 #Response distribution by species (faceted)
-ggplot(dat, aes(n_obs)) +
+ggplot(data, aes(n_obs)) +
   geom_histogram(binwidth = 1, boundary = 0, color = "white") +
   facet_wrap(~ species_label, scales = "free_y") +
   labs(
@@ -145,7 +145,7 @@ data %>%
 
 #Observations per year by species
 
-dat %>%
+data %>%
   group_by(year, species_label) %>%
   summarise(
     total_obs = sum(n_obs),
@@ -379,23 +379,11 @@ ggplot(county_map) +
 
 ```
 
-
-
-
-
-
-
-
-
-
-
-
-
 Bat observations are unevenly distributed across counties, with a small number of counties accounting for a disproportionate share of total observations. San Diego has the highest proportion of observations at ~27%. Only 4 counties account for 52% of bat observations: San Diego, Marin, Los Angeles, Humboldt. A small subset of counties contributes a majority of reported observations, indicating strong spatial concentration in reporting effort and/or bat activity. 
 
 
 ```{r}
-#Counties with persistent zero counts
+#Counties with persistent zero counts ("data deserts")
 
 county_zero_share <- data %>%
   group_by(GEOID, county_name) %>%
@@ -587,17 +575,26 @@ ggplot(radiance_map) +
 
 
 
-
-
-
-
-
-
 ```{r}
 #Are high-radiance counties also high-observation counties?
+
+#raw radiance
 county_summary <- county_totals %>%
   left_join(county_radiance, by = c("GEOID", "county_name"))
 
+ggplot(county_summary, aes((mean_radiance), total_obs)) +
+  geom_point() +
+  geom_smooth(method = "loess", se = FALSE) +
+  labs(
+    title = "Total bat observations vs county radiance",
+    x = "log(1 + mean radiance)",
+    y = "Total observations"
+  )
+
+county_summary <- county_totals %>%
+  left_join(county_radiance, by = c("GEOID", "county_name"))
+
+#log radiance
 ggplot(county_summary, aes(log1p(mean_radiance), total_obs)) +
   geom_point() +
   geom_smooth(method = "loess", se = FALSE) +
@@ -617,39 +614,486 @@ Spatial exploratory analysis reveals strong heterogeneity in bat observations ac
 ***Any observed association between bat observations and nighttime light is shaped by where observations occur, not just how bright those places are.
 
 
+### Light- VIIRS Structure
+
+```{r}
+#Aggregate mean radiance across all counties by year
+
+data %>%
+  group_by(year) %>%
+  summarise(
+    mean_radiance_state = mean(mean_radiance, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  ggplot(aes(year, mean_radiance_state)) +
+  geom_line() +
+  geom_point() +
+  labs(
+    title = "Statewide mean nighttime radiance over time",
+    x = "Year",
+    y = "Mean radiance (nW/cm²/sr)"
+  )
+```
+~12–13% relative variation, spread across more than a decade, with no monotonic trend
+Statewide mean nighttime radiance fluctuates modestly from year to year but remains within a narrow range across the study period. These changes are small relative to the much larger differences observed between counties, indicating that radiance is a largely stable spatial characteristic. 
+```{r}
+#County-level radiance trends
+#Are changes in light driven by all counties or just a few?
+
+top_bright_ids <- county_mean_radiance %>%
+  slice_max(mean_radiance_all_years, n = 10) %>%
+  pull(GEOID)
+
+data %>%
+  filter(GEOID %in% top_bright_ids) %>%
+  ggplot(aes(year, mean_radiance, group = county_name, color = county_name)) +
+  geom_line() +
+  labs(
+    title = "Nighttime radiance trends in brightest counties",
+    x = "Year",
+    y = "Mean radiance"
+  ) +
+  theme(legend.position = "none")
+
+```
+Year-to-year variation is driven primarily by a small number of very bright counties, while most counties exhibit minimal temporal change.
+
+```{r}
+# Between-county variance (using long-term means)
+var_between <- county_mean_radiance %>%
+  summarise(var_between = var(mean_radiance_all_years)) %>%
+  pull(var_between)
+
+# Within-county variance (year-to-year)
+var_within <- data %>%
+  group_by(GEOID) %>%
+  summarise(var_within = var(mean_radiance, na.rm = TRUE)) %>%
+  summarise(mean_var_within = mean(var_within, na.rm = TRUE)) %>%
+  pull(mean_var_within)
+
+var_between
+var_within
+```
+Between-county variance >> within-county variance
+
+Variation in nighttime light is dominated by differences between counties rather than changes within counties over time, indicating that radiance primarily captures persistent spatial context rather than temporal dynamics.
+This justifies aggregating over years.
 
 
 
+```{r}
+#Radiance distribution within species’ observed counties
+
+data %>%
+  filter(n_obs > 0) %>%
+  ggplot(aes((mean_radiance))) +
+  geom_histogram(bins = 30, color = "white") +
+  facet_wrap(~ species_label) +
+  labs(
+    title = "Radiance distribution in counties with bat observations",
+    x = "Mean Radiance",
+    y = "Count"
+  )
+
+data %>%
+  filter(n_obs > 0) %>%
+  ggplot(aes(log1p(mean_radiance))) +
+  geom_histogram(bins = 30, color = "white") +
+  facet_wrap(~ species_label) +
+  labs(
+    title = "Log Radiance distribution in counties with bat observations",
+    x = "log(1 + mean radiance)",
+    y = "Count"
+  )
+```
+Across all 3 species, the most observations take place in the darker counties of less than 5 in mean radiance. Close to 0 in mean radiance, there are almost twice as many Aeorestes observed than Mytosis californicus and twice as many Aeroestes as Myotis yumanensis. Aeroestes also has a wider spread across different light intensities, with more observations found in counties above 20 radiance and even 30 radiance than both Myotis species combined.
+
+```{r}
+#Relationship between radiance and observation coverage
+#Are brighter counties more likely to have any bat observations?
+data %>%
+  mutate(
+    radiance_bin = cut(
+      mean_radiance,
+      breaks = c(0, 0.1, 1, 3, 10, Inf),
+      include.lowest = TRUE
+    )
+  ) %>%
+  group_by(radiance_bin) %>%
+  summarise(
+    share_nonzero = mean(n_obs > 0),
+    .groups = "drop"
+  ) %>%
+  ggplot(aes(radiance_bin, share_nonzero)) +
+  geom_col() +
+  labs(
+    title = "Share of county-years with bat observations by radiance level",
+    x = "Mean radiance bin",
+    y = "Proportion with ≥1 observation"
+  )
+```
+Brighter counties are much more likely to have at least one reported bat observation in a given year. Bright counties don't dominate counts but they do dominate coverage. Nighttime light is strongly associated with the probability of observation, but not necessarily with observation intensity. Light helps explain where bats are observed at all. Light does not explain how many bats are observed once present
+
+
+Summary: Exploratory analysis of VIIRS nighttime light data indicates that radiance is overwhelmingly dominated by spatial rather than temporal variation, with between-county differences far exceeding within-county year-to-year changes. Across all three focal species, most bat observations occur in counties with low mean radiance, indicating that high light intensity is not a prerequisite for reported bat activity. At the same time, the likelihood of observing bats at least once in a given county–year increases with nighttime radiance, suggesting that light primarily influences observation coverage rather than observation intensity. However, strong species-specific differences are evident: Aeorestes cinereus exhibits a much broader distribution across the radiance gradient, including frequent observations in highly illuminated counties, while Myotis species are largely confined to darker environments. Together, these patterns suggest that nighttime light captures long-term spatial context and interacts with species ecology and observation processes, motivating species-aware and spatially cautious interpretation in subsequent analyses.
+
+
+### Zero Structure vs Light
+
+```{r}
+#Create a zero indicator
+
+data <- data %>%
+  mutate(is_zero = (n_obs == 0))
+
+#Share of zero rows by radiance decile
+zero_by_decile <- data %>%
+  mutate(
+    radiance_decile = ntile(log1p_radiance, 10)
+  ) %>%
+  group_by(radiance_decile) %>%
+  summarise(
+    n_rows = n(),
+    share_zero = mean(is_zero),
+    share_nonzero = mean(!is_zero),
+    .groups = "drop"
+  )
+
+zero_by_decile
+
+ggplot(zero_by_decile, aes(x = radiance_decile, y = share_zero)) +
+  geom_line() +
+  geom_point() +
+  scale_y_continuous(labels = scales::percent) +
+  labs(
+    title = "Share of zero-observation rows by radiance decile",
+    subtitle = "Deciles computed from log1p_radiance across all county-years and species",
+    x = "Radiance decile (1 = lowest, 10 = highest)",
+    y = "Share of rows with n_obs = 0"
+  )
+
+
+#By species
+zero_by_decile_species <- data %>%
+  mutate(
+    radiance_decile = ntile(log1p_radiance, 10)
+  ) %>%
+  group_by(species_label, radiance_decile) %>%
+  summarise(
+    n_rows = n(),
+    share_zero = mean(is_zero),
+    .groups = "drop"
+  )
+
+zero_by_decile_species
+
+ggplot(zero_by_decile_species, aes(radiance_decile, share_zero, color = species_label)) +
+  geom_line() +
+  geom_point() +
+  scale_y_continuous(labels = scales::percent) +
+  labs(
+    title = "Share of zero-observation rows by radiance decile (by species)",
+    x = "Radiance decile (1 = lowest, 10 = highest)",
+    y = "Share of rows with n_obs = 0",
+    color = "Species"
+  )
+```
+Zeroes are more common at low radiance , although it is not a monotonically negative association. But even in the brightest counties, most rows are still zero. All 3 species show similar trends, with Aeorestes having the strongest reaction to increasing radiance. Light strongly reduces zeros for Aeorestes, but only weakly for Myotis species.
+
+```{r}
+#Share of zero rows by county radiance rank
+
+#Create county radiance ranks
+county_radiance_rank <- data %>%
+  group_by(GEOID, county_name) %>%
+  summarise(
+    county_mean_log_radiance = mean(log1p_radiance, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  mutate(
+    radiance_rank = percent_rank(county_mean_log_radiance),  # 0=darkest, 1=brightest
+    radiance_quintile = ntile(county_mean_log_radiance, 5)
+  )
+
+county_radiance_rank
+
+
+#Join ranks back + compute zero share by quintile
+zero_by_county_quintile <- data %>%
+  left_join(county_radiance_rank %>% select(GEOID, radiance_quintile),
+            by = "GEOID") %>%
+  group_by(radiance_quintile) %>%
+  summarise(
+    n_rows = n(),
+    share_zero = mean(is_zero),
+    .groups = "drop"
+  )
+
+zero_by_county_quintile
+
+ggplot(zero_by_county_quintile, aes(factor(radiance_quintile), share_zero)) +
+  geom_col() +
+  scale_y_continuous(labels = scales::percent) +
+  labs(
+    title = "Share of zero-observation rows by county radiance quintile",
+    subtitle = "Counties ranked by their long-term mean log radiance",
+    x = "County radiance quintile (1 = darkest, 5 = brightest)",
+    y = "Share of rows with n_obs = 0"
+  )
+
+
+zero_by_county_quintile_species <- data %>%
+  left_join(county_radiance_rank %>% select(GEOID, radiance_quintile),
+            by = "GEOID") %>%
+  group_by(species_label, radiance_quintile) %>%
+  summarise(
+    n_rows = n(),
+    share_zero = mean(is_zero),
+    .groups = "drop"
+  )
+
+#Same thing by species
+ggplot(zero_by_county_quintile_species, aes(factor(radiance_quintile), share_zero, fill = species_label)) +
+  geom_col(position = "dodge") +
+  scale_y_continuous(labels = scales::percent) +
+  labs(
+    title = "Share of zero-observation rows by county radiance quintile (by species)",
+    x = "County radiance quintile (1 = darkest, 5 = brightest)",
+    y = "Share of rows with n_obs = 0",
+    fill = "Species"
+  )
 
 
 
+```
+The darkest counties have about 96% zero rows while the brightest counties have 81% zero rows.
+Bright counties are much more likely to ever have observations, but they still produce many zero years/species combinations.
+
+Aeorestes has a dramatic drop in zeros in bright counties while Myotis has much weaker dependence on county brightness. Species differences dominate the zero process as much as, or more than, light itself.
 
 
 
+```{r}
+#Zero probability vs radiance curves
+
+data <- data %>%
+  mutate(
+    is_zero = if_else(n_obs == 0, 1, 0)) #Make is_zero a numeric variable
+
+#Overall curve
+ggplot(data, aes(log1p_radiance, is_zero)) +
+  geom_smooth(method = "glm", method.args = list(family = binomial), se = TRUE) +
+  labs(
+    title = "Estimated probability of zero observations vs radiance",
+    subtitle = "Binomial smoother: Pr(n_obs = 0) as a function of log1p_radiance",
+    x = "log(1 + mean radiance)",
+    y = "Pr(n_obs = 0)"
+  )
+
+#Species specific curves
+ggplot(data, aes(log1p_radiance, is_zero, color = species_label)) +
+  geom_smooth(method = "glm", method.args = list(family = binomial), se = FALSE) +
+  labs(
+    title = "Zero probability vs radiance (by species)",
+    subtitle = "Binomial smoother: Pr(n_obs = 0)",
+    x = "log(1 + mean radiance)",
+    y = "Pr(n_obs = 0)",
+    color = "Species"
+  )
+
+ggplot(data, aes(log1p_radiance, is_zero)) +
+  geom_smooth(method = "glm", method.args = list(family = binomial), se = TRUE) +
+  facet_wrap(~ species_label) +
+  labs(
+    title = "Zero probability vs radiance (faceted by species)",
+    x = "log(1 + mean radiance)",
+    y = "Pr(n_obs = 0)"
+  )
+```
+
+The pooled curve shows a smooth, monotonic decline that confirms a continuous relationship. Therefore a log transform is appropriate.
+
+The species-specific curves: Aeroestes has a steep, non-linear decline in zero probability. Myotis species are shallow nearly parallel curves with high zero probability.
+
+Conclusions:
+1) Zeros are more common in dark counties, less common in bright counties, and strongly species-dependent.
+2) Nighttime light affects presence, not intensity. Light reduces probability of a zero but does not guarantee high counts. Many bright counties still have zero observations.
+3) Aeroestes drives most of the light-zero relationship.
+4) Zero inflation is real and unavoidable.
+
+### Species Specific Behavior
 
 
+```{r}
+
+#Build county-species summary
+
+# County-species totals (sum over years)
+county_species_totals <- data %>%
+  group_by(GEOID, county_name, species_label) %>%
+  summarise(
+    total_obs = sum(n_obs, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+# County-species radiance (mean over years)
+county_species_radiance <- data %>%
+  group_by(GEOID, county_name, species_label) %>%
+  summarise(
+    mean_radiance = mean(mean_radiance, na.rm = TRUE),
+    log1p_radiance = mean(log1p_radiance, na.rm = TRUE),  # you already have this per row; averaging is fine
+    .groups = "drop"
+  )
+
+# Join into one dataset for plotting
+county_species_summary <- county_species_totals %>%
+  left_join(county_species_radiance, by = c("GEOID", "county_name", "species_label"))
+
+```
+```{r}
+#Raw radiance by species
+ggplot(county_species_summary, aes(mean_radiance, total_obs, color = species_label)) +
+  geom_point(alpha = 0.8) +
+  geom_smooth(method = "loess", se = FALSE) +
+  labs(
+    title = "Total bat observations vs county radiance (all species)",
+    subtitle = "Each point is a county × species; totals summed over years",
+    x = "Mean radiance (nW/cm²/sr)",
+    y = "Total observations (2012–2024)",
+    color = "Species"
+  )
+
+#Log radiance by species
+ggplot(county_species_summary, aes(log1p_radiance, total_obs, color = species_label)) +
+  geom_point(alpha = 0.8) +
+  geom_smooth(method = "loess", se = FALSE) +
+  labs(
+    title = "Total bat observations vs county radiance (log scale, all species)",
+    subtitle = "Each point is a county × species; totals summed over years",
+    x = "log(1 + mean radiance)",
+    y = "Total observations (2012–2024)",
+    color = "Species"
+  )
+```
+
+```{r}
+#Faceted plot by species
+
+#Raw radiance
+ggplot(county_species_summary, aes(mean_radiance, total_obs)) +
+  geom_point(alpha = 0.8) +
+  geom_smooth(method = "loess", se = FALSE) +
+  facet_wrap(~ species_label, scales = "free_y") +
+  labs(
+    title = "Total bat observations vs county radiance (by species)",
+    subtitle = "Each point is a county; totals summed over years",
+    x = "Mean radiance (nW/cm²/sr)",
+    y = "Total observations (2012–2024)"
+  )
+
+#LOG radiance
+ggplot(county_species_summary, aes(log1p_radiance, total_obs)) +
+  geom_point(alpha = 0.8) +
+  geom_smooth(method = "loess", se = FALSE) +
+  facet_wrap(~ species_label, scales = "free_y") +
+  labs(
+    title = "Total bat observations vs county radiance (log scale, by species)",
+    subtitle = "Each point is a county; radiance shown as log(1 + radiance)",
+    x = "log(1 + mean radiance)",
+    y = "Total observations (2012–2024)"
+  )
 
 
+```
+Conclusions:
+1) There is no single bat-light relationship.
+2) Log-radiance is the correct scale
+3) Aeorestes cinereus shows strong, monotonic increase in total observations with increasing radiance. Aeorestes is the only species with:
+*substantial totals in very bright counties
+*a rising loess curve at high radiance 
+Aeorestes is either:
+*more tolerant of human-modified, illuminated environments, and/or
+*more likely to be detected and reported in urban counties
+4) Myotis californicus shows a small peak at low-to-moderate radiance and then declining totals as radiance decreases. This species appears constrained to darker environments, suggesting habitat specialization, avoidance of highly illuminated landscape, or low detectability in urban contexts.
+5) Myotis yumanensis has very spatially concentrated observations (San Diego is extreme outlier) and is rare everywhere else regardless of light level. This reinforces sensitivity to spatial context, importance of super-counties, and the limits of light as a predictor.
+6) Observed pattern reflect a mix of ecology and detection bias.
+
+### County trajectories 9within-county change)
+
+```{r}
+#Small informative set of counties
+focus_counties <- c(
+  "San Diego",
+  "Los Angeles",
+  "Marin",
+  "Humboldt",
+  "Sutter"
+)
+
+focus_data <- data %>%
+  filter(county_name %in% focus_counties)
+
+#County-level radiance time series
+focus_data %>%
+  group_by(county_name, year) %>%
+  summarise(
+    mean_radiance = mean(mean_radiance, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  ggplot(aes(year, mean_radiance, color = county_name)) +
+  geom_line() +
+  geom_point() +
+  labs(
+    title = "County-level nighttime radiance over time",
+    x = "Year",
+    y = "Mean radiance (nW/cm²/sr)",
+    color = "County"
+  )
+
+#County-level observation time series
+focus_data %>%
+  group_by(county_name, species_label, year) %>%
+  summarise(
+    total_obs = sum(n_obs),
+    .groups = "drop"
+  ) %>%
+  ggplot(aes(year, total_obs, color = species_label)) +
+  geom_line() +
+  geom_point() +
+  facet_wrap(~ county_name, scales = "free_y") +
+  labs(
+    title = "Bat observations over time by county and species",
+    x = "Year",
+    y = "Total observations",
+    color = "Species"
+  )
 
 
+```
 
+```{r}
+#When radiance changes within a county, do observations change in the opposite direction?
+focus_data %>%
+  group_by(county_name, species_label) %>%
+  arrange(year) %>%
+  mutate(
+    delta_radiance = mean_radiance - lag(mean_radiance),
+    delta_obs = n_obs - lag(n_obs)
+  ) %>%
+  filter(!is.na(delta_radiance), !is.na(delta_obs)) %>%
+  ggplot(aes(delta_radiance, delta_obs)) +
+  geom_point(alpha = 0.7) +
+  geom_smooth(method = "lm", se = FALSE) +
+  facet_wrap(~ species_label) +
+  labs(
+    title = "Within-county year-to-year changes",
+    subtitle = "Δ observations vs Δ radiance",
+    x = "Change in mean radiance",
+    y = "Change in observations"
+  )
 
+```
+Nighttime light is essentially a fixed spatial characteristic at the county scale over this time period. Temporal variation in bat observations appears driven by sporadic events and reporting effort, not by gradual environmental change. There is little evidence of within-county temporal coupling between changes in nighttime light and changes in bat observations.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Summary: Examination of within-county trajectories shows that nighttime radiance is highly stable over time, with only minor year-to-year variation relative to persistent differences between counties. In contrast, bat observation counts within counties are highly variable and dominated by intermittent spikes rather than consistent trends. Analyses of year-to-year changes reveal no systematic relationship between changes in radiance and changes in bat observations, either contemporaneously or with a lag. These findings indicate that bat–light relationships in this dataset are primarily spatial rather than temporal in nature, supporting aggregation across years and motivating spatially structured or fixed-effects modeling approaches rather than longitudinal causal analysis.
 
