@@ -252,15 +252,202 @@ Summary: Bat observation data exhibit strong temporal heterogeneity rather than 
 
 
 ```{r}
+#Total observations by county (summed over years)
+
+county_totals <- data %>%
+  group_by(GEOID, county_name) %>%
+  summarise(
+    total_obs = sum(n_obs),
+    .groups = "drop"
+  ) %>%
+  arrange(desc(total_obs))
+
+county_totals
+
+
+ggplot(county_totals, aes(reorder(county_name, total_obs), total_obs)) +
+  geom_col() +
+  coord_flip() +
+  labs(
+    title = "Total bat observations by county (2012–2024)",
+    x = "County",
+    y = "Total observations"
+  )
+
+
+#Counties dominating total observaitons ("super-observer" counties)
+#Cumulative contribution
+county_totals %>%
+  mutate(
+    cumulative_obs = cumsum(total_obs),
+    cumulative_share = cumulative_obs / sum(total_obs)
+  )
+
+
+
 
 ```
 
+Bat observations are unevenly distributed across counties, with a small number of counties accounting for a disproportionate share of total observations. San Diego has the highest proportion of observations at ~27%. Only 4 counties account for 52% of bat observations: San Diego, Marin, Los Angeles, Humboldt. A small subset of counties contributes a majority of reported observations, indicating strong spatial concentration in reporting effort and/or bat activity. 
+
+
+```{r}
+#Counties with persistent zero counts
+
+county_zero_share <- data %>%
+  group_by(GEOID, county_name) %>%
+  summarise(
+    share_zero = mean(n_obs == 0),
+    total_obs  = sum(n_obs),
+    .groups = "drop"
+  ) %>%
+  arrange(desc(share_zero))
+
+county_zero_share
+
+county_zero_share %>%
+  filter(share_zero > 0.95)
+
+
+```
+
+18 counties have had 0 bat observations from 2013-2024. 27 counties have zero shares of ~97% or higher (only 1 total observation).
+Several counties exhibit near-complete absence of reported observations across the study period, suggesting persistent gaps in reporting or unsuitable habitat rather than intermittent non-detection.
 
 
 
+```{r}
+#Spatial heterogeneity by species
+#Do the same counties dominate across species?
+
+data %>%
+  group_by(county_name, species_label) %>%
+  summarise(
+    total_obs = sum(n_obs),
+    .groups = "drop"
+  ) %>%
+  arrange(species_label, desc(total_obs))
+
+
+ggplot(
+  data %>%
+    group_by(county_name, species_label) %>%
+    summarise(total_obs = sum(n_obs), .groups = "drop"),
+  aes(reorder(county_name, total_obs), total_obs)
+) +
+  geom_col() +
+  coord_flip() +
+  facet_wrap(~ species_label, scales = "free_y") +
+  labs(
+    title = "Total observations by county and species",
+    x = "County",
+    y = "Total observations"
+  )
+```
+Top counties
+Overall:
+1. San Diego	121		
+2. Marin	57		
+3. Los Angeles	40		
+4. Humboldt	22		
+5. San Francisco	20		
+6. Santa Clara	16		
+7. Sonoma 16
+
+Aeroestes cinereus:
+1. Los Angeles 29
+2. San Diego 28
+3. Marin 19
+4. San Francisco 17
+5. Humboldt 15
+6. Santa Clara 15
+
+Myotis cali
+1. Marin	24		
+2. San Diego	20
+3. Napa 8		
+4. Riverside	7		
+5. Sonoma 7	
+
+Myotis yuman
+1. San Diego	73		
+2. Marin	14		
+3. Los Angeles	6		
+4. Sonoma	6
+5. Sutter 6
+
+Top counties overall are San Diego (121), Marin (57), Los Angeles (40), Humboldt (22), San Francisco (20), Santa Clara (16), Sonoma (16)
+San Diego and Marin are top counties across all 3 species.
+A small set of coastal, urban, or research-adjacent counties account for a large fraction of all reported bat observations statewide. There is strog spatial concentration.
+*Aeorestes cinereus observations are spatially widespread but concentrated in large, highly urbanized or coastal counties, suggesting strong interactions between migratory behavior, human observation effort, and landscape context.
+*Myotis yumanensis is overwhelmingly driven by a single county (San Diego), whereas Myotis californicus shows moderate dominance by a small handful of counties.
+*Super-counties are not identical across species, indicating that spatial dominance reflects species-specific ecology and detectability rather than a single statewide reporting bias.
+Summary: These patterns indicate substantial county-level heterogeneity and species-specific spatial structure, motivating explicit consideration of county effects in subsequent analysis.
+
+```{r}
+#Distribution of counties by radiance level
+
+county_radiance <- data %>%
+  group_by(GEOID, county_name) %>%
+  summarise(
+    mean_radiance = mean(mean_radiance, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+ggplot(county_radiance, aes(mean_radiance)) +
+  geom_histogram(bins = 30, color = "white") +
+  labs(
+    title = "Distribution of mean nighttime radiance across counties",
+    x = "Mean radiance (nW/cm²/sr)",
+    y = "Number of counties"
+  )
+
+ggplot(county_radiance, aes(log1p(mean_radiance))) +
+  geom_histogram(bins = 30, color = "white") +
+  labs(
+    title = "Distribution of county radiance (log scale)",
+    x = "log(1 + mean radiance)",
+    y = "Number of counties"
+  )
+
+
+#Counties from highest to lowest radiance level
+county_mean_radiance <- data %>%
+  group_by(GEOID, county_name) %>%
+  summarise(
+    mean_radiance_all_years = mean(mean_radiance, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  arrange(desc(mean_radiance_all_years))
+
+county_mean_radiance
+```
+County-level mean nighttime radiance is extremely right-skewed. Roughly half of California counties exhibit near-zero mean radiance, while most remaining counties fall in a low radiance range (≈1–3). Only a small number of counties exhibit moderate to high radiance, with a very small extreme tail corresponding to highly urbanized regions.
 
 
 
+```{r}
+#Are high-radiance counties also high-observation counties?
+county_summary <- county_totals %>%
+  left_join(county_radiance, by = c("GEOID", "county_name"))
+
+ggplot(county_summary, aes(log1p(mean_radiance), total_obs)) +
+  geom_point() +
+  geom_smooth(method = "loess", se = FALSE) +
+  labs(
+    title = "Total bat observations vs county radiance",
+    x = "log(1 + mean radiance)",
+    y = "Total observations"
+  )
+
+
+
+```
+The relationship between county-level nighttime radiance and total bat observations is weak and nonlinear. At low radiance values, there is a slight positive association, although many counties in this range report zero observations. At higher radiance levels, the relationship flattens, with many highly illuminated counties reporting few or no observations. A small number of counties (e.g., San Diego, Marin, Los Angeles) lie far above the overall trend, indicating that a limited set of super-counties disproportionately drive the observed association. 
+
+Spatial exploratory analysis reveals strong heterogeneity in bat observations across California counties. A small number of counties contribute a disproportionate share of observations, while many exhibit persistent data sparsity. Nighttime radiance is also highly unevenly distributed, with most counties having very low light levels and a small subset of urban counties occupying the high-radiance extreme. The relationship between bat observations and light intensity is therefore strongly shaped by county-level factors, including observation effort and species-specific spatial patterns. These findings indicate that spatial heterogeneity must be carefully considered when interpreting bat–light associations.
+
+***Any observed association between bat observations and nighttime light is shaped by where observations occur, not just how bright those places are.
 
 
 
