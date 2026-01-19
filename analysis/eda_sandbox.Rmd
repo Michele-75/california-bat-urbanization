@@ -11,6 +11,10 @@ output: html_notebook
 library(tidyverse)
 library(janitor)
 library(ggplot2)
+library(sf)
+library(scales)   
+library(ggrepel)
+library(viridis)
 
 
 data <- readr::read_csv(
@@ -275,7 +279,7 @@ ggplot(county_totals, aes(reorder(county_name, total_obs), total_obs)) +
   )
 
 
-#Counties dominating total observaitons ("super-observer" counties)
+#Counties dominating total observations ("super-observer" counties)
 #Cumulative contribution
 county_totals %>%
   mutate(
@@ -287,6 +291,105 @@ county_totals %>%
 
 
 ```
+
+```{r}
+# ---- Map: total observations by county ----
+
+
+# Read CA counties geometry (from R/02_get_ca_counties.R)
+ca_counties_sf <- st_read(
+  here::here("data", "processed", "boundaries", "ca_counties.gpkg"),
+  quiet = TRUE
+)
+
+# Join totals to geometry
+county_map <- ca_counties_sf %>%
+  left_join(county_totals, by = "GEOID")
+
+# Identify top 7 counties
+top_n <- 7
+
+top_counties <- county_totals %>%
+  slice_max(total_obs, n = top_n, with_ties = FALSE)
+
+top_counties_sf <- county_map %>%
+  filter(GEOID %in% top_counties$GEOID) %>%
+  mutate(centroid = st_centroid(geom))
+
+# ---- Map ----
+ggplot(county_map) +
+  geom_sf(aes(fill = total_obs), color = "white", linewidth = 0.2) +
+  
+  geom_sf(
+    data = top_counties_sf,
+    fill = NA,
+    color = "red",
+    linewidth = 1.4
+  ) +
+  
+  scale_fill_viridis(
+    option = "magma",
+    name = "Total observations"
+  ) +
+  
+  labs(
+    title = "Total GBIF bat observations by county (raw scale)",
+    subtitle = "Most counties report very few or no observations; top 7 outlined in red"
+  ) +
+  
+  theme_minimal() +
+  theme(
+    panel.grid = element_blank(),
+    axis.text = element_blank(),
+    axis.ticks = element_blank()
+  )
+
+
+#Log-scaled choropleth map
+ggplot(county_map) +
+  geom_sf(aes(fill = total_obs), color = "white", linewidth = 0.2) +
+  
+  geom_sf(
+    data = top_counties_sf,
+    fill = NA,
+    color = "red",
+    linewidth = 1.4
+  ) +
+  
+  scale_fill_viridis(
+    option = "magma",
+    trans = "log1p",
+    name = "Total observations\n(log scale)"
+  ) +
+  
+  labs(
+    title = "Total GBIF bat observations by county (log-scaled)",
+    subtitle = "Log(1 + observations) reveals variation among low-count counties"
+  ) +
+  
+  theme_minimal() +
+  theme(
+    panel.grid = element_blank(),
+    axis.text = element_blank(),
+    axis.ticks = element_blank()
+  )
+
+
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
 
 Bat observations are unevenly distributed across counties, with a small number of counties accounting for a disproportionate share of total observations. San Diego has the highest proportion of observations at ~27%. Only 4 counties account for 52% of bat observations: San Diego, Marin, Los Angeles, Humboldt. A small subset of counties contributes a majority of reported observations, indicating strong spatial concentration in reporting effort and/or bat activity. 
 
@@ -423,6 +526,70 @@ county_mean_radiance <- data %>%
 county_mean_radiance
 ```
 County-level mean nighttime radiance is extremely right-skewed. Roughly half of California counties exhibit near-zero mean radiance, while most remaining counties fall in a low radiance range (≈1–3). Only a small number of counties exhibit moderate to high radiance, with a very small extreme tail corresponding to highly urbanized regions.
+
+
+```{r}
+# ---- Maps: county radiance ----
+
+# Join radiance onto county geometry
+radiance_map <- ca_counties_sf %>%
+  left_join(county_mean_radiance, by = "GEOID")
+
+# Highlight top N brightest counties
+top_n_bright <- 7
+
+top_bright <- county_mean_radiance %>%
+  slice_max(mean_radiance_all_years, n = top_n_bright, with_ties = FALSE)
+
+top_bright_sf <- radiance_map %>%
+  filter(GEOID %in% top_bright$GEOID)
+
+# --- Map 1: RAW mean radiance ---
+ggplot(radiance_map) +
+  geom_sf(aes(fill = mean_radiance_all_years), color = "white", linewidth = 0.2) +
+  geom_sf(data = top_bright_sf, fill = NA, color = "deepskyblue2", linewidth = 1.4) +
+  scale_fill_viridis(
+    option = "magma",
+    name = "Mean radiance\n(all years)"
+  ) +
+  labs(
+    title = "Mean nighttime radiance by California county (raw scale)",
+    subtitle = paste0("Top ", top_n_bright, " brightest counties outlined")
+  ) +
+  theme_minimal() +
+  theme(
+    panel.grid = element_blank(),
+    axis.text = element_blank(),
+    axis.ticks = element_blank()
+  )
+
+# --- Map 2: LOG-SCALED mean radiance ---
+ggplot(radiance_map) +
+  geom_sf(aes(fill = mean_radiance_all_years), color = "white", linewidth = 0.2) +
+  geom_sf(data = top_bright_sf, fill = NA, color = "deepskyblue2", linewidth = 1.4) +
+  scale_fill_viridis(
+    option = "magma",
+    trans = "log1p",
+    name = "Mean radiance\n(log1p scale)"
+  ) +
+  labs(
+    title = "Mean nighttime radiance by California county (log-scaled)",
+    subtitle = "Log(1 + radiance) reveals variation among low-radiance counties"
+  ) +
+  theme_minimal() +
+  theme(
+    panel.grid = element_blank(),
+    axis.text = element_blank(),
+    axis.ticks = element_blank()
+  )
+
+```
+
+
+
+
+
+
 
 
 
