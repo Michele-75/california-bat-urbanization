@@ -3,3 +3,118 @@ title: "eda-sandbox"
 output: html_notebook
 ---
 
+```{r}
+#Load Packages and Data
+
+library(tidyverse)
+library(janitor)
+library(ggplot2)
+
+
+data <- readr::read_csv(
+  here::here(
+    "data/processed/analysis/bats_viirs_county_year_species.csv"
+  ),
+  show_col_types = TRUE
+)
+```
+```{r}
+#Check out data
+
+glimpse(data)
+
+summary(dat$n_obs)
+
+```
+
+All the zeroes bring the means number of observations per species-year-county down to only 0.2. Max number of observations in any one row is 19.
+
+```{r}
+#Proportion of zeros overall
+
+data %>%
+  summarise(
+    share_zero = mean(n_obs == 0),
+    share_nonzero = mean(n_obs > 0)
+  )
+
+#Counts of each species
+
+data %>%
+  group_by(species_label) %>%
+  summarise(
+    total_obs = sum(n_obs),
+    .groups = "drop"
+  )
+
+#Zeros by species
+
+data %>%
+  group_by(species_label) %>%
+  summarise(
+    share_zero = mean(n_obs == 0),
+    mean_n_obs = mean(n_obs),
+    max_n_obs  = max(n_obs),
+    .groups = "drop"
+  ) %>%
+  arrange(desc(share_zero))
+```
+
+About 90% of all rows have 0 observations, indicating sparsity and zero inflation.
+Aeorestes (hoary bat) has about 85% share of 0 observations while Myotis has 93-94%. This could say something about the difference in ease of detecting those species.
+
+The majority of species–county–year combinations contain zero reported observations. This sparsity reflects the opportunistic nature of GBIF records, coarse spatial aggregation, and imperfect detection of nocturnal bats rather than true absence. As a result, observation counts are interpreted as relative reporting intensity rather than abundance.
+
+```{r}
+#Histogram of n_obs (raw scale)
+ggplot(dat, aes(n_obs)) +
+  geom_histogram(binwidth = 1, boundary = 0, color = "white") +
+  labs(
+    title = "Distribution of bat observation counts",
+    x = "Number of observations (n_obs)",
+    y = "Number of species–county–year rows"
+  )
+
+#Histogram on log scale (to see tail structure)
+ggplot(dat %>% filter(n_obs > 0), aes(n_obs)) +
+  geom_histogram(binwidth = 1, color = "white") +
+  scale_x_log10() +
+  labs(
+    title = "Distribution of nonzero bat observations (log scale)",
+    x = "n_obs (log scale)",
+    y = "Count"
+  )
+
+
+#Variance vs mean
+dat %>%
+  summarise(
+    mean_n_obs = mean(n_obs),
+    var_n_obs  = var(n_obs)
+  )
+
+
+```
+The distribution of nonzero observation counts is heavily right-skewed (small but influential tail!). Most species–county–year combinations with reported observations have only 1–3 records, while a small number exhibit substantially higher counts (up to ~30). This long-tailed structure indicates strong overdispersion and suggests that a small subset of counties and years account for a disproportionate share of reported bat activity.
+
+Also, mean observations are 0.20 and variance of observations is 0.89. Variance > mean so that is overdispersion.Te small tail dominates the variance
+
+
+```{r}
+#Response distribution by species (faceted)
+ggplot(dat, aes(n_obs)) +
+  geom_histogram(binwidth = 1, boundary = 0, color = "white") +
+  facet_wrap(~ species_label, scales = "free_y") +
+  labs(
+    title = "Distribution of observation counts by species",
+    x = "n_obs",
+    y = "Count"
+  )
+```
+
+Observation counts are highly overdispersed relative to a Poisson distribution (mean ≈ 0.2, variance ≈ 0.89). While most nonzero counts are small (1–3 observations), a small number of county–year–species combinations exhibit moderately large counts, producing a long right tail. This pattern is most pronounced for Aeorestes cinereus, which shows both fewer zeros and higher maximum counts than the Myotis species.
+
+The Poisson distribution is inappropriate for this dataset because observation counts are highly overdispersed relative to the mean, contain excess zeros, and reflect unmodeled heterogeneity in observation effort and habitat suitability across counties, years, and species.
+
+
+
