@@ -3,6 +3,8 @@ title: "eda-sandbox"
 output: html_notebook
 ---
 
+### Distribution of the Response (n_obs)
+
 ```{r}
 #Load Packages and Data
 
@@ -115,6 +117,185 @@ ggplot(dat, aes(n_obs)) +
 Observation counts are highly overdispersed relative to a Poisson distribution (mean ≈ 0.2, variance ≈ 0.89). While most nonzero counts are small (1–3 observations), a small number of county–year–species combinations exhibit moderately large counts, producing a long right tail. This pattern is most pronounced for Aeorestes cinereus, which shows both fewer zeros and higher maximum counts than the Myotis species.
 
 The Poisson distribution is inappropriate for this dataset because observation counts are highly overdispersed relative to the mean, contain excess zeros, and reflect unmodeled heterogeneity in observation effort and habitat suitability across counties, years, and species.
+
+
+### Temporal Structure
+
+```{r}
+#Total observations per year (overall)
+
+data %>%
+  group_by(year) %>%
+  summarise(
+    total_obs = sum(n_obs),
+    .groups = "drop"
+  ) %>%
+  ggplot(aes(year, total_obs)) +
+  geom_line() +
+  geom_point() +
+  labs(
+    title = "Total reported bat observations per year",
+    x = "Year",
+    y = "Total observations"
+  )
+
+#Observations per year by species
+
+dat %>%
+  group_by(year, species_label) %>%
+  summarise(
+    total_obs = sum(n_obs),
+    .groups = "drop"
+  ) %>%
+  ggplot(aes(year, total_obs, color = species_label)) +
+  geom_line() +
+  geom_point() +
+  labs(
+    title = "Total bat observations per year by species",
+    x = "Year",
+    y = "Total observations",
+    color = "Species"
+  )
+
+```
+I wonder what caused the peak in 2016?
+In the earlier years, Myotis observations outnumber Aeroestes but by 2020, Aeroestes observations are much higher.
+
+
+
+
+```{r}
+#Number of counties with ≥1 observation per year
+data %>%
+  group_by(year) %>%
+  summarise(
+    n_counties_with_obs = n_distinct(GEOID[n_obs > 0]),
+    .groups = "drop"
+  ) %>%
+  ggplot(aes(year, n_counties_with_obs)) +
+  geom_line() +
+  geom_point() +
+  labs(
+    title = "Number of counties with ≥1 bat observation per year",
+    x = "Year",
+    y = "Counties reporting bats"
+  )
+
+#Species-specific county coverage over time
+data %>%
+  group_by(year, species_label) %>%
+  summarise(
+    n_counties = n_distinct(GEOID[n_obs > 0]),
+    .groups = "drop"
+  ) %>%
+  ggplot(aes(year, n_counties, color = species_label)) +
+  geom_line() +
+  geom_point() +
+  labs(
+    title = "County coverage by species over time",
+    x = "Year",
+    y = "Counties with ≥1 observation",
+    color = "Species"
+  )
+```
+There  is a lot of fluctuation from year to year but overall appears to be a general trend towards spatial expansion of bat reporting.
+Aeroestes had an increase in how widely they're reported over time, while the Myotis species both decreased, meaning the overall spatial expansion of bat reporting was driven by Aeroestes
+
+
+```{r}
+#Zero share over time- are zeros becoming less common?
+
+data %>%
+  group_by(year) %>%
+  summarise(
+    share_zero = mean(n_obs == 0),
+    .groups = "drop"
+  ) %>%
+  ggplot(aes(year, share_zero)) +
+  geom_line() +
+  geom_point() +
+  scale_y_continuous(labels = scales::percent) +
+  labs(
+    title = "Share of zero-observation rows over time",
+    x = "Year",
+    y = "Percent zero"
+  )
+
+#Zero share by species over time
+
+data %>%
+  group_by(year, species_label) %>%
+  summarise(
+    share_zero = mean(n_obs == 0),
+    .groups = "drop"
+  ) %>%
+  ggplot(aes(year, share_zero, color = species_label)) +
+  geom_line() +
+  geom_point() +
+  scale_y_continuous(labels = scales::percent) +
+  labs(
+    title = "Zero-observation share over time by species",
+    x = "Year",
+    y = "Percent zero",
+    color = "Species"
+  )
+
+
+```
+Share of zeros over time has had a few percentage jumps but seems to have stabled around 90% in recent years.
+
+Summary: Bat observation data exhibit strong temporal heterogeneity rather than a simple trend. Total observations peak sharply in 2016, driven primarily by Myotis californicus, followed by a decline and lower-level fluctuations in subsequent years. In contrast, Aeorestes cinereus observations become increasingly dominant after 2017, accounting for a growing share of both total observations and spatial coverage. While total counts decline after 2016, the number of counties with at least one reported observation increases over time, indicating broader but shallower reporting in recent years. High proportions of zero-observation rows persist throughout the study period, particularly for Myotis species, highlighting structural sparsity and species-specific detection dynamics.
+
+
+
+### Spatial Structure
+
+
+```{r}
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
