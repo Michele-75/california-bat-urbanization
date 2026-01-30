@@ -1018,7 +1018,7 @@ Aeorestes is either:
 5) Myotis yumanensis has very spatially concentrated observations (San Diego is extreme outlier) and is rare everywhere else regardless of light level. This reinforces sensitivity to spatial context, importance of super-counties, and the limits of light as a predictor.
 6) Observed pattern reflect a mix of ecology and detection bias.
 
-### County trajectories 9within-county change)
+### County trajectories within-county change)
 
 ```{r}
 #Small informative set of counties
@@ -1097,3 +1097,106 @@ Nighttime light is essentially a fixed spatial characteristic at the county scal
 
 Summary: Examination of within-county trajectories shows that nighttime radiance is highly stable over time, with only minor year-to-year variation relative to persistent differences between counties. In contrast, bat observation counts within counties are highly variable and dominated by intermittent spikes rather than consistent trends. Analyses of year-to-year changes reveal no systematic relationship between changes in radiance and changes in bat observations, either contemporaneously or with a lag. These findings indicate that bat–light relationships in this dataset are primarily spatial rather than temporal in nature, supporting aggregation across years and motivating spatially structured or fixed-effects modeling approaches rather than longitudinal causal analysis.
 
+### Sensitivity Checks
+
+
+```{r}
+#Super-county robustness 
+
+# ----- A) Drop top N counties overall -----
+top_overall <- data %>%
+  group_by(county_name) %>%
+  summarise(total_obs = sum(n_obs), .groups = "drop") %>%
+  arrange(desc(total_obs)) %>%
+  slice_head(n = 5) %>%
+  pull(county_name)
+
+dat_drop_overall <- data %>% filter(!county_name %in% top_overall)
+
+# Replot log radiance vs. number of observations
+p_full <- data %>%
+  ggplot(aes(log1p_radiance, n_obs)) +
+  geom_point(alpha = 0.25) +
+  geom_smooth(method = "loess", se = FALSE) +
+  facet_wrap(~ species_label, scales = "free_y") +
+  labs(title = "Full data")
+
+p_drop <- dat_drop_overall %>%
+  ggplot(aes(log1p_radiance, n_obs)) +
+  geom_point(alpha = 0.25) +
+  geom_smooth(method = "loess", se = FALSE) +
+  facet_wrap(~ species_label, scales = "free_y") +
+  labs(title = "Drop top 5 counties overall")
+
+p_full
+p_drop
+
+# ----- B) Drop top counties within each species -----
+top_by_species <- data %>%
+  group_by(species_label, county_name) %>%
+  summarise(total_obs = sum(n_obs), .groups = "drop") %>%
+  arrange(species_label, desc(total_obs)) %>%
+  group_by(species_label) %>%
+  slice_head(n = 2) %>%   # try 1 or 2
+  ungroup()
+
+dat_drop_species <- data %>%
+  anti_join(top_by_species, by = c("species_label", "county_name"))
+
+dat_drop_species %>%
+  ggplot(aes(log1p_radiance, n_obs)) +
+  geom_point(alpha = 0.25) +
+  geom_smooth(method = "loess", se = FALSE) +
+  facet_wrap(~ species_label, scales = "free_y") +
+  labs(title = "Drop top 2 counties within each species")
+```
+Apparent positive associations between nighttime radiance and bat observation counts are largely driven by a small number of high-reporting counties. Once these counties are removed, intensity-based relationships collapse for most species. Aeorestes cinereus exhibits partial robustness to species-specific dominance, suggesting a broader spatial association with illuminated environments. In contrast, Myotis species show no consistent radiance–count relationship, reinforcing the conclusion that nighttime light primarily influences observation presence rather than observation intensity.
+
+```{r}
+#Year robustness- what happens if we drop 2016? (the spike year)
+
+yrs <- sort(unique(data$year))
+
+dat_no2016 <- data %>% filter(year != 2016)
+dat_mid <- data %>% filter(year %in% yrs[2:(length(yrs)-1)])
+
+# Re-run your year-by-species plot
+plot_year_species <- function(d, ttl){
+  d %>%
+    group_by(year, species_label) %>%
+    summarise(total_obs = sum(n_obs), .groups = "drop") %>%
+    ggplot(aes(year, total_obs, color = species_label)) +
+    geom_line() + geom_point() +
+    labs(title = ttl, x = "Year", y = "Total observations", color = "Species")
+}
+
+plot_year_species(data, "Total bat observations per year by species (full)")
+plot_year_species(dat_no2016, "Drop 2016")
+plot_year_species(dat_mid, "Drop first + last year")
+```
+
+```{r}
+#Presence vs count story check- Condition on ever-observed counties
+
+
+
+
+#Condition on ever-observed counties
+ever_obs <- data %>%
+  group_by(species_label, county_name) %>%
+  summarise(ever = any(n_obs > 0), .groups = "drop") %>%
+  filter(ever)
+
+dat_ever <- data %>% inner_join(ever_obs, by = c("species_label", "county_name"))
+
+# Re-run your zero-probability smoother (faceted)
+dat_ever %>%
+  mutate(is_zero = as.integer(n_obs == 0)) %>%
+  ggplot(aes(log1p_radiance, is_zero)) +
+  geom_smooth(method = "glm", method.args = list(family = binomial), se = TRUE) +
+  facet_wrap(~ species_label) +
+  labs(title = "Pr(zero) vs radiance, restricting to ever-observed counties",
+       x = "log(1 + mean radiance)", y = "Pr(n_obs = 0)")
+
+```
+Across all county–year–species combinations, the probability of zero observations declines with increasing nighttime radiance, indicating that brighter counties are more likely to report bat observations. However, conditioning on counties where each species has ever been observed substantially attenuates this relationship for both Myotis species, suggesting that light primarily influences observation coverage rather than within-county persistence. In contrast, Aeorestes cinereus retains a strong negative relationship between radiance and zero probability even after conditioning, indicating that brighter environments are associated with more consistent observations of this species across years. These results highlight pronounced species-specific differences in how nighttime light interacts with both detection processes and ecological presence.
