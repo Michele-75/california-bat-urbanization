@@ -1200,3 +1200,27 @@ dat_ever %>%
 
 ```
 Across all county–year–species combinations, the probability of zero observations declines with increasing nighttime radiance, indicating that brighter counties are more likely to report bat observations. However, conditioning on counties where each species has ever been observed substantially attenuates this relationship for both Myotis species, suggesting that light primarily influences observation coverage rather than within-county persistence. In contrast, Aeorestes cinereus retains a strong negative relationship between radiance and zero probability even after conditioning, indicating that brighter environments are associated with more consistent observations of this species across years. These results highlight pronounced species-specific differences in how nighttime light interacts with both detection processes and ecological presence.
+
+
+
+Final decision about modeling in next step:
+Initial exploratory analysis suggested overdispersed count data, motivating consideration of negative binomial models. However, subsequent diagnostics revealed that zero inflation is structured and that nighttime radiance primarily affects the probability of observing bats at all rather than observation intensity. We therefore first model presence using species-stratified logistic regression. Conditional count models are explored secondarily to assess whether radiance explains variation in observation intensity once presence is established.
+
+Primary model (core analysis):
+
+✅ Species-stratified logistic regression
+
+-Response: I(n_obs > 0)
+
+-Predictor: log1p_radiance
+
+-Interpretation: presence / coverage / persistence
+
+Secondary model (optional extension):
+
+⚠️ Negative binomial on n_obs | n_obs > 0
+
+-Likely only for Aeorestes
+
+-Framed cautiously
+
