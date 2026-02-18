@@ -256,12 +256,11 @@ Therefore, the next step is a species-stratified logistic regression modeling ba
 # Split data by species
 species_list <- split(dat, dat$species_label)
 
-# Fit one logistic regression per species
-fits <- map(
+# Fit one logistic regression per species: logit(P(presence))=β0+β1⋅log1p_radiance
   species_list,
-  ~ glm(is_present ~ log1p_radiance,
-        family = binomial,
-        data = .x)
+  ~ glm(is_present ~ log1p_radiance, #predictor: log(1 +mean nighttime radiance)
+        family = binomial, #logistic regression for a binary response
+        data = .x) #data for the current species
 )
 
 fits
@@ -273,17 +272,27 @@ fits
 coef_tbl <- map_dfr(
   names(fits),
   function(sp) {
-    broom::tidy(fits[[sp]], conf.int = TRUE, exponentiate = TRUE) %>%
-      filter(term == "log1p_radiance") %>%
+    broom::tidy(fits[[sp]], conf.int = TRUE, exponentiate = TRUE) %>% #Calculate the odds ratio as e^beta1
+      filter(term == "log1p_radiance") %>% # Keep only the radiance effect (slope) rather than the intercept
       mutate(species_label = sp)
   }
 )
 
 coef_tbl %>%
-  select(species_label, estimate, conf.low, conf.high, p.value)
+  select(species_label, estimate, conf.low, conf.high, p.value) #estimate represents the odds ratio: exp(beta1) for each model
+#A 1-unit increase in x multiplies the odds of presence by exp(beta1)
 
 ```
+For Aeorestes cinereus, a one-unit increase in log(1 + radiance) is associated with a 2.24-fold increase in the odds of observing the species (95% CI: 1.81–2.78, p < 0.001).
+This indicates a strong positive association between nighttime light intensity and the probability of reporting Aeorestes cinereus, consistent with exploratory analyses showing a steep decline in zero probability with increasing radiance.
 
+For Myotis californicus, a one-unit increase in log-transformed radiance is associated with a 1.39-fold increase in the odds of presence (95% CI: 1.03–1.84, p = 0.026).
+The association is positive but substantially weaker than for Aeorestes cinereus, suggesting that nighttime light plays a more limited role in structuring reporting patterns for this species.
+
+For Myotis yumanensis, each one-unit increase in log(1 + radiance) multiplies the odds of presence by 1.55 (95% CI: 1.15–2.07, p = 0.003).
+The effect is moderate and statistically distinguishable from zero, but smaller than that observed for Aeorestes, indicating species-specific differences in light-associated reporting.
+
+The magnitude of the radiance effect differs substantially across species. Aeorestes cinereus exhibits the strongest light-associated increase in presence probability, with odds increasing by more than a factor of two across the radiance gradient. In contrast, both Myotis species show more modest increases in odds, suggesting that the bat–light relationship is species-dependent rather than uniform.
 
 ```{r}
 #Create a prediction grid
@@ -294,20 +303,30 @@ pred_df <- map_dfr(
     # Radiance range for this species
     sp_dat <- dat %>% filter(species_label == sp)
 
+    # Create a sequence of predictor values (log1p_radiance) to predict over.
+    # Using the 2nd–98th percentiles avoids extreme tail values where data are sparse,
+    # which can make prediction ribbons blow up or look misleading.
     x_seq <- seq(
       quantile(sp_dat$log1p_radiance, 0.02),
       quantile(sp_dat$log1p_radiance, 0.98),
       length.out = 200
     )
 
-    # Predict on link scale
+    # Predict from the fitted logistic regression for this species.
+    # type = "link" returns predictions on the *linear predictor* scale (eta),
+    # i.e., the log-odds scale:
+    #   eta = beta0 + beta1 * log1p_radiance
     preds <- predict(
       fits[[sp]],
       newdata = tibble(log1p_radiance = x_seq),
       type = "link",
-      se.fit = TRUE
+      se.fit = TRUE #Returns the standard error of eta at each x value.
     )
 
+    # Return a tidy tibble for this species containing:
+    # - x values (log1p_radiance)
+    # - eta = predicted log-odds
+    # - se  = standard error of predicted log-odds
     tibble(
       species_label = sp,
       log1p_radiance = x_seq,
@@ -317,7 +336,14 @@ pred_df <- map_dfr(
   }
 ) %>%
   mutate(
+    
+    # Convert from log-odds (eta) to probability using the inverse-logit function:
+    #   prob = 1 / (1 + exp(-eta))
     prob = plogis(eta),
+    
+    # Build an approximate 95% confidence interval on the *link scale*:
+    #   eta ± 1.96 * se
+    # then convert those bounds to probabilities as well.
     prob_low = plogis(eta - 1.96 * se),
     prob_high = plogis(eta + 1.96 * se)
   )
@@ -325,12 +351,25 @@ pred_df <- map_dfr(
 ```
 
 ```{r}
-#Plot predictions
+#Plot predicted presence probability curves from the logistic regression models
 
 ggplot(pred_df, aes(log1p_radiance, prob)) +
+  
+  # Confidence ribbon:
+  # - ymin / ymax are the lower and upper 95% confidence bounds
+  # - alpha controls transparency
+  # - These bands reflect uncertainty in the estimated mean probability
   geom_ribbon(aes(ymin = prob_low, ymax = prob_high), alpha = 0.2) +
+  
+  # Fitted probability curve:
+  # - Shows the model-estimated relationship between radiance and presence
   geom_line(linewidth = 1) +
+  
+  # Separate panel per species for direct visual comparison
   facet_wrap(~ species_label) +
+  
+  # Constrain y-axis to [0, 1] since probabilities live in this range
+  # Format as percentages for interpretability
   scale_y_continuous(limits = c(0, 1), labels = scales::percent) +
   labs(
     title = "Predicted probability of bat presence vs nighttime radiance",
@@ -341,6 +380,8 @@ ggplot(pred_df, aes(log1p_radiance, prob)) +
   theme_minimal()
 
 ```
+Model-based predicted probabilities confirm a strong positive association between nighttime radiance and bat presence, with substantial differences across species. Aeorestes cinereus exhibits a steep increase in predicted presence probability across the radiance gradient, rising from approximately 10% in darker counties to nearly 50% in the brightest counties. In contrast, both Myotis species show more modest increases, with predicted presence remaining below 20% even in high-radiance counties. These results indicate that the bat–light relationship is species-specific and strongest for Aeorestes cinereus.
+
 
 ```{r}
 ggplot(coef_tbl, aes(x = estimate, y = species_label)) +
@@ -357,7 +398,7 @@ ggplot(coef_tbl, aes(x = estimate, y = species_label)) +
   theme_minimal()
 
 ```
-
+Estimated odds ratios confirm species-specific differences in radiance sensitivity. Aeorestes cinereus exhibits the strongest association, with odds of presence more than doubling per unit increase in log-transformed radiance, while both Myotis species show more modest increases.
 
 
 
