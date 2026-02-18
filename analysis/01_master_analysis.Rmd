@@ -27,6 +27,8 @@ library(janitor)
 library(scales)
 library(here)
 library(viridis)
+library(broom)
+library(purrr)
 ```
 ```{r}
 # Load analysis-ready dataset (county × year × species)
@@ -239,12 +241,125 @@ ggplot(dat_ever, aes(log1p_radiance, is_zero)) +
 Conditioning on counties where each species has ever been observed separates two mechanisms:
 (1) coverage (which counties ever report bats at all) vs
 (2) persistence (given coverage, whether bats are observed in a given year).
-After conditioning, the radiance–zero relationship weakens substantially for Myotis species, suggesting radiance primarily affects reporting coverage. In contrast, Aeorestes cinereus retains a strong decline in zero probability with radiance, indicating that light is associated with repeated observations even within counties where the species is known to occur.
+After conditioning, the radiance–zero relationship weakens substantially for Myotis species, suggesting radiance primarily affects reporting *coverage*. In contrast, Aeorestes cinereus retains a strong decline in zero probability with radiance, indicating that light is associated with repeated observations even within counties where the species is known to occur.
 
 ## 5) Modeling Plan
 The EDA and sensitivity analyses indicate that the dominant, most stable signal in this dataset is the probability of observing any bats at all, not the intensity of observations once present. Zeros are structured, spatially heterogeneous, and strongly species-dependent. Nighttime radiance is largely a stable spatial covariate and shows the clearest association with presence/absence, particularly for Aeorestes cinereus.
 
 Therefore, the next step is a species-stratified logistic regression modeling bat presence (n_obs > 0) as a function of log-transformed radiance (log1p_radiance), providing interpretable effect sizes and predicted presence probabilities by species.
+
+
+## 6) Species-stratified logistic regression.
+
+
+```{r}
+# Split data by species
+species_list <- split(dat, dat$species_label)
+
+# Fit one logistic regression per species
+fits <- map(
+  species_list,
+  ~ glm(is_present ~ log1p_radiance,
+        family = binomial,
+        data = .x)
+)
+
+fits
+
+
+```
+
+```{r}
+coef_tbl <- map_dfr(
+  names(fits),
+  function(sp) {
+    broom::tidy(fits[[sp]], conf.int = TRUE, exponentiate = TRUE) %>%
+      filter(term == "log1p_radiance") %>%
+      mutate(species_label = sp)
+  }
+)
+
+coef_tbl %>%
+  select(species_label, estimate, conf.low, conf.high, p.value)
+
+```
+
+
+```{r}
+#Create a prediction grid
+pred_df <- map_dfr(
+  names(fits),
+  function(sp) {
+
+    # Radiance range for this species
+    sp_dat <- dat %>% filter(species_label == sp)
+
+    x_seq <- seq(
+      quantile(sp_dat$log1p_radiance, 0.02),
+      quantile(sp_dat$log1p_radiance, 0.98),
+      length.out = 200
+    )
+
+    # Predict on link scale
+    preds <- predict(
+      fits[[sp]],
+      newdata = tibble(log1p_radiance = x_seq),
+      type = "link",
+      se.fit = TRUE
+    )
+
+    tibble(
+      species_label = sp,
+      log1p_radiance = x_seq,
+      eta = preds$fit,
+      se = preds$se.fit
+    )
+  }
+) %>%
+  mutate(
+    prob = plogis(eta),
+    prob_low = plogis(eta - 1.96 * se),
+    prob_high = plogis(eta + 1.96 * se)
+  )
+
+```
+
+```{r}
+#Plot predictions
+
+ggplot(pred_df, aes(log1p_radiance, prob)) +
+  geom_ribbon(aes(ymin = prob_low, ymax = prob_high), alpha = 0.2) +
+  geom_line(linewidth = 1) +
+  facet_wrap(~ species_label) +
+  scale_y_continuous(limits = c(0, 1), labels = scales::percent) +
+  labs(
+    title = "Predicted probability of bat presence vs nighttime radiance",
+    subtitle = "Species-stratified logistic regression (95% confidence bands)",
+    x = "log(1 + mean radiance)",
+    y = "Predicted Pr(n_obs > 0)"
+  ) +
+  theme_minimal()
+
+```
+
+```{r}
+ggplot(coef_tbl, aes(x = estimate, y = species_label)) +
+  geom_vline(xintercept = 1, linetype = "dashed") +
+  geom_point(size = 2) +
+  geom_errorbarh(aes(xmin = conf.low, xmax = conf.high), height = 0.2) +
+  scale_x_log10() +
+  labs(
+    title = "Radiance effect on bat presence by species",
+    subtitle = "Odds ratios for 1-unit increase in log(1 + radiance)",
+    x = "Odds ratio (log scale)",
+    y = NULL
+  ) +
+  theme_minimal()
+
+```
+
+
+
 
 
 ## Appendix: Additional exploratory analyses
