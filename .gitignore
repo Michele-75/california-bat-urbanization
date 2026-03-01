@@ -50,7 +50,9 @@ rsconnect/
 
 #Large data sets
 data/raw/viirs/
+data/raw/covariates/
 data/raw/**/.DS_Store
+
 
 # Ignore all HTML files
 *.html
