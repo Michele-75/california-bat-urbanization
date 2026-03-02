@@ -112,8 +112,15 @@ if (!file.exists(OUT_RAW_CSV)) {
   
   write_csv(raw_tbl, OUT_RAW_CSV)
   
+  # Robustly extract download key across rgbif return types
+  download_key <- if (is.list(dl) && "key" %in% names(dl)) {
+    dl$key
+  } else {
+    as.character(dl)
+  }
+  
   meta <- tibble(
-    download_key = dl$key %||% NA_character_,
+    download_key = download_key,
     created_utc  = format(Sys.time(), tz = "UTC"),
     n_records    = nrow(raw_tbl),
     year_min     = YEAR_MIN,

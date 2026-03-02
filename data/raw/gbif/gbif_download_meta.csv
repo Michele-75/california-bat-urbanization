@@ -1,0 +1,2 @@
+download_key,created_utc,n_records,year_min,year_max,focal_names,taxon_keys,filters
+0007464-260226173443078,2026-03-02 08:02:45,2008,2012,2024,Myotis yumanensis; Myotis californicus; Aeorestes cinereus; Lasiurus cinereus,2432461; 2432425; 11138256,hasCoordinate==TRUE; year bounded; taxonKey in focal list
