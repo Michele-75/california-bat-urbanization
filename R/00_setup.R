@@ -1,33 +1,52 @@
 # R/00_setup.R
+# Purpose:
+#   Central project configuration.
+#   Defines directory structure and reproducibility options.
+#   Safe to source at the top of every script.
 
+# ---- Core libraries ----
 library(tidyverse)
-library(here) #for directory creation
+library(here)
 
-set.seed(123) #for reproducibility
+# ---- Reproducibility ----
+set.seed(123)
+options(
+  scipen = 999,              # avoid scientific notation
+  dplyr.summarise.inform = FALSE
+)
 
-# central paths and directories
-DIR_RAW        <- here("data", "raw")
-DIR_PROCESSED  <- here("data", "processed")
+# ---- Base directories ----
+DIR_RAW       <- here("data", "raw")
+DIR_PROCESSED <- here("data", "processed")
 
-DIR_GBIF_RAW   <- here("data", "raw", "gbif")
-DIR_VIIRS_RAW  <- here("data", "raw", "viirs")
-DIR_BOUND_RAW  <- here("data", "raw", "boundaries")
-DIR_COV_RAW    <- here("data", "raw", "covariates") 
+# ---- Raw data directories ----
+DIR_GBIF_RAW  <- here("data", "raw", "gbif")
+DIR_VIIRS_RAW <- here("data", "raw", "viirs")
+DIR_BOUND_RAW <- here("data", "raw", "boundaries")
+DIR_COV_RAW   <- here("data", "raw", "covariates")
 
-DIR_BOUND_PROC <- here("data", "processed", "boundaries")
-DIR_GBIF_PROC  <- here("data", "processed", "gbif")
-DIR_VIIRS_PROC <- here("data", "processed", "viirs")
-DIR_COV_PROC   <- here("data", "processed", "covariates") 
+# ---- Processed data directories ----
+DIR_GBIF_PROC     <- here("data", "processed", "gbif")
+DIR_BOUND_PROC    <- here("data", "processed", "boundaries")
+DIR_GRID_PROC     <- here("data", "processed", "grid")
+DIR_ACCESS_PROC   <- here("data", "processed", "accessibility")
+DIR_COV_GRID_PROC <- here("data", "processed", "covariates_grid")
+DIR_ANALYSIS_PROC <- here("data", "processed", "analysis_grid")
 
-dir.create(DIR_RAW,        showWarnings = FALSE, recursive = TRUE)
-dir.create(DIR_PROCESSED,  showWarnings = FALSE, recursive = TRUE)
+# ---- Create directories (idempotent) ----
+dirs <- c(
+  DIR_RAW,
+  DIR_PROCESSED,
+  DIR_GBIF_RAW,
+  DIR_VIIRS_RAW,
+  DIR_BOUND_RAW,
+  DIR_COV_RAW,
+  DIR_GBIF_PROC,
+  DIR_BOUND_PROC,
+  DIR_GRID_PROC,
+  DIR_ACCESS_PROC,
+  DIR_COV_GRID_PROC,
+  DIR_ANALYSIS_PROC
+)
 
-dir.create(DIR_GBIF_RAW,   showWarnings = FALSE, recursive = TRUE)
-dir.create(DIR_VIIRS_RAW,  showWarnings = FALSE, recursive = TRUE)
-dir.create(DIR_BOUND_RAW,  showWarnings = FALSE, recursive = TRUE)
-dir.create(DIR_COV_RAW,    showWarnings = FALSE, recursive = TRUE)
-
-dir.create(DIR_BOUND_PROC, showWarnings = FALSE, recursive = TRUE)
-dir.create(DIR_GBIF_PROC,  showWarnings = FALSE, recursive = TRUE)
-dir.create(DIR_VIIRS_PROC, showWarnings = FALSE, recursive = TRUE)
-dir.create(DIR_COV_PROC,   showWarnings = FALSE, recursive = TRUE)
+walk(dirs, ~ dir.create(.x, showWarnings = FALSE, recursive = TRUE))
