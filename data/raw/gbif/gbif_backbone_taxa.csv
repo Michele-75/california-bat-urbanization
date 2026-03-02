@@ -1,0 +1,5 @@
+query_name,scientificName,canonicalName,speciesKey,usageKey,rank,status
+Myotis yumanensis,"Myotis yumanensis (H.Allen, 1864)",Myotis yumanensis,2432461,2432461,SPECIES,ACCEPTED
+Myotis californicus,"Myotis californicus (Audubon & Bachman, 1842)",Myotis californicus,2432425,2432425,SPECIES,ACCEPTED
+Aeorestes cinereus,"Aeorestes cinereus (Palisot de Beauvois, 1796)",Aeorestes cinereus,11138256,11138256,SPECIES,ACCEPTED
+Lasiurus cinereus,"Lasiurus cinereus (Palisot de Beauvois, 1796)",Lasiurus cinereus,11138256,5218544,SPECIES,SYNONYM
