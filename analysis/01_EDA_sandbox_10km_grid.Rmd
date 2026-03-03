@@ -248,3 +248,6 @@ M4: ... + pct_protected
 M5: species * (log1p_radiance + pct_developed + log1p_pop_density + pct_protected) (full interaction)
 
 If EDA suggests curvature: swap glm for mgcv::gam later.
+
+
+
