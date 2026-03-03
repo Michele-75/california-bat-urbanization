@@ -62,12 +62,21 @@ run_cv_model <- function(data, formula, k = 5) {
 
 ```{r}
 model_list <- list(
-  M0 = is_present ~ z_pop,
-  M1 = is_present ~ z_pop + z_radiance,
-  M2 = is_present ~ z_pop + z_dev,
-  M3 = is_present ~ z_pop + z_radiance + z_dev,
-  M4 = is_present ~ z_pop + z_radiance + z_dev + z_protected,
-  M5 = is_present ~ z_pop + z_protected   # NEW MODEL
+  
+  # ---- Single-predictor models ----
+  S1_pop        = is_present ~ z_pop,
+  S2_radiance   = is_present ~ z_radiance,
+  S3_dev        = is_present ~ z_dev,
+  S4_protected  = is_present ~ z_protected,
+  
+  # ---- Population + one additional predictor ----
+  M1_pop_rad    = is_present ~ z_pop + z_radiance,
+  M2_pop_dev    = is_present ~ z_pop + z_dev,
+  M3_pop_prot   = is_present ~ z_pop + z_protected,
+  
+  # ---- Full urban footprint combinations ----
+  M4_pop_rad_dev      = is_present ~ z_pop + z_radiance + z_dev,
+  M5_full_no_interact = is_present ~ z_pop + z_radiance + z_dev + z_protected
 )
 ```
 
@@ -101,7 +110,7 @@ species_results %>%
   arrange(species, desc(mean_auc))
 ```
 
-Conclusion: At 10 km resolution, light and development do not add substantial predictive value once population density is included.
+Variables Conclusion: At 10 km resolution, light, development, and protection do not add substantial predictive value once population density is included.
 
 Now: Do species differ in their response to the human-modified landscape gradient?
 
@@ -193,6 +202,89 @@ ggplot(pred_grid, aes(z_pop, pred_prob, color = species)) +
 ```
 
 ```{r}
+# Extract coefficients and variance-covariance matrix
+coefs <- coef(interaction_model)
+vcov_mat <- vcov(interaction_model)
 
+# Helper function to compute slope + SE for each species
+get_species_slope <- function(species_name) {
+  
+  if (species_name == "Aeorestes cinereus") {
+    slope <- coefs["z_pop"]
+    var   <- vcov_mat["z_pop", "z_pop"]
+  }
+  
+  if (species_name == "Myotis californicus") {
+    slope <- coefs["z_pop"] + coefs["speciesMyotis californicus:z_pop"]
+    var   <- vcov_mat["z_pop", "z_pop"] +
+             vcov_mat["speciesMyotis californicus:z_pop",
+                      "speciesMyotis californicus:z_pop"] +
+             2 * vcov_mat["z_pop",
+                          "speciesMyotis californicus:z_pop"]
+  }
+  
+  if (species_name == "Myotis yumanensis") {
+    slope <- coefs["z_pop"] + coefs["speciesMyotis yumanensis:z_pop"]
+    var   <- vcov_mat["z_pop", "z_pop"] +
+             vcov_mat["speciesMyotis yumanensis:z_pop",
+                      "speciesMyotis yumanensis:z_pop"] +
+             2 * vcov_mat["z_pop",
+                          "speciesMyotis yumanensis:z_pop"]
+  }
+  
+  se <- sqrt(var)
+  
+  tibble(
+    species = species_name,
+    log_odds_slope = slope,
+    se = se
+  )
+}
+
+# Build table
+species_list <- c("Aeorestes cinereus",
+                  "Myotis californicus",
+                  "Myotis yumanensis")
+
+results <- bind_rows(lapply(species_list, get_species_slope)) %>%
+  mutate(
+    odds_ratio = exp(log_odds_slope),
+    lower_ci = exp(log_odds_slope - 1.96 * se),
+    upper_ci = exp(log_odds_slope + 1.96 * se)
+  )
+
+results
+
+ggplot(results, aes(x = species, y = odds_ratio)) +
+  geom_point(size = 3) +
+  geom_errorbar(aes(ymin = lower_ci, ymax = upper_ci),
+                width = 0.2) +
+  geom_hline(yintercept = 1, linetype = "dashed") +
+  theme_minimal() +
+  labs(
+    title = "Effect of Urban Intensity on Bat Presence",
+    subtitle = "Odds ratio per 1 SD increase in population density",
+    x = "Species",
+    y = "Odds Ratio (95% CI)"
+  )
 ```
 
+Species Differences Key takeaway: Bat species differed in their response to the human-modified landscape gradient. While all three species showed positive associations with increasing urban intensity, Aeorestes cinereus and Myotis yumanensis exhibited substantially stronger increases in odds of presence per unit increase in population density than Myotis californicus, indicating greater urban association. Although Myotis yumanensis had a slightly larger multiplicative odds response, predicted probability curves appear highest for Aeorestes because it has a higher baseline probability of presence at average urban intensity. As a result, similar slopes in log-odds space translate into higher absolute probabilities for Aeorestes at the urban extreme. Together, these patterns suggest species-specific tolerance to human-modified landscapes and potential restructuring of bat community composition along urban gradients.
+***important caveat: Because GBIF data are opportunistic, population density may capture both ecological association and reporting effort; therefore, these differences should be interpreted as differences in observed association along a human-activity gradient rather than definitive causal effects.***
+
+Complete narrative outline:
+My question: What aspects of human-modified landscapes structure bat presence at fine spatial scales, and do species respond differently to increasing urban intensity?
+
+This study uses opportunistic biodiversity data aggregated to a 10 km equal-area grid and incorporates population density as an accessibility proxy to examine how human-modified landscapes structure bat presence patterns and whether species differ in their association with urban intensity.
+
+--Population density (urban intensity proxy) is a strong predictor of bat presence at 10 km resolution.
+
+--Artificial light and percent developed land do not add meaningful predictive value once population density is included. All 3 are very correlated and function well as urban intensity proxies.Percent protected less so.
+
+--At this spatial scale, light and development largely reflect a broader human-modified landscape gradient rather than independent effects.
+
+--All three species show positive associations with increasing urban intensity (used pop density).
+
+--Aeorestes cinereus and Myotis yumanensis respond more strongly to the urban gradient than Myotis californicus.
+
+--These results suggest species-specific differences in association with human-modified landscapes, though patterns reflect observed presence in opportunistic data rather than confirmed causal effects.
