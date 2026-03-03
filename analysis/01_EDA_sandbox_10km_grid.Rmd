@@ -1,0 +1,250 @@
+---
+title: "01_EDA_sandbox_10km_grid"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+
+# Read in the dataset
+df <- readr::read_csv(
+  here::here("data", "processed", "analysis_grid", "grid_model_dataset_10km.csv"),
+  show_col_types = FALSE
+)
+```
+
+```{r}
+#Summary table of response
+library(dplyr)
+
+eda_presence_vs_count <- df %>%
+  group_by(species) %>%
+  summarise(
+    n_rows = n(),                                # cell × species rows
+    n_cells = n_distinct(cell_id),
+    n_present = sum(is_present, na.rm = TRUE),    # occupied cell × species
+    share_present = mean(is_present, na.rm = TRUE),
+    n_zero_rows = sum(is_present == 0, na.rm = TRUE),
+    share_zero_rows = mean(is_present == 0, na.rm = TRUE),
+    total_obs = sum(n_obs, na.rm = TRUE),         # total GBIF records for species
+    mean_n_obs_all = mean(n_obs, na.rm = TRUE),   # includes zeros
+    mean_n_obs_given_present = mean(n_obs[is_present == 1], na.rm = TRUE),
+    max_n_obs = max(n_obs, na.rm = TRUE),
+    share_of_obs_in_top5_cells = {
+      x <- sort(n_obs[is_present == 1], decreasing = TRUE)
+      if (length(x) == 0) NA_real_ else sum(head(x, 5)) / sum(x)
+    },
+    .groups = "drop"
+  ) %>%
+  arrange(desc(share_present))
+
+eda_presence_vs_count
+```
+```{r}
+#Most rows are zeros
+library(ggplot2)
+library(tidyr)
+
+df %>%
+  mutate(present_label = if_else(is_present == 1, "Present (≥1 record)", "Absent (0 records)")) %>%
+  count(species, present_label) %>%
+  group_by(species) %>%
+  mutate(prop = n / sum(n)) %>%
+  ungroup() %>%
+  ggplot(aes(x = species, y = prop, fill = present_label)) +
+  geom_col() +
+  coord_flip() +
+  labs(
+    title = "Most cell × species combinations are absences (zero-heavy data)",
+    x = NULL,
+    y = "Proportion of rows",
+    fill = NULL
+  ) +
+  theme_minimal()
+```
+
+
+
+```{r}
+#Distributions of predictor variables
+
+vars <- c("log1p_radiance","log1p_pop_density","pct_developed","pct_protected")
+
+df %>%
+  select(all_of(vars)) %>%
+  pivot_longer(everything()) %>%
+  ggplot(aes(x = value)) +
+  geom_histogram(bins = 40) +
+  facet_wrap(~name, scales = "free") +
+  theme_minimal()
+
+df %>%
+  summarise(
+    share_radiance_zero = mean(log1p_radiance == 0, na.rm = TRUE),
+    share_pop_zero = mean(log1p_pop_density == 0, na.rm = TRUE),
+    share_dev_zero = mean(pct_developed == 0, na.rm = TRUE),
+    share_prot_zero = mean(pct_protected == 0, na.rm = TRUE)
+  )
+```
+```{r}
+#Check correlation of predictor variables
+#Collinearity: is “light” separable from “urbanization / accessibility”
+cov_df <- df %>% 
+  select(log1p_radiance, log1p_pop_density, pct_developed, pct_protected) %>%
+  drop_na()
+
+round(cor(cov_df), 3)
+```
+```{r}
+#Association of Bat Presence vs. Pred Variables
+
+#vs. Log Radiance
+df %>%
+  mutate(bin = ntile(log1p_radiance, 10)) %>%
+  group_by(species, bin) %>%
+  summarise(
+    x = mean(log1p_radiance, na.rm = TRUE),
+    p = mean(is_present, na.rm = TRUE),
+    n = n(),
+    .groups = "drop"
+  ) %>%
+  ggplot(aes(x, p, color = species)) +
+  geom_line() +
+  geom_point() +
+  theme_minimal() +
+  labs(
+    title = "Presence rate vs light (binned deciles)",
+    x = "Mean log(1 + radiance) within bin",
+    y = "Presence rate"
+  )
+
+
+
+#vs. Log Pop Density
+df %>%
+  mutate(bin = ntile(log1p_pop_density, 10)) %>%
+  group_by(species, bin) %>%
+  summarise(
+    x = mean(log1p_pop_density, na.rm = TRUE),
+    p = mean(is_present, na.rm = TRUE),
+    n = n(),
+    .groups = "drop"
+  ) %>%
+  ggplot(aes(x, p, color = species)) +
+  geom_line() +
+  geom_point() +
+  theme_minimal() +
+  labs(
+    title = "Presence rate vs population density (binned deciles)",
+    x = "Mean log(1 + population density) within bin",
+    y = "Presence rate"
+  )
+
+# vs. Percent Developed
+df %>%
+  mutate(bin = ntile(pct_developed, 10)) %>%
+  group_by(species, bin) %>%
+  summarise(
+    x = mean(pct_developed, na.rm = TRUE),
+    p = mean(is_present, na.rm = TRUE),
+    n = n(),
+    .groups = "drop"
+  ) %>%
+  ggplot(aes(x, p, color = species)) +
+  geom_line() +
+  geom_point() +
+  theme_minimal() +
+  labs(
+    title = "Presence rate vs developed land (binned deciles)",
+    x = "Mean percent developed within bin",
+    y = "Presence rate"
+  )
+
+# vs. Percent Protected
+df %>%
+  mutate(bin = ntile(pct_protected, 10)) %>%
+  group_by(species, bin) %>%
+  summarise(
+    x = mean(pct_protected, na.rm = TRUE),
+    p = mean(is_present, na.rm = TRUE),
+    n = n(),
+    .groups = "drop"
+  ) %>%
+  ggplot(aes(x, p, color = species)) +
+  geom_line() +
+  geom_point() +
+  theme_minimal() +
+  labs(
+    title = "Presence rate vs protected land (binned deciles)",
+    x = "Mean percent protected within bin",
+    y = "Presence rate"
+  )
+```
+
+```{r}
+df %>%
+  mutate(
+    pop_bin = ntile(log1p_pop_density, 10),
+    light_bin = ntile(log1p_radiance, 10)
+  ) %>%
+  group_by(species, pop_bin, light_bin) %>%
+  summarise(
+    p = mean(is_present, na.rm = TRUE),
+    n = n(),
+    .groups = "drop"
+  ) %>%
+  ggplot(aes(pop_bin, light_bin, fill = p)) +
+  geom_tile() +
+  facet_wrap(~species) +
+  theme_minimal() +
+  labs(
+    title = "Presence rate across accessibility (pop) and light gradients",
+    x = "Pop density decile",
+    y = "Radiance decile",
+    fill = "Presence rate"
+  )
+```
+```{r}
+df %>%
+  mutate(pop_q = ntile(log1p_pop_density, 4),
+         prot_bin = ntile(pct_protected, 10)) %>%
+  group_by(species, pop_q, prot_bin) %>%
+  summarise(
+    x = mean(pct_protected, na.rm = TRUE),
+    p = mean(is_present, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  ggplot(aes(x, p)) +
+  geom_line() +
+  geom_point() +
+  facet_grid(species ~ pop_q) +
+  theme_minimal() +
+  labs(
+    title = "Presence vs protected land, stratified by pop density quartile",
+    x = "Mean pct protected",
+    y = "Presence rate"
+  )
+```
+Based on EDA, pick:
+
+Core predictors: usually log1p_pop_density, pct_developed, log1p_radiance
+
+Secondary: pct_protected
+
+Decide: interactions by species? nonlinear?
+
+A clean candidate set:
+
+M0: is_present ~ species (baseline)
+
+M1: is_present ~ species + log1p_pop_density
+
+M2: ... + pct_developed
+
+M3: ... + log1p_radiance
+
+M4: ... + pct_protected
+
+M5: species * (log1p_radiance + pct_developed + log1p_pop_density + pct_protected) (full interaction)
+
+If EDA suggests curvature: swap glm for mgcv::gam later.
