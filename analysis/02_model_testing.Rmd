@@ -1,0 +1,198 @@
+---
+title: "02_model_testing"
+output: html_notebook
+---
+
+#Exploring how different aspects of human footprint 
+
+```{r}
+library(dplyr)
+library(purrr)
+library(rsample)
+library(pROC)
+library(broom)
+
+# Read in the dataset
+df <- readr::read_csv(
+  here::here("data", "processed", "analysis_grid", "grid_model_dataset_10km.csv"),
+  show_col_types = FALSE
+)
+
+# Standardize predictors (z-score)
+df_model <- df %>%
+  mutate(
+    z_radiance   = scale(log1p_radiance)[,1],
+    z_pop        = scale(log1p_pop_density)[,1],
+    z_dev        = scale(pct_developed)[,1],
+    z_protected  = scale(pct_protected)[,1]
+  )
+```
+
+```{r}
+run_cv_model <- function(data, formula, k = 5) {
+  
+  folds <- vfold_cv(data, v = k, strata = is_present)
+  
+  results <- map_df(folds$splits, function(split) {
+    
+    train <- analysis(split)
+    test  <- assessment(split)
+    
+    model <- glm(formula,
+                 data = train,
+                 family = binomial())
+    
+    # Predict probabilities
+    probs <- predict(model, newdata = test, type = "response")
+    
+    # Compute AUC
+    auc_val <- pROC::auc(test$is_present, probs)
+    
+    tibble(auc = as.numeric(auc_val))
+  })
+  
+  tibble(
+    mean_auc = mean(results$auc),
+    sd_auc   = sd(results$auc)
+  )
+}
+```
+
+
+
+```{r}
+model_list <- list(
+  M0 = is_present ~ z_pop,
+  M1 = is_present ~ z_pop + z_radiance,
+  M2 = is_present ~ z_pop + z_dev,
+  M3 = is_present ~ z_pop + z_radiance + z_dev,
+  M4 = is_present ~ z_pop + z_radiance + z_dev + z_protected,
+  M5 = is_present ~ z_pop + z_protected   # NEW MODEL
+)
+```
+
+
+
+```{r}
+suppressMessages(species_results <- df_model %>%
+  group_split(species) %>%
+  map_df(function(sp_data) {
+    
+    sp_name <- unique(sp_data$species)
+    
+    map_df(names(model_list), function(mname) {
+      
+      cv_res <- run_cv_model(sp_data, model_list[[mname]])
+      
+      tibble(
+        species = sp_name,
+        model   = mname,
+        mean_auc = cv_res$mean_auc,
+        sd_auc   = cv_res$sd_auc
+      )
+    })
+  }))
+```
+
+
+
+```{r}
+species_results %>%
+  arrange(species, desc(mean_auc))
+```
+
+Conclusion: At 10 km resolution, light and development do not add substantial predictive value once population density is included.
+
+Now: Do species differ in their response to the human-modified landscape gradient?
+
+```{r}
+#Does the relationship between presence probability and population density differ among species?
+
+
+# Make species a factor
+df_model <- df_model %>%
+  mutate(species = factor(species))
+
+# Fit interaction model
+interaction_model <- glm(
+  is_present ~ species * z_pop,
+  data = df_model,
+  family = binomial()
+)
+
+summary(interaction_model)
+
+```
+
+```{r}
+# Tidy model output
+coefs <- tidy(interaction_model)
+
+# Extract coefficients manually for clarity
+b0  <- coefs$estimate[coefs$term == "(Intercept)"]
+b_sp_cal <- coefs$estimate[coefs$term == "speciesMyotis californicus"]
+b_sp_yum <- coefs$estimate[coefs$term == "speciesMyotis yumanensis"]
+
+b_pop <- coefs$estimate[coefs$term == "z_pop"]
+b_int_cal <- coefs$estimate[coefs$term == "speciesMyotis californicus:z_pop"]
+b_int_yum <- coefs$estimate[coefs$term == "speciesMyotis yumanensis:z_pop"]
+
+# Build clean summary table
+summary_table <- tibble(
+  species = c("Aeorestes cinereus",
+              "Myotis californicus",
+              "Myotis yumanensis"),
+  
+  intercept_logodds = c(
+    b0,
+    b0 + b_sp_cal,
+    b0 + b_sp_yum
+  ),
+  
+  slope_logodds = c(
+    b_pop,
+    b_pop + b_int_cal,
+    b_pop + b_int_yum
+  )
+) %>%
+  mutate(
+    odds_ratio_per_1SD = exp(slope_logodds),
+    baseline_probability = plogis(intercept_logodds)
+  )
+
+summary_table
+```
+
+
+
+```{r}
+library(ggplot2)
+
+# Create prediction grid
+pred_grid <- expand.grid(
+  z_pop = seq(min(df_model$z_pop),
+              max(df_model$z_pop),
+              length.out = 100),
+  species = levels(df_model$species)
+)
+
+pred_grid$pred_prob <- predict(
+  interaction_model,
+  newdata = pred_grid,
+  type = "response"
+)
+
+ggplot(pred_grid, aes(z_pop, pred_prob, color = species)) +
+  geom_line(size = 1.2) +
+  theme_minimal() +
+  labs(
+    title = "Predicted presence probability vs human-modification gradient",
+    x = "Standardized population density (urban gradient)",
+    y = "Predicted probability of presence"
+  )
+```
+
+```{r}
+
+```
+
