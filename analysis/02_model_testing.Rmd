@@ -11,6 +11,8 @@ library(purrr)
 library(rsample)
 library(pROC)
 library(broom)
+library(tidyr)
+library(stringr)
 
 # Read in the dataset
 df <- readr::read_csv(
@@ -103,11 +105,36 @@ suppressMessages(species_results <- df_model %>%
   }))
 ```
 
-
-
 ```{r}
+
+#Species result by highest to lowest AUC
 species_results %>%
   arrange(species, desc(mean_auc))
+
+#Species result- does adding additional factors improve performance after accounting for pop density?
+species_results %>%
+  filter(model %in% c(
+    "S1_pop",
+    "M1_pop_rad",
+    "M2_pop_dev",
+    "M4_pop_rad_dev"
+  )) %>%
+  mutate(
+    model = factor(
+      model,
+      levels = c(
+        "S1_pop",
+        "M1_pop_rad",
+        "M2_pop_dev",
+        "M4_pop_rad_dev"
+      )
+    )
+  ) %>%
+  arrange(species, model)
+
+
+#AUC is the probability that a randomly chosen presence cell receives higher predicted probability than a randomly chosen absence cell
+#Model predicts Myotis yumanensis slightly better than the other species
 ```
 
 Variables Conclusion: At 10 km resolution, light, development, and protection do not add substantial predictive value once population density is included.
@@ -115,27 +142,65 @@ Variables Conclusion: At 10 km resolution, light, development, and protection do
 Now: Do species differ in their response to the human-modified landscape gradient?
 
 ```{r}
+#Does including species improve prediction beyond population density alone?
+#is_present ~ z_pop
+
+model_pop <- glm(
+  is_present ~ z_pop,
+  data = df_model,
+  family = binomial()
+)
+summary(m_pop)
+
+#Add species:
+#is_present ~ z_pop + species
+#pop density has same effect for all species
+
+model_pop_species <- glm(
+  is_present ~ z_pop + species,
+  data = df_model,
+  family = binomial()
+)
+summary(m_species)
+
+
 #Does the relationship between presence probability and population density differ among species?
-
-
 # Make species a factor
+#is_present∼species + z_pop + species∗z_pop
+#species can have different slopes
+
 df_model <- df_model %>%
   mutate(species = factor(species))
 
 # Fit interaction model
-interaction_model <- glm(
+model_interaction <- glm(
   is_present ~ species * z_pop,
   data = df_model,
   family = binomial()
 )
 
-summary(interaction_model)
+summary(model_interaction)
 
+
+#Model fit comparison
+# Create comparison table
+model_comparison <- tibble(
+  Model = c("Pop only",
+            "Pop + species",
+            "Species × pop"),
+  AIC = c(
+    AIC(model_pop),
+    AIC(model_pop_species),
+    AIC(model_interaction)
+  )
+)
+
+model_comparison
 ```
 
 ```{r}
 # Tidy model output
-coefs <- tidy(interaction_model)
+coefs <- tidy(model_interaction)
 
 # Extract coefficients manually for clarity
 b0  <- coefs$estimate[coefs$term == "(Intercept)"]
@@ -175,6 +240,7 @@ summary_table
 
 
 ```{r}
+#Plot predicted presence probability vs population density (standardized)
 library(ggplot2)
 
 # Create prediction grid
@@ -186,7 +252,7 @@ pred_grid <- expand.grid(
 )
 
 pred_grid$pred_prob <- predict(
-  interaction_model,
+  model_interaction,
   newdata = pred_grid,
   type = "response"
 )
@@ -197,6 +263,44 @@ ggplot(pred_grid, aes(z_pop, pred_prob, color = species)) +
   labs(
     title = "Predicted presence probability vs human-modification gradient",
     x = "Standardized population density (urban gradient)",
+    y = "Predicted probability of presence"
+  )
+
+
+
+#Plot with intuitive x values
+# Save the mean and sd used in standardization
+mu  <- mean(df_model$log1p_pop_density)
+sig <- sd(df_model$log1p_pop_density)
+
+# Create prediction grid
+pred_grid <- expand.grid(
+  z_pop = seq(min(df_model$z_pop),
+              max(df_model$z_pop),
+              length.out = 100),
+  species = levels(df_model$species)
+)
+
+pred_grid$pred_prob <- predict(
+  model_interaction,
+  newdata = pred_grid,
+  type = "response"
+)
+
+# Function to convert z_pop back to population density
+z_to_pop <- function(z){
+  exp((z * sig) + mu) - 1
+}
+
+ggplot(pred_grid, aes(z_pop, pred_prob, color = species)) +
+  geom_line(size = 1.2) +
+  scale_x_continuous(
+    name = "Population density (people per km², log scaled)",
+    labels = function(x) round(z_to_pop(x), 0)
+  ) +
+  theme_minimal() +
+  labs(
+    title = "Predicted presence probability vs human-modified landscape gradient",
     y = "Predicted probability of presence"
   )
 ```
