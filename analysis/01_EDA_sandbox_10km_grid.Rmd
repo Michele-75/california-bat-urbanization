@@ -101,7 +101,6 @@ library(sf)
 library(dplyr)
 library(ggplot2)
 library(scales)
-library(viridis)
 
 # ---- Paths ----
 grid_gpkg <- here::here("data", "processed", "grid", "ca_grid10km_accessible.gpkg")
@@ -230,6 +229,140 @@ p_dev <- ggplot() +
   ca_outline +
   bat_points +
   scale_color_manual(values = species_colors) +
+  coord_sf(datum = NA) +
+  labs(
+    title = "Bat observations over developed land cover",
+    subtitle = "NLCD developed classes aggregated to 10 km grid"
+  ) +
+  base_theme
+
+# ---- Display maps ----
+p_pop
+p_light
+p_dev
+```
+```{r}
+# Bat observations on map
+library(sf)
+library(dplyr)
+library(ggplot2)
+library(scales)
+library(viridis)
+
+# ---- Paths ----
+grid_gpkg <- here::here("data", "processed", "grid", "ca_grid10km_accessible.gpkg")
+pts_gpkg  <- here::here("data", "processed", "gbif", "gbif_bats_points_clean_CA_2012_2024.gpkg")
+ca_gpkg   <- here::here("data", "processed", "boundaries", "ca_boundary.gpkg")
+
+# ---- Read layers ----
+grid <- st_read(grid_gpkg, quiet = TRUE)
+pts  <- st_read(pts_gpkg, quiet = TRUE)
+ca   <- st_read(ca_gpkg, layer = "ca_boundary", quiet = TRUE)
+
+# ---- Join covariates from df ----
+grid_map <- grid %>%
+  mutate(cell_id = as.character(cell_id)) %>%
+  left_join(
+    df %>%
+      mutate(cell_id = as.character(cell_id)) %>%
+      distinct(cell_id, log1p_pop_density, log1p_radiance, pct_developed),
+    by = "cell_id"
+  )
+
+# ---- Align CRS ----
+pts <- st_transform(pts, st_crs(grid_map))
+ca  <- st_transform(ca, st_crs(grid_map))
+
+# ---- Map layers ----
+bat_points <- geom_sf(
+  data = pts,
+  color = "#2CBEC9",
+  fill = NA,
+  size = 1.7,
+  alpha = 1
+)
+
+ca_outline <- geom_sf(
+  data = ca,
+  fill = NA,
+  color = "black",
+  linewidth = 0.7
+)
+
+base_theme <- theme_minimal(base_family = "Arial") +
+  theme(
+    plot.title = element_text(size = 18, face = "bold"),
+    plot.subtitle = element_text(size = 15, face = "italic"),
+    axis.title = element_blank(),
+    panel.grid.major = element_line(linewidth = 0.2),
+    legend.position = c(1,0.75),
+    legend.title = element_text(size = 12),
+    legend.text = element_text(size = 12),
+    legend.key.height = unit(0.8, "cm")
+  )
+
+# ====================================================
+# Population Density Map
+# ====================================================
+p_pop <- ggplot() +
+  geom_sf(
+    data = grid_map,
+    aes(fill = log1p_pop_density),
+    color = NA
+  ) +
+  scale_fill_viridis_c(
+    option="cividis",
+    name = "Population density\n(people/km², log-scaled)",
+    breaks = c(0, 2, 4, 6, 8),
+    labels = c("0", "10", "50", "400", "3,000")
+  ) +
+  ca_outline +
+  bat_points +
+  coord_sf(datum = NA) +
+  labs(
+    title = "Bat observations cluster near urban areas",
+    subtitle = "Accessible 10 km grid"
+  ) +
+  base_theme
+
+# ====================================================
+# Light Radiance Map
+# ====================================================
+p_light <- ggplot() +
+  geom_sf(
+    data = grid_map,
+    aes(fill = log1p_radiance),
+    color = NA
+  ) +
+  scale_fill_viridis_c(
+    option="cividis",
+    name = "log(1 + radiance)"
+  ) +
+  ca_outline +
+  bat_points +
+  coord_sf(datum = NA) +
+  labs(
+    title = "Bat observations over nighttime light intensity",
+    subtitle = "VIIRS radiance aggregated to 10 km grid"
+  ) +
+  base_theme
+
+# ====================================================
+# Developed Land Map
+# ====================================================
+p_dev <- ggplot() +
+  geom_sf(
+    data = grid_map,
+    aes(fill = pct_developed),
+    color = NA
+  ) +
+  scale_fill_viridis_c(
+    option="cividis",
+    name = "% developed",
+    labels = percent_format(accuracy = 1)
+  ) +
+  ca_outline +
+  bat_points +
   coord_sf(datum = NA) +
   labs(
     title = "Bat observations over developed land cover",
