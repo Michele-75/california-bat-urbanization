@@ -13,6 +13,10 @@ library(pROC)
 library(broom)
 library(tidyr)
 library(stringr)
+library(tidyverse)
+library(tidymodels)
+library(ggplot2)
+library(here)
 
 # Read in the dataset
 df <- readr::read_csv(
@@ -30,7 +34,10 @@ df_model <- df %>%
   )
 ```
 
+`
+
 ```{r}
+#Models faceted  by species
 run_cv_model <- function(data, formula, k = 5) {
   
   folds <- vfold_cv(data, v = k, strata = is_present)
@@ -139,7 +146,87 @@ species_results %>%
 
 Variables Conclusion: At 10 km resolution, light, development, and protection do not add substantial predictive value once population density is included.
 
+```{r}
+# --------------------------------------------------
+# Aeorestes-only model comparison plot
+# --------------------------------------------------
+aeorestes_results <- species_results %>%
+  filter(
+    species == "Aeorestes cinereus",
+    model %in% c("S1_pop", "M1_pop_rad", "M2_pop_dev", "M4_pop_rad_dev")
+  ) %>%
+  mutate(
+    model = recode(
+      model,
+      "S1_pop" = "Population density only",
+      "M1_pop_rad" = "Population density + radiance",
+      "M2_pop_dev" = "Population density + developed land",
+      "M4_pop_rad_dev" = "Full model"
+    ),
+    model = factor(
+      model,
+      levels = c(
+        "Full model",
+        "Population density + developed land",
+        "Population density + radiance",
+        "Population density only"
+      )
+    ),
+    highlight = model == "Population density only"
+  ) %>%
+  arrange(model)
+
+p_auc_aeorestes <- ggplot(aeorestes_results, aes(x = mean_auc, y = model, fill = highlight)) +
+  geom_col(width = 0.7) +
+  geom_text(
+    aes(label = sprintf("%.3f", mean_auc)),
+    hjust = -0.15,
+    size = 3.8
+  ) +
+  scale_fill_manual(
+    values = c("TRUE" = "#E63946", "FALSE" = "gray45"),
+    guide = "none"
+  ) +
+  coord_cartesian(xlim = c(0.5, 1.02)) +
+  labs(
+    title = "Adding urban predictors provides little \nmodel improvement beyond population density",
+    subtitle = "5-fold cross-validated AUC for Aeorestes cinereus",
+    x = "Mean AUC",
+    y = NULL
+  ) +
+  theme_minimal(base_family = "Arial") +
+  theme(
+    plot.title = element_text(size = 16, face = "bold"),
+    plot.subtitle = element_text(size = 11, face = "italic"),
+    axis.text.y = element_text(size = 11),
+    axis.text.x = element_text(size = 10),
+    panel.grid.major.y = element_blank(),
+    panel.grid.major.x = element_line(color = "gray85"),
+    panel.grid.minor = element_blank(),
+    axis.ticks.y = element_blank()
+  )
+
+p_auc_aeorestes
+```
+
+
+
+
+
+
+
+
+
 Now: Do species differ in their response to the human-modified landscape gradient?
+
+
+
+
+
+
+
+
+
 
 ```{r}
 #Does including species improve prediction beyond population density alone?
