@@ -44,7 +44,7 @@ radiance_change %>% slice_head(n = 10)
 
 ```{r}
 #San Joaquin had the biggest radiance increase by 1.694.
-case_county <- "Alameda"
+case_county <- "Riverside"
 
 #Create the case study dataset
 case_data <- county_year %>%

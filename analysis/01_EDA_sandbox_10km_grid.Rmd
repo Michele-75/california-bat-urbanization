@@ -101,6 +101,7 @@ library(sf)
 library(dplyr)
 library(ggplot2)
 library(scales)
+library(viridis)
 
 # ---- Paths ----
 grid_gpkg <- here::here("data", "processed", "grid", "ca_grid10km_accessible.gpkg")
@@ -128,17 +129,26 @@ ca  <- st_transform(ca, st_crs(grid_map))
 
 # ---- Bright species colors ----
 species_colors <- c(
-  "Aeorestes cinereus"   = "#FF3B30",  # bright red
-  "Myotis californicus"  = "#00E5FF",  # bright cyan
-  "Myotis yumanensis"    = "#FFD60A"   # bright yellow
+  "Aeorestes cinereus"   = "#2C7BE5",  
+  "Myotis californicus"  = "#F58518",  
+  "Myotis yumanensis"    = "#2ECC71"   
 )
 
 # ---- Map layers ----
+#bat_points <- geom_sf(
+ # data = pts,
+  #aes(color = species),
+  #size = 1.6,
+  #alpha = 0.9
+#)
+
+
+# colored points layer
 bat_points <- geom_sf(
   data = pts,
   aes(color = species),
   size = 1.6,
-  alpha = 0.9
+  alpha = 1
 )
 
 ca_outline <- geom_sf(
@@ -164,9 +174,9 @@ p_pop <- ggplot() +
     color = NA
   ) +
   scale_fill_gradient(
-    low = "gray90",
-    high = "steelblue4",
-    name = "log(1 + pop density)"
+  low = "gray85",
+  high = "gray35",
+  name = "log(1 + pop density)"
   ) +
   ca_outline +
   bat_points +
@@ -188,9 +198,9 @@ p_light <- ggplot() +
     color = NA
   ) +
   scale_fill_gradient(
-    low = "gray90",
-    high = "steelblue4",
-    name = "log(1 + radiance)"
+  low = "gray85",
+  high = "gray35",
+  name = "log(1 + radiance)"
   ) +
   ca_outline +
   bat_points +
@@ -212,10 +222,10 @@ p_dev <- ggplot() +
     color = NA
   ) +
   scale_fill_gradient(
-    low = "gray92",
-    high = "steelblue4",
-    name = "% developed",
-    labels = percent_format(accuracy = 1)
+  low = "gray85",
+  high = "gray35",
+  name = "% developed",
+  labels = percent_format(accuracy = 1)
   ) +
   ca_outline +
   bat_points +
