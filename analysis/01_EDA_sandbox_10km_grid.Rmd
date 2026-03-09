@@ -295,7 +295,8 @@ base_theme <- theme_minimal(base_family = "Arial") +
     plot.subtitle = element_text(size = 15, face = "italic"),
     axis.title = element_blank(),
     panel.grid.major = element_line(linewidth = 0.2),
-    legend.position = c(1,0.75),
+    #legend.position = c(1,0.75),
+    legend.position = "right",
     legend.title = element_text(size = 12),
     legend.text = element_text(size = 12),
     legend.key.height = unit(0.8, "cm")

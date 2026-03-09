@@ -211,17 +211,7 @@ p_auc_aeorestes
 
 
 
-
-
-
-
-
-
 Now: Do species differ in their response to the human-modified landscape gradient?
-
-
-
-
 
 
 
@@ -238,6 +228,14 @@ model_pop <- glm(
   family = binomial()
 )
 summary(m_pop)
+
+#generate predicted probabilities:
+probs <- predict(model_pop, type = "response")
+
+#Compute AUC
+auc_val <- pROC::auc(df_model$is_present, probs)
+
+auc_val
 
 #Add species:
 #is_present ~ z_pop + species
