@@ -377,16 +377,51 @@ z_to_pop <- function(z){
   exp((z * sig) + mu) - 1
 }
 
+# Reorder species so Myotis californicus appears last in legend
+pred_grid$species <- factor(
+  pred_grid$species,
+  levels = c(
+    "Aeorestes cinereus",
+    "Myotis yumanensis",
+    "Myotis californicus"
+  )
+)
+
+# Ecology-friendly color palette
+species_colors <- c(
+  "Aeorestes cinereus"   = "#1B9E77",  # teal green
+  "Myotis yumanensis"    = "#D95F02",  # warm orange
+  "Myotis californicus"  = "#7570B3"   # muted purple
+)
+
+
 ggplot(pred_grid, aes(z_pop, pred_prob, color = species)) +
-  geom_line(size = 1.2) +
+  geom_line(linewidth = 2) +   # thicker curves
+  scale_color_manual(values = species_colors) +
   scale_x_continuous(
     name = "Population density (people per km², log scaled)",
     labels = function(x) round(z_to_pop(x), 0)
   ) +
-  theme_minimal() +
   labs(
     title = "Predicted presence probability vs human-modified landscape gradient",
-    y = "Predicted probability of presence"
+    y = "Predicted probability of presence",
+    color = "Species"
+  ) +
+  theme_minimal(base_family = "serif") +
+  theme(
+    plot.title = element_text(size = 16, face = "bold"),
+    plot.background = element_rect(fill = "#FCFCFC", color = NA),
+    
+    axis.title = element_text(size = 12),
+    axis.text = element_text(size = 11),
+    
+    axis.line = element_line(linewidth = 1.1, color = "black"),   # thicker axes
+    
+    panel.grid.major = element_line(linewidth = 0.9, color = "gray80"),
+    #panel.grid.minor = element_line(linewidth = 0, color = "gray90"),
+    
+    legend.title = element_text(size = 11),
+    legend.text = element_text(size = 10)
   )
 ```
 
