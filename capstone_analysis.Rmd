@@ -8,9 +8,9 @@ output:
     toc: true
     toc_float: true
     theme: cosmo
-editor_options: 
-  markdown: 
-    wrap: 72
+  github_document:
+    toc: true
+    html_preview: false
 ---
 
 ```{r setup, include=FALSE}

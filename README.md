@@ -1,52 +1,126 @@
-# California Bats & Light Pollution
+# How Do Human-Modified Landscapes Shape Bat Observations in California?
 
-This repository contains my Environmental Data Science capstone project exploring relationships between nighttime light intensity (VIIRS) and nocturnal bat activity across California.
+**Environmental Data Science Capstone Project** Michele Perry \| Yale School of the Environment \| 2025–2026
 
+------------------------------------------------------------------------
 
-## How to run this project
+## Overview
 
-This project uses `renv` to manage package versions and ensure reproducibility.
+This project examines how components of human-modified landscapes — nighttime light, land development, population density, and protected land — structure bat observation patterns across California. Using 455 publicly available occurrence records from [GBIF](https://www.gbif.org/) for three focal bat species (*Aeorestes cinereus*, *Myotis yumanensis*, *Myotis californicus*), observations are mapped onto a 10 km equal-area grid and analyzed with logistic regression to assess whether species respond differently to an urban intensity gradient.
 
-To recreate the environment:
+### Key findings
 
-```r
-renv::restore()
+-   **Population density alone** predicts bat presence nearly as well as multi-variable models (cross-validated AUC \~78%). At 10 km resolution, nighttime light and percent developed land are highly collinear with population density and add less than 1% predictive improvement.
+-   **All three species** show positive associations with increasing urban intensity, consistent with observer bias in opportunistic data.
+-   **Species differ in response strength.** *Myotis californicus* shows a significantly weaker association with the urban gradient than the other two species, suggesting greater sensitivity to human-modified landscapes.
 
+### Important caveat
 
-## Reproducibility
+GBIF data are opportunistic — they reflect where people looked, not just where bats are. Population density captures both ecological signal and reporting effort, so results are interpreted as patterns in *observed* presence rather than confirmed ecological effects. Differences *between* species are more informative than the absolute trends.
 
-This project uses `renv` for dependency management.
+------------------------------------------------------------------------
 
-To reproduce the analysis:
+## Repository structure
 
-1. Clone the repository and open the `.Rproj` file.
-2. Run `renv::restore()` to install required package versions.
-3. Execute scripts in the `R/` directory in numerical order to download and process data.
-4. Render `analysis/01_master_analysis.qmd` to reproduce figures and results.
+```         
+├── capstone_analysis.Rmd        # Main narrative notebook (source code)
+├── capstone_analysis.nb.html    # Pre-rendered HTML notebook (download to view)
+├── capstone_analysis.md         # GitHub-rendered version (view on GitHub)
+├── capstone_analysis_files/     # Figures for the .md rendering
+├── run_all.R                    # Convenience script: runs full pipeline
+├── R/                           # Data processing pipeline (scripts 00–06)
+│   ├── 00_setup.R
+│   ├── 01_get_clean_bat_points.R
+│   ├── 02_get_ca_boundary.R
+│   ├── 03_build_grid_and_domain.R
+│   ├── 04_build_grid_covariates.R
+│   ├── 05_build_grid_presence.R
+│   ├── 06_build_grid_model_dataset.R
+│   └── README.md
+├── data/
+│   ├── raw/                     # (gitignored) Downloaded source data
+│   ├── processed/               # Key processed outputs (see data/README.md)
+│   ├── README.md                # Data acquisition instructions
+│   └── data_dictionary.md       # Variable descriptions for final dataset
+├── notebooks/                   # Archived exploratory notebooks
+├── communication/               # Presentation materials
+│   └── Capstone_Presentation.png
+├── figures/                     # Saved figures from analysis
+├── docs/                        # Project log, GBIF citation
+├── renv.lock                    # R package dependencies
+├── .gitignore
+└── LICENSE
 ```
 
-The analysis notebook assumes all processed data files already exist.
+------------------------------------------------------------------------
 
-#Obtaining Data
+## Reproducing this project
 
-##Boundary Data
-California county boundaries were obtained from the U.S. Census TIGER/Line files (2023 release) using the `tigris` R package and saved in processed form as a GeoPackage.
+### Quick start (just want to read the analysis?)
 
-## VIIRS Nighttime Lights (Annual)
+**Browse on GitHub:** Open [`capstone_analysis.md`](capstone_analysis.md) — the rendered markdown with all figures displays directly in your browser.
 
-Annual Visible Nighttime Lights (VNL) GeoTIFFs produced by the Earth Observation Group (EOG),
-Payne Institute for Public Policy, Colorado School of Mines.
+**Full interactive version:** Download `capstone_analysis.nb.html` and open it in any browser for the HTML notebook with collapsible code sections.
 
-- Product: Annual average radiance composites (average_masked)
-- Units: nW/cm²/sr
-- Spatial resolution: ~500 m
-- CRS: EPSG:4326
+### Re-run the analysis locally
 
-Versions and years:
-- VNL v2.1: 2012–2021
-- VNL v2.2: 2022–present
+The repository includes the final processed dataset and key spatial files, so you can re-knit the notebook without running the full pipeline:
 
-Files were downloaded manually from:
-https://eogdata.mines.edu/
+1.  Clone the repository
+2.  Restore the R environment: `renv::restore()`
+3.  Open `capstone_analysis.Rmd` in RStudio and knit
 
-These rasters are summarized to county × year in `R/03_process_viirs_county_year.R`.
+### Full pipeline (from raw data)
+
+To reproduce the project from scratch, including downloading raw data:
+
+1.  Clone the repository
+
+2.  Restore the R environment: `renv::restore()`
+
+3.  Set GBIF credentials in `.Renviron`:
+
+    ```         
+    GBIF_USER=your_username
+    GBIF_PWD=your_password
+    GBIF_EMAIL=your_email
+    ```
+
+4.  Download raw covariate rasters (see `data/README.md` for sources and file placement)
+
+5.  Run the pipeline: `source("run_all.R")`
+
+6.  Knit `capstone_analysis.Rmd`
+
+------------------------------------------------------------------------
+
+## Data sources
+
+| Dataset | Source | Resolution |
+|-----------------------|--------------------|------------------------------|
+| Bat occurrences | [GBIF](https://www.gbif.org/) | Point records, 2012–2024 |
+| Nighttime light | [VIIRS VNL](https://eogdata.mines.edu/products/vnl/) v2.1/v2.2 | \~500 m annual composites |
+| Land cover | [NLCD 2019](https://www.mrlc.gov/) | 30 m |
+| Protected areas | [PAD-US 4.1](https://www.usgs.gov/programs/gap-analysis-project/science/pad-us-data-download) | Vector polygons |
+| Population density | [WorldPop 2020](https://www.worldpop.org/) | \~1 km |
+| State boundary | US Census TIGER/Line | via `tigris` R package |
+
+------------------------------------------------------------------------
+
+## Focal species
+
+| Species | Common name | Ecology |
+|---------------------|------------------------------|---------------------|
+| *Aeorestes cinereus* | Hoary bat | Long-distance migratory, tree-roosting |
+| *Myotis yumanensis* | Yuma myotis | Water-associated, bridges and buildings |
+| *Myotis californicus* | California myotis | Crevice-roosting, widespread generalist |
+
+------------------------------------------------------------------------
+
+## License
+
+This project is licensed under the MIT License. See `LICENSE` for details.
+
+## Acknowledgments
+
+This project was completed as part of the Environmental Data Science Certificate Program at the Yale School of the Environment. Bat occurrence data were provided by the Global Biodiversity Information Facility (GBIF).
