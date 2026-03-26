@@ -467,14 +467,13 @@ df %>%
   group_by(species) %>%
   mutate(prop = n / sum(n)) %>%
   ungroup() %>%
-  left_join(pres_summary, by = "species") %>%
   ggplot(aes(x = species, y = prop, fill = status)) +
   geom_col() +
   geom_text(
-    aes(label = if_else(status == "Absent (0 records)",
-                        paste0("Present: ", prop_present), "")),
-    position = position_stack(vjust = 0.5),
-    size = 4, fontface = "bold", color = "gray30"
+    data = pres_summary,
+    aes(x = species, y = prop_present, label = prop_present),
+    inherit.aes = FALSE,
+    hjust = -0.3, size = 5, fontface = "bold", color = "#1D9E75"
   ) +
   coord_flip() +
   scale_fill_manual(
@@ -518,16 +517,37 @@ ca_map  <- st_transform(ca, st_crs(grid_map))
 ```
 
 ```{r map-pop-density, fig.width=8, fig.height=9}
+# Define breaks in original units (roughly log-spaced)
+pop_breaks <- c(0, 1, 10, 100, 1000, 5000, Inf)
+pop_labels <- c("0 – 1", "1 – 10", "10 – 100", "100 – 1,000",
+                "1,000 – 5,000", "> 5,000")
+
+# Bin the log-transformed values using the transformed breaks
+grid_map <- grid_map %>%
+  mutate(
+    pop_bin = cut(
+      log1p_pop_density,
+      breaks = log1p(pop_breaks),
+      labels = pop_labels,
+      include.lowest = TRUE,
+      right = FALSE
+    )
+  )
+
+# Viridis colors sampled at 6 evenly spaced points
+bin_colors <- viridis::viridis(6, option = "cividis")
+
 ggplot() +
-  geom_sf(data = grid_map, aes(fill = log1p_pop_density), color = NA) +
-  scale_fill_viridis_c(
-    option = "cividis",
-    name = "Population density\n(people/km\u00B2, log-scaled)",
-    breaks = c(0, 2, 4, 6, 8),
-    labels = c("0", "10", "50", "400", "3,000")
+  geom_sf(data = grid_map, aes(fill = pop_bin), color = NA) +
+  scale_fill_manual(
+    values = setNames(bin_colors, pop_labels),
+    name = "Population density\n(people/km\u00B2)",
+    na.value = "gray90",
+    drop = FALSE
   ) +
   geom_sf(data = ca_map, fill = NA, color = "black", linewidth = 0.7) +
-  geom_sf(data = pts_map, color = "#2CBEC9", size = 1.5, alpha = 0.9) +
+  geom_sf(data = pts_map, color = "black", fill = "#2CBEC9",
+          shape = 21, size = 2.5, stroke = 0.6, alpha = 0.9) +
   coord_sf(datum = NA) +
   labs(
     title = "GBIF bat observations cluster near urban areas",
@@ -536,7 +556,7 @@ ggplot() +
   theme_minimal(base_size = 13) +
   theme(
     legend.position = "right",
-    legend.key.height = unit(0.8, "cm")
+    legend.key.height = unit(0.5, "cm")
   )
 ```
 
