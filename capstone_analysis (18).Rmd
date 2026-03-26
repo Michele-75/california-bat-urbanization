@@ -802,7 +802,7 @@ Population density predicts bat presence, but do all three species
 respond to it in the same way? To test this, we fit three nested
 logistic models and compared them using **AIC** (Akaike Information
 Criterion) — a measure of model fit that penalizes complexity. Lower
-AIC indicates a better balance between fit and simplicity.
+AIC indicates a better balance between fit and parsimony.
 
 ```{r interaction-model}
 # Three nested models: pop only, additive species, species × pop interaction
@@ -1013,29 +1013,68 @@ diverges suggests something ecologically real.
 ### 5.3 Limitations and future directions
 
 -   **Observer bias remains the dominant confound.** Without systematic
-    survey data (e.g., acoustic monitoring arrays with standardized
-    effort), it is not possible to determine whether species are truly
-    more common near urban areas or simply more frequently reported
-    there.
+    survey data, it is not possible to determine whether species are
+    truly more common near urban areas or simply more frequently reported
+    there. Deploying acoustic monitoring arrays across the
+    urban-to-wildland gradient would be the most direct way to
+    disentangle ecological preference from reporting effort.
 
 -   **Spatial autocorrelation is not modeled.** Nearby grid cells are
     likely more similar than distant ones, violating the independence
-    assumption of standard logistic regression. A spatial model (e.g.,
-    using INLA or spatial random effects) could account for this.
+    assumption of standard logistic regression. Spatial random effects
+    (e.g., via INLA) could account for this structure.
 
 -   **Temporal dynamics are collapsed.** Aggregating across 2012–2024
     treats presence as static, which obscures potential range shifts or
-    changes in observation effort over time.
+    changes in observation effort. Multi-year monitoring data could
+    reveal whether species are actively shifting in response to ongoing
+    urbanization.
 
 -   **Sample size is modest.** With 455 total records (and only 114 for
     *Myotis californicus*), effect estimates carry substantial
-    uncertainty. Additional data sources (e.g., iNaturalist, state
-    wildlife agency databases) could improve statistical power.
+    uncertainty. Incorporating additional data sources (e.g.,
+    iNaturalist, state wildlife agency databases) and expanding to more
+    species would improve statistical power and test whether the urban
+    filtering pattern holds across the broader bat community.
 
-Despite these limitations, the analysis demonstrates a reproducible
-framework for using open biodiversity data to detect species-specific
-responses to landscape modification — an approach that scales to other
-taxa and regions.
+-   **Finer spatial resolution** (e.g., 1 km grids) combined with
+    systematic survey data might allow nighttime light and land
+    development to be separated as independent predictors, rather than
+    collapsing into a single urban gradient as they do at 10 km.
+
+### 5.4 So what? Why this matters
+
+Despite these limitations, this analysis carries real implications for
+how we think about bats, cities, and the data we use to study them.
+
+**Opportunistic data is valuable — but it's not the whole picture.**
+GBIF records can detect species-level differences in urban association,
+proving that citizen science platforms are genuinely useful for
+ecological research. But a species being "present" near a city doesn't
+mean it's thriving there, and large portions of California have no bat
+records at all — not because bats are absent, but because no one has
+looked. Encouraging survey efforts in under-sampled regions would go a
+long way toward separating real ecological patterns from artifacts of
+observer effort.
+
+**Cities may be filtering out sensitive species.** The divergence
+between species hints at **urban filtering** — cities actively selecting
+for species that tolerate or benefit from human infrastructure while
+squeezing out those that can't. Some bats find advantages in urban
+areas: buildings and bridges provide roost sites, and artificial lights
+attract insect prey. Others — species that depend on dark forest or
+natural roost structures — receive no such benefit and may be harmed by
+light, noise, and fragmentation. The weaker urban association of
+*Myotis californicus* is consistent with this process, and if
+urbanization is quietly reshaping bat communities, that has real
+consequences for biodiversity.
+
+**Biodiversity data should inform urban planning.** As California
+continues to grow, integrating species vulnerability data into land use
+decisions could help identify where development is likely to have
+outsized impacts on sensitive species — and where conservation buffers,
+wildlife corridors, or dark-sky protections might make a meaningful
+difference.
 
 ## 6. Data sources and citations
 
