@@ -355,55 +355,54 @@ display: none;
 <div id="how-do-human-modified-landscapes-shape-bat-observations-in-california" class="section level1">
 <h1>How Do Human-Modified Landscapes Shape Bat Observations in
 California?</h1>
-<p><strong>Environmental Data Science Capstone Project</strong> Michele
-Perry | Yale School of the Environment | 2025–2026</p>
+<p><strong>Environmental Data Science Capstone Project</strong><br />
+Michele Perry | Yale School of the Environment | 2025–2026</p>
 <hr />
 <div id="overview" class="section level2">
 <h2>Overview</h2>
-<p>This project examines how components of human-modified landscapes —
-nighttime light, land development, population density, and protected
-land — structure bat observation patterns across California. Using 455
-publicly available occurrence records from <a href="https://www.gbif.org/">GBIF</a> for three focal bat species
-(<em>Aeorestes cinereus</em>, <em>Myotis yumanensis</em>, <em>Myotis
-californicus</em>), observations are mapped onto a 10 km equal-area grid
-and analyzed with logistic regression to assess whether species respond
-differently to an urban intensity gradient.</p>
+<p>This project examines how human-modified landscapes shape bat
+observation patterns across California. Using 455 publicly available
+occurrence records from <a href="https://www.gbif.org/">GBIF</a> for
+three focal bat species (<em>Aeorestes cinereus</em>, <em>Myotis
+yumanensis</em>, <em>Myotis californicus</em>), observations are mapped
+onto a 10 km equal-area grid and analyzed with logistic regression to
+assess whether species respond differently to an urban intensity
+gradient.</p>
 <div id="key-findings" class="section level3">
 <h3>Key findings</h3>
-<ul>
+<ol style="list-style-type: decimal">
 <li><strong>Population density alone</strong> predicts bat presence
 nearly as well as multi-variable models (cross-validated AUC ~78%). At
 10 km resolution, nighttime light and percent developed land are highly
-collinear with population density and add less than 1% predictive
+correlated with population density and add less than 1% predictive
 improvement.</li>
 <li><strong>All three species</strong> show positive associations with
 increasing urban intensity, consistent with observer bias in
 opportunistic data.</li>
 <li><strong>Species differ in response strength.</strong> <em>Myotis
-californicus</em> shows a significantly weaker association with the
-urban gradient than the other two species, suggesting greater
-sensitivity to human-modified landscapes.</li>
-</ul>
+californicus</em> shows a notably weaker association with the urban
+gradient than the other two species, suggesting greater sensitivity to
+human-modified landscapes.</li>
+</ol>
 </div>
-<div id="important-caveat" class="section level3">
-<h3>Important caveat</h3>
-<p>GBIF data are opportunistic — they reflect where people looked, not
-just where bats are. Population density captures both ecological signal
-and reporting effort, so results are interpreted as patterns in
-<em>observed</em> presence rather than confirmed ecological effects.
-Differences <em>between</em> species are more informative than the
-absolute trends.</p>
+<div id="a-note-on-observer-bias" class="section level3">
+<h3>A note on observer bias</h3>
+<p>GBIF data are opportunistic, meaning they reflect where people
+looked, not just where bats are. Population density captures both
+ecological signal and reporting effort, so results are interpreted as
+patterns in <em>observed</em> presence rather than confirmed ecological
+preference. The differences <em>between</em> species are more
+informative than the absolute trends.</p>
 <hr />
 </div>
 </div>
 <div id="repository-structure" class="section level2">
 <h2>Repository structure</h2>
-<pre><code>├── capstone_analysis.Rmd        # Main narrative notebook (source code)
-├── capstone_analysis.nb.html    # Pre-rendered HTML notebook (download to view)
-├── capstone_analysis.md         # GitHub-rendered version (view on GitHub)
-├── capstone_analysis_files/     # Figures for the .md rendering
-├── run_all.R                    # Convenience script: runs full pipeline
-├── R/                           # Data processing pipeline (scripts 00–06)
+<pre><code>├── capstone_analysis.Rmd           # Main narrative notebook (source)
+├── capstone_analysis.nb.html       # Pre-rendered HTML notebook (download to view)
+├── capstone_analysis.md            # GitHub-rendered version (view on GitHub)
+├── capstone_analysis_files/        # Figures for the .md rendering
+├── preprocessing_scripts/          # Data processing pipeline (scripts 00–06)
 │   ├── 00_setup.R
 │   ├── 01_get_clean_bat_points.R
 │   ├── 02_get_ca_boundary.R
@@ -411,18 +410,18 @@ absolute trends.</p>
 │   ├── 04_build_grid_covariates.R
 │   ├── 05_build_grid_presence.R
 │   ├── 06_build_grid_model_dataset.R
+│   ├── run_all.R
 │   └── README.md
 ├── data/
-│   ├── raw/                     # (gitignored) Downloaded source data
-│   ├── processed/               # Key processed outputs (see data/README.md)
-│   ├── README.md                # Data acquisition instructions
-│   └── data_dictionary.md       # Variable descriptions for final dataset
-├── notebooks/                   # Archived exploratory notebooks
-├── communication/               # Presentation materials
+│   ├── raw/                        # (gitignored) Downloaded source data
+│   ├── processed/                  # Key processed outputs (see data/README.md)
+│   ├── README.md                   # Data acquisition instructions
+│   └── data_dictionary.md          # Variable descriptions for final dataset
+├── notebooks/                      # Archived exploratory notebooks
+├── communication/                  # Presentation materials
 │   └── Capstone_Presentation.png
-├── figures/                     # Saved figures from analysis
-├── docs/                        # Project log, GBIF citation
-├── renv.lock                    # R package dependencies
+├── docs/                           # Project log, GBIF citation
+├── renv.lock                       # R package dependencies
 ├── .gitignore
 └── LICENSE</code></pre>
 <hr />
@@ -431,8 +430,8 @@ absolute trends.</p>
 <h2>Reproducing this project</h2>
 <div id="quick-start-just-want-to-read-the-analysis" class="section level3">
 <h3>Quick start (just want to read the analysis?)</h3>
-<p><strong>Browse on GitHub:</strong> Open <a href="capstone_analysis.md"><code>capstone_analysis.md</code></a> — the
-rendered markdown with all figures displays directly in your
+<p><strong>Browse on GitHub:</strong> Open <a href="capstone_analysis.md"><code>capstone_analysis.md</code></a> to
+view the rendered markdown with all figures directly in your
 browser.</p>
 <p><strong>Full interactive version:</strong> Download
 <code>capstone_analysis.nb.html</code> and open it in any browser for
@@ -451,7 +450,7 @@ pipeline:</p>
 </div>
 <div id="full-pipeline-from-raw-data" class="section level3">
 <h3>Full pipeline (from raw data)</h3>
-<p>To reproduce the project from scratch, including downloading raw
+<p>To reproduce everything from scratch, including downloading raw
 data:</p>
 <ol style="list-style-type: decimal">
 <li><p>Clone the repository</p></li>
@@ -462,7 +461,8 @@ GBIF_PWD=your_password
 GBIF_EMAIL=your_email</code></pre></li>
 <li><p>Download raw covariate rasters (see <code>data/README.md</code>
 for sources and file placement)</p></li>
-<li><p>Run the pipeline: <code>source(&quot;run_all.R&quot;)</code></p></li>
+<li><p>Run the pipeline:
+<code>source(here::here(&quot;preprocessing_scripts&quot;, &quot;run_all.R&quot;))</code></p></li>
 <li><p>Knit <code>capstone_analysis.Rmd</code></p></li>
 </ol>
 <hr />
@@ -474,7 +474,7 @@ for sources and file placement)</p></li>
 <colgroup>
 <col width="31%" />
 <col width="27%" />
-<col width="41%" />
+<col width="40%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -545,28 +545,41 @@ rev. 11</a> (SEDAC/CIESIN)</td>
 <tr class="even">
 <td><em>Myotis yumanensis</em></td>
 <td>Yuma myotis</td>
-<td>Water-associated, bridges and buildings</td>
+<td>Water-associated, often found near bridges and buildings</td>
 </tr>
 <tr class="odd">
 <td><em>Myotis californicus</em></td>
 <td>California myotis</td>
-<td>Crevice-roosting, widespread generalist</td>
+<td>Crevice-roosting, widespread across the state</td>
 </tr>
 </tbody>
 </table>
 <hr />
 </div>
+<div id="related-work" class="section level2">
+<h2>Related work</h2>
+<p>An interactive R Shiny application for exploring California bat
+occurrence patterns is available here: <a href="https://michele-75.shinyapps.io/california-bat-occurrence-explorer/">California
+Bat Occurrence Explorer</a>.</p>
+</div>
+<div id="acknowledgements" class="section level2">
+<h2>Acknowledgements</h2>
+<p>This project was completed as part of the <a href="https://environment.yale.edu/certificates/data">Yale Environmental
+Data Science Certificate Program</a>, 2025–2026 cohort. I am grateful to
+the program’s leaders, professors, and mentors for their guidance and
+support. Capstone projects from the full cohort can be viewed at the <a href="https://github.com/yse-eds-cert/cohort1-capstones">Cohort 1
+Capstones repository</a>. Bat occurrence data were provided by the <a href="https://www.gbif.org/">Global Biodiversity Information Facility
+(GBIF)</a>.</p>
+</div>
 <div id="license" class="section level2">
 <h2>License</h2>
-<p>This project is licensed under the MIT License. See
-<code>LICENSE</code> for details.</p>
-</div>
-<div id="acknowledgments" class="section level2">
-<h2>Acknowledgments</h2>
-<p>This project was completed as part of the Environmental Data Science
-Certificate Program at the Yale School of the Environment. Bat
-occurrence data were provided by the Global Biodiversity Information
-Facility (GBIF).</p>
+<p>This project was created for educational purposes as part of a
+graduate certificate program. All code and original text are provided
+as-is for learning and reference. Data used in this analysis are
+publicly available from the sources cited above and are subject to their
+respective terms of use. GBIF-mediated occurrence data should be cited
+according to <a href="https://www.gbif.org/citation-guidelines">GBIF
+citation guidelines</a>.</p>
 </div>
 </div>
 

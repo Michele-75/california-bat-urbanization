@@ -34,6 +34,7 @@ The following processed files are committed to the repository so that `capstone_
 | `processed/boundaries/ca_boundary.gpkg` | California state boundary (for mapping) |
 | `processed/gbif/gbif_bats_points_clean_CA_2012_2024.gpkg` | Cleaned bat occurrence points in California (for mapping) |
 | `processed/covariates_grid/grid_covariates_10km.csv` | Grid-level covariate summaries |
+| `processed/gbif/gbif_download_meta.csv` | GBIF download metadata (download key, date, filters) for reproducibility and citation |
 
 ## Raw data acquisition
 
