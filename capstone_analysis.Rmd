@@ -65,24 +65,26 @@ ecological profiles:
 -   *Myotis californicus* (California myotis) — a small,
     crevice-roosting species widespread across the state
 
+These species were chosen because their contrasting roosting and
+foraging ecologies suggest they may respond differently to urbanization.
+
 Using publicly available occurrence records from the [Global
 Biodiversity Information Facility (GBIF)](https://www.gbif.org/), this
 study asks:
 
-> **How do components of human-modified landscapes structure bat
-> observation patterns at fine spatial scales, and do species respond
-> differently to increasing urban intensity?**
+> **How do human-modified landscapes structure bat observation patterns
+> at fine spatial scales, and do species respond differently to
+> increasing urban intensity?**
 
-### A critical framing note: observer bias in opportunistic data
+### A note on observer bias
 
-GBIF records are opportunistic — they reflect where people *looked*, not
-just where bats *are*. Observations cluster near roads, cities, and
-research stations, meaning that any apparent association between bats
-and urbanization could partly reflect reporting effort rather than true
-ecological preference. This project addresses this bias explicitly by
-including population density as an accessibility proxy and by
-interpreting results as patterns in *observed* presence rather than
-confirmed ecological effects.
+GBIF records are opportunistic — they reflect where people *looked*,
+not just where bats *are*. Because observations cluster near roads,
+cities, and research stations, apparent associations between bats and
+urbanization may partly reflect reporting effort. This analysis accounts
+for that bias by including population density as an accessibility proxy
+and by interpreting results as patterns in *observed* presence rather
+than confirmed ecological preference.
 
 ## 2. Data acquisition and processing
 
@@ -167,9 +169,9 @@ starting point for all downstream spatial operations.
 ### 2.2 California state boundary
 
 A California state boundary polygon, retrieved from the US Census
-TIGER/Line database via the `tigris` package
-(`R/02_get_ca_boundary.R`), is used for spatially filtering bat points
-and constructing the analysis grid.
+TIGER/Line database via the `tigris` package (`R/02_get_ca_boundary.R`),
+is used for spatially filtering bat points and constructing the analysis
+grid.
 
 ```{r load-boundary-and-points}
 ca <- st_read(
@@ -287,23 +289,22 @@ summary statistic using `exactextractr::exact_extract()` or
     area-weighted means were averaged across all years to produce a
     single long-term mean radiance per cell.
 -   **NLCD percent developed land** — the National Land Cover Database
-    (2019, 30 m resolution) classifies pixels into land cover types.
-    The proportion of pixels in the four "Developed" classes (Open Space
+    (2019, 30 m resolution) classifies pixels into land cover types. The
+    proportion of pixels in the four "Developed" classes (Open Space
     through High Intensity) was computed per cell.
 -   **GPWv4 population density** — the Gridded Population of the World
-    v4 (rev. 11, ~1 km resolution) from NASA SEDAC, summarized per cell
+    v4 (rev. 11, \~1 km resolution) from NASA SEDAC, summarized per cell
     as an area-weighted mean.
 
-A fourth covariate — percent protected land from PAD-US 4.1 (GAP
-Status 1–3) — was computed but excluded from the final modeling because
-it added minimal predictive value once the urban variables were
-included. The processing code is preserved in
-`R/04_build_grid_covariates.R`.
+A fourth covariate — percent protected land from PAD-US 4.1 (GAP Status
+1–3) — was computed but excluded from the final modeling because it
+added minimal predictive value once the urban variables were included.
+The processing code is preserved in `R/04_build_grid_covariates.R`.
 
 #### Combined covariate dataset
 
-All three urban covariates were joined by `cell_id` into a single
-table. Log-transformed versions of radiance and population density
+All three urban covariates were joined by `cell_id` into a single table.
+Log-transformed versions of radiance and population density
 (`log1p_radiance`, `log1p_pop_density`) were computed to reduce right
 skew — both variables span several orders of magnitude, with most cells
 near zero and a long tail of urban cells with very high values.
@@ -349,10 +350,10 @@ landscape covariates into a single analysis-ready dataset.
 **Why aggregate across years?** The landscape covariates vary far more
 across space than over time at this scale, and 455 total observations
 spread across 13 years and three species are far too sparse to support
-year-level modeling. Aggregating across the full study period (2012–2024)
-pools all available data into a single spatial snapshot, maximizing
-statistical power at the cost of collapsing temporal dynamics — a
-tradeoff revisited in the limitations section.
+year-level modeling. Aggregating across the full study period
+(2012–2024) pools all available data into a single spatial snapshot,
+maximizing statistical power at the cost of collapsing temporal dynamics
+— a tradeoff revisited in the limitations section.
 
 **Presence aggregation.** Each bat point was spatially joined to the
 accessible grid (`st_join()` with `st_within()`) and aggregated by cell
@@ -440,11 +441,10 @@ df %>%
 ```
 
 All three species are observed in fewer than 5% of grid cells.
-*Aeorestes cinereus* is the most frequently observed, while
-*Myotis californicus* is the rarest. This extreme sparsity
-motivates modeling binary presence (observed or not) rather than
-observation counts — any count-based model would be overwhelmed by
-structural zeros.
+*Aeorestes cinereus* is the most frequently observed, while *Myotis
+californicus* is the rarest. This extreme sparsity motivates modeling
+binary presence (observed or not) rather than observation counts — any
+count-based model would be overwhelmed by structural zeros.
 
 ### 3.2 Mapping observations over the human-modified landscape
 
@@ -595,8 +595,8 @@ the formal modeling that follows.
 ### 4.1 Why logistic regression?
 
 The EDA revealed that bat presence is extremely sparse (fewer than 5% of
-cells for any species) and that the response of interest is binary:
-was a species ever observed in a given grid cell, or not? Logistic
+cells for any species) and that the response of interest is binary: was
+a species ever observed in a given grid cell, or not? Logistic
 regression is a natural fit for this kind of data. It models the
 probability of presence as a function of predictor variables, using a
 logit link to keep predicted probabilities between 0 and 1.
@@ -607,8 +607,8 @@ In notation, the model takes the form:
 
 where *p* is the probability of presence. The coefficient β₁ tells us
 how the log-odds of presence change per unit increase in the predictor,
-and exp(β₁) gives the **odds ratio** — the multiplicative change in
-odds per unit increase.
+and exp(β₁) gives the **odds ratio** — the multiplicative change in odds
+per unit increase.
 
 All predictors were standardized (z-scored) before modeling so that
 coefficients are comparable across variables measured on different
@@ -756,8 +756,8 @@ performs as well as any combination.
 Population density predicts bat presence, but do all three species
 respond to it in the same way? To test this, we fit three nested
 logistic models and compared them using **AIC** (Akaike Information
-Criterion) — a measure of model fit that penalizes complexity. Lower
-AIC indicates a better balance between fit and parsimony.
+Criterion) — a measure of model fit that penalizes complexity. Lower AIC
+indicates a better balance between fit and parsimony.
 
 ```{r interaction-model}
 # Three nested models: pop only, additive species, species × pop interaction
@@ -970,8 +970,8 @@ diverges suggests something ecologically real.
 
 -   **Observer bias remains the dominant confound.** Without systematic
     survey data, it is not possible to determine whether species are
-    truly more common near urban areas or simply more frequently reported
-    there. Deploying acoustic monitoring arrays across the
+    truly more common near urban areas or simply more frequently
+    reported there. Deploying acoustic monitoring arrays across the
     urban-to-wildland gradient would be the most direct way to
     disentangle ecological preference from reporting effort.
 
@@ -1020,10 +1020,10 @@ squeezing out those that can't. Some bats find advantages in urban
 areas: buildings and bridges provide roost sites, and artificial lights
 attract insect prey. Others — species that depend on dark forest or
 natural roost structures — receive no such benefit and may be harmed by
-light, noise, and fragmentation. The weaker urban association of
-*Myotis californicus* is consistent with this process, and if
-urbanization is quietly reshaping bat communities, that has real
-consequences for biodiversity.
+light, noise, and fragmentation. The weaker urban association of *Myotis
+californicus* is consistent with this process, and if urbanization is
+quietly reshaping bat communities, that has real consequences for
+biodiversity.
 
 **Biodiversity data should inform urban planning.** As California
 continues to grow, integrating species vulnerability data into land use
@@ -1035,7 +1035,7 @@ difference.
 ## 6. Data sources and citations
 
 | Dataset | Source | Access |
-|----|----|----|
+|------------------------|------------------------|------------------------|
 | Bat occurrence records | GBIF (2012–2024) | [gbif.org](https://www.gbif.org/) |
 | Nighttime light radiance | VIIRS VNL v2.1/v2.2, EOG Payne Institute | [eogdata.mines.edu](https://eogdata.mines.edu/products/vnl/) |
 | Land cover | NLCD 2019 | [mrlc.gov](https://www.mrlc.gov/) |
