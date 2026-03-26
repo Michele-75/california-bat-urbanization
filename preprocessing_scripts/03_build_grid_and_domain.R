@@ -1,4 +1,4 @@
-# R/03_build_grid_and_domain.R
+# preprocessing_scripts/03_build_grid_and_domain.R
 # Purpose: Build a regular 10 km equal-area grid for California and define an
 #   accessible modeling domain using buffered GBIF bat observation points.
 #
@@ -20,7 +20,7 @@
 #   data/processed/accessibility/accessible_domain_pointbuffer.gpkg
 #   data/processed/grid/ca_grid10km_accessible.gpkg    (layer: ca_grid10km_accessible)
 
-source(here::here("R", "00_setup.R"))
+source(here::here("preprocessing_scripts", "00_setup.R"))
 
 library(sf)
 library(dplyr)

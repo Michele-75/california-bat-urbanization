@@ -1,4 +1,4 @@
-# R/01_get_clean_bat_points.R
+# preprocessing_scripts/01_get_clean_bat_points.R
 # Purpose: Download GBIF occurrence records for three focal bat species in
 #   California (2012–2024), apply coordinate and taxonomy hygiene filters,
 #   and write cleaned spatial points.
@@ -13,7 +13,7 @@
 #   data/processed/gbif/gbif_bats_points_clean_2012_2024.gpkg
 #   data/processed/gbif/gbif_bats_points_clean_qa.csv
 
-source(here::here("R", "00_setup.R"))
+source(here::here("preprocessing_scripts", "00_setup.R"))
 
 library(rgbif)
 library(dplyr)

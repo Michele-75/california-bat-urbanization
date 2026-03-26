@@ -1,4 +1,4 @@
-# R/06_build_grid_model_dataset.R
+# preprocessing_scripts/06_build_grid_model_dataset.R
 # Purpose: Merge grid-level presence (cell_id × species) with grid covariates
 #   to produce the final analysis-ready modeling dataset.
 #
@@ -9,7 +9,7 @@
 # Outputs:
 #   data/processed/analysis_grid/grid_model_dataset_10km.csv
 
-source(here::here("R", "00_setup.R"))
+source(here::here("preprocessing_scripts", "00_setup.R"))
 
 library(dplyr)
 library(readr)

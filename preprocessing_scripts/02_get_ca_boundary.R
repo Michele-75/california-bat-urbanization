@@ -1,4 +1,4 @@
-# R/02_get_ca_boundary.R
+# preprocessing_scripts/02_get_ca_boundary.R
 # Purpose: Acquire a California state boundary polygon for grid construction
 #   and spatial masking.
 #
@@ -8,7 +8,7 @@
 # Outputs:
 #   data/processed/boundaries/ca_boundary.gpkg  (layer: ca_boundary)
 
-source(here::here("R", "00_setup.R"))
+source(here::here("preprocessing_scripts", "00_setup.R"))
 
 library(sf)
 library(tigris)

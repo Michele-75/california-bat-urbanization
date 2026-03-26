@@ -1,8 +1,6 @@
-# R/00_setup.R
-# Purpose:
-#   Central project configuration.
-#   Defines directory structure and reproducibility options.
-#   Safe to source at the top of every script.
+# preprocessing_scripts/00_setup.R
+# Purpose: Central project configuration. Defines directory structure and
+#   reproducibility options. Safe to source at the top of every script.
 
 # ---- Core libraries ----
 library(tidyverse)

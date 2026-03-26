@@ -1,4 +1,4 @@
-# R/05_build_grid_presence.R
+# preprocessing_scripts/05_build_grid_presence.R
 # Purpose: Join cleaned GBIF bat points to the accessible 10 km grid and build
 #   a cell_id × species presence panel aggregated across 2012–2024.
 #
@@ -11,7 +11,7 @@
 #   data/processed/gbif/grid_presence_10km.rds
 #   data/processed/gbif/grid_presence_10km_QA.csv
 
-source(here::here("R/00_setup.R"))
+source(here::here("preprocessing_scripts/00_setup.R"))
 
 library(sf)
 library(dplyr)
@@ -39,8 +39,8 @@ if (file.exists(OUT_CSV) && file.exists(OUT_QA)) {
 }
 
 # ---- Input checks ----
-if (!file.exists(IN_PTS))  stop("Missing points file: ", IN_PTS,  "\nRun R/01 first.")
-if (!file.exists(IN_GRID)) stop("Missing grid file:   ", IN_GRID, "\nRun R/03 first.")
+if (!file.exists(IN_PTS))  stop("Missing points file: ", IN_PTS,  "\nRun preprocessing_scripts/01 first.")
+if (!file.exists(IN_GRID)) stop("Missing grid file:   ", IN_GRID, "\nRun preprocessing_scripts/03 first.")
 
 # ---- Load inputs ----
 pts  <- st_read(IN_PTS,  quiet = TRUE)
