@@ -1,17 +1,13 @@
 # R/06_build_grid_model_dataset.R
-# Purpose:
-#   Merge grid-level presence (cell_id × species) with grid covariates (cell_id)
-#   to create the final modeling dataset on the accessible 10 km analysis grid.
+# Purpose: Merge grid-level presence (cell_id × species) with grid covariates
+#   to produce the final analysis-ready modeling dataset.
 #
 # Inputs:
 #   data/processed/gbif/grid_presence_10km.csv
 #   data/processed/covariates_grid/grid_covariates_10km.csv
 #
-# Output:
+# Outputs:
 #   data/processed/analysis_grid/grid_model_dataset_10km.csv
-#
-# Run:
-#   source(here::here("R", "06_build_grid_model_dataset.R"))
 
 source(here::here("R", "00_setup.R"))
 
@@ -27,7 +23,7 @@ if (!dir.exists(DIR_ANALYSIS_GRID)) dir.create(DIR_ANALYSIS_GRID, recursive = TR
 
 OUT_CSV <- file.path(DIR_ANALYSIS_GRID, "grid_model_dataset_10km.csv")
 
-# ---- Early exit ----
+# ---- Early exit if output already exists ----
 if (file.exists(OUT_CSV)) {
   message("Final analysis-grid dataset already exists: ", OUT_CSV)
   message("Delete the file to re-run.")
@@ -37,16 +33,16 @@ if (file.exists(OUT_CSV)) {
 # ---- Read inputs ----
 presence <- readr::read_csv(IN_PRES, show_col_types = FALSE) %>%
   mutate(
-    cell_id = as.character(cell_id),
-    species = as.character(species),
-    n_obs = as.integer(n_obs),
+    cell_id    = as.character(cell_id),
+    species    = as.character(species),
+    n_obs      = as.integer(n_obs),
     is_present = as.integer(is_present)
   )
 
 covars <- readr::read_csv(IN_COV, show_col_types = FALSE) %>%
   mutate(cell_id = as.character(cell_id))
 
-# ---- Merge ----
+# ---- Merge presence panel with covariates ----
 model_df <- presence %>%
   left_join(covars, by = "cell_id") %>%
   arrange(species, cell_id)
@@ -54,7 +50,7 @@ model_df <- presence %>%
 # ---- Write ----
 readr::write_csv(model_df, OUT_CSV)
 
-# ---- Small QA summary ----
+# ---- QA summary ----
 qa_summary <- model_df %>%
   summarise(
     n_rows = n(),
@@ -76,8 +72,7 @@ qa_by_species <- model_df %>%
   )
 
 message("Saved final modeling dataset: ", OUT_CSV)
-message("\nQA — Overall:")
+message("\nQA - Overall:")
 print(qa_summary)
-
-message("\nQA — By Species:")
+message("\nQA - By Species:")
 print(qa_by_species)

@@ -1,13 +1,12 @@
 # R/02_get_ca_boundary.R
-# Purpose:
-#   Acquire a California state boundary polygon for grid construction and masking.
+# Purpose: Acquire a California state boundary polygon for grid construction
+#   and spatial masking.
 #
-# Output:
+# Inputs:
+#   US Census TIGER/Line (cartographic boundary via tigris)
+#
+# Outputs:
 #   data/processed/boundaries/ca_boundary.gpkg  (layer: ca_boundary)
-#
-# Notes:
-#   Uses US Census TIGER/Line (states) via tigris.
-#   This is lightweight, reproducible, and widely used.
 
 source(here::here("R", "00_setup.R"))
 
@@ -20,7 +19,7 @@ options(tigris_use_cache = TRUE)
 OUT_GPKG <- file.path(DIR_BOUND_PROC, "ca_boundary.gpkg")
 
 # ---- Download CA state boundary ----
-# Use cartographic boundary ("cb") for simpler geometry and faster ops.
+# Cartographic boundary (cb = TRUE) uses simplified geometry for faster operations.
 ca <- tigris::states(cb = TRUE, year = 2022) %>%
   st_as_sf() %>%
   filter(STUSPS == "CA") %>%

@@ -1,7 +1,6 @@
 # R/05_build_grid_presence.R
-# Purpose:
-#   Join cleaned GBIF bat points to the accessible 10 km grid, then build
-#   cell_id × species presence table aggregated across 2012–2024.
+# Purpose: Join cleaned GBIF bat points to the accessible 10 km grid and build
+#   a cell_id × species presence panel aggregated across 2012–2024.
 #
 # Inputs:
 #   data/processed/gbif/gbif_bats_points_clean_CA_2012_2024.gpkg
@@ -11,9 +10,6 @@
 #   data/processed/gbif/grid_presence_10km.csv
 #   data/processed/gbif/grid_presence_10km.rds
 #   data/processed/gbif/grid_presence_10km_QA.csv
-#
-# Run:
-#   source(here::here("R", "05_build_grid_presence.R"))
 
 source(here::here("R/00_setup.R"))
 
@@ -34,7 +30,7 @@ OUT_CSV <- file.path(DIR_GBIF_PROC, "grid_presence_10km.csv")
 OUT_RDS <- file.path(DIR_GBIF_PROC, "grid_presence_10km.rds")
 OUT_QA  <- file.path(DIR_GBIF_PROC, "grid_presence_10km_QA.csv")
 
-# ---- Early exit ----
+# ---- Early exit if outputs already exist ----
 if (file.exists(OUT_CSV) && file.exists(OUT_QA)) {
   message("Presence dataset already exists: ", OUT_CSV)
   message("QA summary already exists:       ", OUT_QA)
@@ -42,9 +38,9 @@ if (file.exists(OUT_CSV) && file.exists(OUT_QA)) {
   quit(save = "no", status = 0)
 }
 
-# ---- Checks ----
-if (!file.exists(IN_PTS))  stop("Missing points file: ", IN_PTS,  "\nRun your cleaning script first.")
-if (!file.exists(IN_GRID)) stop("Missing grid file:   ", IN_GRID, "\nRun R/03_build_grid_and_domain.R first.")
+# ---- Input checks ----
+if (!file.exists(IN_PTS))  stop("Missing points file: ", IN_PTS,  "\nRun R/01 first.")
+if (!file.exists(IN_GRID)) stop("Missing grid file:   ", IN_GRID, "\nRun R/03 first.")
 
 # ---- Load inputs ----
 pts  <- st_read(IN_PTS,  quiet = TRUE)
@@ -57,10 +53,10 @@ stopifnot(all(c("gbif_id", "species", "year") %in% names(pts)))
 grid <- st_make_valid(st_transform(grid, CA_EPSG))
 pts  <- st_make_valid(st_transform(pts,  CA_EPSG))
 
-# ---- Keep only fields we need ----
+# ---- Select required fields ----
 grid <- grid %>%
   mutate(cell_id = as.character(cell_id)) %>%
-  select(cell_id)   # keep only attributes; geometry stays attached automatically
+  select(cell_id)
 
 pts <- pts %>%
   mutate(
@@ -80,12 +76,11 @@ n_gbif_unique <- n_distinct(pts$gbif_id)
 if (n_gbif_unique != n_pts) {
   warning(
     "gbif_id is not unique (rows=", n_pts, ", unique ids=", n_gbif_unique, "). ",
-    "We will count n_distinct(gbif_id) to prevent double-counting."
+    "Counting n_distinct(gbif_id) to prevent double-counting."
   )
 }
 
-# ---- Join points -> cells ----
-# st_within is strict; if you see unmatched points, switch to st_intersects.
+# ---- Spatial join: assign each point to its grid cell ----
 pts_joined <- st_join(
   pts,
   grid %>% select(cell_id),
@@ -96,7 +91,7 @@ pts_joined <- st_join(
 n_unmatched <- sum(is.na(pts_joined$cell_id))
 pts_matched <- pts_joined %>% filter(!is.na(cell_id))
 
-# ---- Species set (should be your 3 focal species) ----
+# ---- Identify focal species from matched points ----
 species_levels <- pts_matched %>%
   st_drop_geometry() %>%
   distinct(species) %>%
@@ -110,7 +105,7 @@ if (length(species_levels) != 3) {
   )
 }
 
-# ---- Aggregate across full study period: cell_id × species ----
+# ---- Aggregate: cell_id × species presence across full study period ----
 agg <- pts_matched %>%
   st_drop_geometry() %>%
   group_by(cell_id, species) %>%
@@ -119,7 +114,7 @@ agg <- pts_matched %>%
     .groups = "drop"
   )
 
-# ---- Full panel (zeros for non-detections) ----
+# ---- Build complete panel with explicit zeros for non-detections ----
 presence <- agg %>%
   tidyr::complete(
     cell_id = grid$cell_id,
