@@ -100,7 +100,7 @@ To reproduce everything from scratch, including downloading raw data:
 ## Data sources
 
 | Dataset | Source | Resolution |
-|------------------------|------------------------|------------------------|
+|----|----|----|
 | Bat occurrences | [GBIF](https://www.gbif.org/) | Point records, 2012–2024 |
 | Nighttime light | [VIIRS VNL](https://eogdata.mines.edu/products/vnl/) v2.1/v2.2 | \~500 m annual composites |
 | Land cover | [NLCD 2019](https://www.mrlc.gov/) | 30 m |
@@ -113,7 +113,7 @@ To reproduce everything from scratch, including downloading raw data:
 ## Focal species
 
 | Species | Common name | Ecology |
-|------------------------|------------------------|------------------------|
+|----|----|----|
 | *Aeorestes cinereus* | Hoary bat | Long-distance migratory, tree-roosting |
 | *Myotis yumanensis* | Yuma myotis | Water-associated, often found near bridges and buildings |
 | *Myotis californicus* | California myotis | Crevice-roosting, widespread across the state |
