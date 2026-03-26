@@ -249,9 +249,10 @@ pts_map <- st_transform(pts, st_crs(grid))
 ca_map  <- st_transform(ca, st_crs(grid))
 
 ggplot() +
-  geom_sf(data = grid, fill = "gray90", color = "white", linewidth = 0.2) +
+  geom_sf(data = grid, fill = "gray80", color = "gray60", linewidth = 0.2) +
   geom_sf(data = ca_map, fill = NA, color = "black", linewidth = 0.7) +
-  geom_sf(data = pts_map, color = "#2CBEC9", size = 1.5, alpha = 0.9) +
+  geom_sf(data = pts_map, color = "black", fill = "#2CBEC9",
+          shape = 21, size = 2, stroke = 0.6, alpha = 0.9) +
   coord_sf(datum = NA) +
   labs(
     title = "10 km accessible grid with bat observation locations",
@@ -546,8 +547,8 @@ ggplot() +
     drop = FALSE
   ) +
   geom_sf(data = ca_map, fill = NA, color = "black", linewidth = 0.7) +
-  geom_sf(data = pts_map, color = "#2CBEC9",
-          size = 3, alpha = 0.9) +
+  geom_sf(data = pts_map, color = "black", fill = "#2CBEC9",
+          shape = 21, size = 2.6, stroke = 0.6, alpha = 0.9) +
   coord_sf(datum = NA) +
   labs(
     title = "GBIF bat observations cluster near urban areas",
