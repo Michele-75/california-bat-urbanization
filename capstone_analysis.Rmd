@@ -147,7 +147,7 @@ The 10 km resolution was chosen as a practical balance: fine enough to capture m
 Four covariates were computed at the grid-cell level (implemented in `R/04_build_grid_covariates.R`):
 
 | Variable | Source | Description |
-|------------------------|------------------------|------------------------|
+|----|----|----|
 | `mean_radiance` | VIIRS VNL v2.1/v2.2 | Mean nighttime light radiance, averaged across annual composites (2012–2024) |
 | `pct_developed` | NLCD 2019 | Proportion of cell classified as developed land (all "Developed" classes) |
 | `pct_protected` | PAD-US 4.1 | Proportion of cell under GAP Status 1–3 protection |
@@ -724,7 +724,7 @@ Despite these limitations, the analysis demonstrates a reproducible framework fo
 ## 7. Data sources and citations
 
 | Dataset | Source | Access |
-|------------------------|------------------------|------------------------|
+|----|----|----|
 | Bat occurrence records | GBIF (2012–2024) | [gbif.org](https://www.gbif.org/) |
 | Nighttime light radiance | VIIRS VNL v2.1/v2.2, EOG Payne Institute | [eogdata.mines.edu](https://eogdata.mines.edu/products/vnl/) |
 | Land cover | NLCD 2019 | [mrlc.gov](https://www.mrlc.gov/) |
