@@ -76,7 +76,7 @@ To reproduce everything from scratch, including downloading raw data:
 
 ```         
    git clone https://github.com/Michele-75/california-bat-urbanization.git
-   cd your-repo-name
+   cd california-bat-urbanization
 ```
 
 2.  Restore the R environment: `renv::restore()`
