@@ -2,7 +2,7 @@
 title: "How Do Human-Modified Landscapes Shape Bat Observations in California?"
 subtitle: "Environmental Data Science Capstone Project"
 author: "Michele Perry"
-date: "`r Sys.Date()`"
+date: "03-26-2026"
 output:
   html_notebook:
     toc: true
@@ -226,14 +226,19 @@ grid_full <- st_make_grid(
 
 This produces a grid of regular squares covering the full bounding box
 of California. The grid is then trimmed to keep only cells whose
-centroids fall inside California. In addition, a "presence rescue"
-step retains any cell containing at least one bat observation, even if
-its centroid falls just outside the boundary. This prevents losing data
+centroids fall inside California. In addition, a "presence rescue" step
+retains any cell containing at least one bat observation, even if its
+centroid falls just outside the boundary. This prevents losing data
 along the coastline and state borders.
 
 **Defining the accessible domain.** Not all of California has been
 surveyed for bats, so treating unsampled areas as true absences would be
-misleading. To help avoid inflating observer bias even more, the analysis is restricted to an "accessible" subset of the grid. This domain is built by buffering every bat observation point by 50 km using `st_buffer()`, taking the union of those buffers, and intersecting with a buffered California boundary. Grid cells with centroids inside this domain, plus any presence-rescued cells, form the final accessible grid:
+misleading. To help avoid inflating observer bias even more, the
+analysis is restricted to an "accessible" subset of the grid. This
+domain is built by buffering every bat observation point by 50 km using
+`st_buffer()`, taking the union of those buffers, and intersecting with
+a buffered California boundary. Grid cells with centroids inside this
+domain, plus any presence-rescued cells, form the final accessible grid:
 
 ```{r load-grid}
 grid <- st_read(
@@ -290,8 +295,8 @@ per-cell summary statistic using `exactextractr::exact_extract()` or
     proportion of pixels in the four "Developed" classes (Open Space
     through High Intensity) was computed per cell.
 -   **GPWv4 population density** — the Gridded Population of the World
-    v4 (rev. 11, 2020, \~1 km resolution) from NASA SEDAC, summarized per cell
-    as an area-weighted mean.
+    v4 (rev. 11, 2020, \~1 km resolution) from NASA SEDAC, summarized
+    per cell as an area-weighted mean.
 
 A fourth covariate, percent protected land from PAD-US 4.1 (GAP Status
 1–3), was also computed but did not add much predictive value once the
@@ -607,8 +612,8 @@ In notation, the model has the form:
 
 where *p* is the probability of presence. The coefficient β₁ tells us
 how the log-odds of presence change per unit increase in the predictor,
-and exp(β₁) gives the odds ratio, the multiplicative change in odds
-per unit increase.
+and exp(β₁) gives the odds ratio, the multiplicative change in odds per
+unit increase.
 
 All predictors were standardized (z-scored) before modeling so that
 coefficients are comparable across variables measured on different
@@ -740,9 +745,9 @@ species_results %>%
 Population density alone achieves cross-validated AUC scores of
 approximately 0.73–0.81 depending on species. This means the model can
 correctly distinguish presence from absence about 73 to 81 percent of
-the time using only population density. Adding nighttime light
-radiance, percent developed land, or both improves AUC by less than 1
-percentage point in every case. At 10 km resolution, these variables are
+the time using only population density. Adding nighttime light radiance,
+percent developed land, or both improves AUC by less than 1 percentage
+point in every case. At 10 km resolution, these variables are
 effectively measuring the same underlying gradient of human modification
 and are interchangeable as predictors of bat presence.
 
@@ -911,9 +916,9 @@ ggplot(pred_grid, aes(z_pop, pred_prob, color = species)) +
 
 This figure is the central result of our analysis. It shows that:
 
--   All three species have higher predicted presence probability in
-    more urbanized areas, consistent with observer bias driving the
-    overall pattern.
+-   All three species have higher predicted presence probability in more
+    urbanized areas, consistent with observer bias driving the overall
+    pattern.
 -   *Aeorestes cinereus* shows the highest predicted probabilities
     across the gradient, reaching approximately 30% in the most densely
     populated cells.
@@ -945,50 +950,105 @@ structure bat observation patterns. Three main findings emerged:
 
 2.  **All three species show positive associations with increasing urban
     intensity.** This is expected given the opportunistic nature of GBIF
-    data. More people means more observers, which means more bat records, regardless of true ecological preference.
+    data. More people means more observers, which means more bat
+    records, regardless of true ecological preference.
 
 3.  **Species differ in the strength of their urban association.**
     *Myotis californicus* shows a significantly weaker association with
     population density than either *Aeorestes cinereus* or *Myotis
-    yumanensis*. This difference persists even after
-    accounting for the shared effect of observer bias, suggesting a
-    genuine ecological signal. *Myotis californicus* may be more
-    sensitive to urbanization or less tolerant of human-modified
-    landscapes than the other two species.
+    yumanensis*. This difference persists even after accounting for the
+    shared effect of observer bias, suggesting a genuine ecological
+    signal. *Myotis californicus* may be more sensitive to urbanization
+    or less tolerant of human-modified landscapes than the other two
+    species.
 
 ### 5.2 The dual role of population density
 
-Population density serves a dual purpose in this analysis, and the two are not easy to untangle. First, it serves as an **accessibility proxy**: areas with more people have more observers, so GBIF records are naturally biased toward populated areas. Second, it serves as a **human footprint measure**: population density genuinely correlates with habitat modification, light pollution, noise, and other stressors that affect bat ecology.
+Population density serves a dual purpose in this analysis, and the two
+are not easy to untangle. First, it serves as an **accessibility
+proxy**: areas with more people have more observers, so GBIF records are
+naturally biased toward populated areas. Second, it serves as a **human
+footprint measure**: population density genuinely correlates with
+habitat modification, light pollution, noise, and other stressors that
+affect bat ecology.
 
 These roles cannot be fully separated with opportunistic data. The fact
 that all three species show positive associations with population
-density likely reflects both accessibility bias and genuine urban tolerance. But the more informative result is the difference between species. If all three were equally biased by observer effort, their curves would be parallel. The fact that *Myotis californicus* diverges from the other two suggests something ecologically real is going on.
+density likely reflects both accessibility bias and genuine urban
+tolerance. But the more informative result is the difference between
+species. If all three were equally biased by observer effort, their
+curves would be parallel. The fact that *Myotis californicus* diverges
+from the other two suggests something ecologically real is going on.
 
 ### 5.3 Limitations and future directions
 
--   **Observer bias remains the dominant challenge.** Without systematic survey data, there is no way to tell whether species are truly more common near urban areas or just more frequently reported there. Deploying acoustic monitoring arrays across a range of urban and wildland areas would be the most direct way to separate real ecological preference from reporting effort.
+-   **Observer bias remains the dominant challenge.** Without systematic
+    survey data, there is no way to tell whether species are truly more
+    common near urban areas or just more frequently reported there.
+    Deploying acoustic monitoring arrays across a range of urban and
+    wildland areas would be the most direct way to separate real
+    ecological preference from reporting effort.
 
 -   **Spatial autocorrelation is not modeled.** Nearby grid cells are
-    likely more similar to each other than distant ones, violating the independence
-    assumption of standard logistic regression. A spatial modeling approach like INLA could account for this structure
+    likely more similar to each other than distant ones, violating the
+    independence assumption of standard logistic regression. A spatial
+    modeling approach like INLA could account for this structure
 
--   **Temporal dynamics are collapsed.** Aggregating bat points across 2012–2024 and averaging covariates over the same period treats both presence and landscape conditions as static, which means any trends over time in either species distributions or the covariates themselves are hidden. Multi-year monitoring data could reveal whether species are actively shifting in response to ongoing urbanization.
+-   **Temporal dynamics are collapsed.** Aggregating bat points across
+    2012–2024 and averaging covariates over the same period treats both
+    presence and landscape conditions as static, which means any trends
+    over time in either species distributions or the covariates
+    themselves are hidden. Multi-year monitoring data could reveal
+    whether species are actively shifting in response to ongoing
+    urbanization.
 
--   **Sample size is modest.** With only 455 total records, and just 114 for *Myotis californicus*, there is substantial uncertainty in the effect estimates. Incorporating additional data sources like iNaturalist or state wildlife agency databases, and expanding to more species, would improve statistical power and help test whether the urban filtering pattern holds across the broader bat community.
+-   **Sample size is modest.** With only 455 total records, and just 114
+    for *Myotis californicus*, there is substantial uncertainty in the
+    effect estimates. Incorporating additional data sources like
+    iNaturalist or state wildlife agency databases, and expanding to
+    more species, would improve statistical power and help test whether
+    the urban filtering pattern holds across the broader bat community.
 
--   **Finer spatial resolution** Working at a finer spatial resolution, such as 1 km grids, combined with systematic survey data, might make it possible to separate nighttime light and land development as independent predictors. At 10 km resolution, these variables collapse into a single urban gradient, but finer scales could reveal distinct effects.
+-   **Finer spatial resolution** Working at a finer spatial resolution,
+    such as 1 km grids, combined with systematic survey data, might make
+    it possible to separate nighttime light and land development as
+    independent predictors. At 10 km resolution, these variables
+    collapse into a single urban gradient, but finer scales could reveal
+    distinct effects.
 
 ### 5.4 So what? Why this matters
 
-Despite these limitations, this analysis has real implications for
-how we think about bats, cities, and the data we use to study them.
+Despite these limitations, this analysis has real implications for how
+we think about bats, cities, and the data we use to study them.
 
-**Opportunistic data is valuable, but it's not the whole picture.**
-GBIF records can detect species-level differences in urban association, which shows that citizen science platforms are genuinely useful for ecological research. But a species being "present" near a city does not mean it is thriving there, and large portions of California have no bat records at all, not because bats are absent, but because no one has looked. Encouraging survey efforts in under-sampled regions would go a long way toward separating real ecological patterns from artifacts of observer effort.
+**Opportunistic data is valuable, but it's not the whole picture.** GBIF
+records can detect species-level differences in urban association, which
+shows that citizen science platforms are genuinely useful for ecological
+research. But a species being "present" near a city does not mean it is
+thriving there, and large portions of California have no bat records at
+all, not because bats are absent, but because no one has looked.
+Encouraging survey efforts in under-sampled regions would go a long way
+toward separating real ecological patterns from artifacts of observer
+effort.
 
-**Cities may be filtering out sensitive species.** The divergence between species hints at a process of urban filtering, where cities actively select for species that tolerate or benefit from human infrastructure while pushing out those that cannot. Some bats find advantages in urban areas: buildings and bridges provide roost sites, and artificial lights attract insect prey. But species that depend on dark forests or natural roost structures receive no such benefit and may be harmed by light, noise, and fragmentation. The weaker urban association of *Myotis californicus* is consistent with this process. If urbanization is quietly reshaping bat communities, that has real consequences for biodiversity.
+**Cities may be filtering out sensitive species.** The divergence
+between species hints at a process of urban filtering, where cities
+actively select for species that tolerate or benefit from human
+infrastructure while pushing out those that cannot. Some bats find
+advantages in urban areas: buildings and bridges provide roost sites,
+and artificial lights attract insect prey. But species that depend on
+dark forests or natural roost structures receive no such benefit and may
+be harmed by light, noise, and fragmentation. The weaker urban
+association of *Myotis californicus* is consistent with this process. If
+urbanization is quietly reshaping bat communities, that has real
+consequences for biodiversity.
 
-**Biodiversity data should inform urban planning.** As California continues to grow, integrating species vulnerability data into land use decisions could help identify where development is likely to have the greatest impact on sensitive species, and where conservation buffers, wildlife corridors, or dark-sky protections might make a real difference.
+**Biodiversity data should inform urban planning.** As California
+continues to grow, integrating species vulnerability data into land use
+decisions could help identify where development is likely to have the
+greatest impact on sensitive species, and where conservation buffers,
+wildlife corridors, or dark-sky protections might make a real
+difference.
 
 ## 6. Data sources and citations
 
@@ -1004,3 +1064,31 @@ GBIF records can detect species-level differences in urban association, which sh
 ```{r session-info}
 sessionInfo()
 ```
+
+## 7. Acknowledgements
+
+This project was completed as part of the [Yale Environmental Data
+Science Certificate
+Program](https://environment.yale.edu/certificates/data), 2025–2026
+cohort. I am very grateful to the program's leaders, professors, and
+mentors for their guidance and support throughout this program and
+project. Capstone projects from the full cohort can be viewed at the
+[Cohort 1 Capstones
+repository](https://github.com/yse-eds-cert/cohort1-capstones).
+
+## 8. Related work
+
+An interactive R Shiny application for exploring California bat
+occurrence patterns and their relationship to landscape variables is
+available here: [California Bat Occurrence
+Explorer](https://michele-75.shinyapps.io/california-bat-occurrence-explorer/).
+
+## License
+
+This project was created for educational purposes as part of a graduate
+certificate program. All code and original text are provided as-is for
+learning and reference. Data used in this analysis are publicly
+available from the sources cited above and are subject to their
+respective terms of use. GBIF-mediated occurrence data should be cited
+according to [GBIF citation
+guidelines](https://www.gbif.org/citation-guidelines).
