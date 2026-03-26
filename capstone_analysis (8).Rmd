@@ -455,7 +455,7 @@ pres_summary <- df %>%
   summarise(
     n_cells = n(),
     n_present = sum(is_present),
-    pct_present = round(mean(is_present) * 100, 1),
+    prop_present = round(mean(is_present), 3),
     .groups = "drop"
   )
 
@@ -467,14 +467,13 @@ df %>%
   group_by(species) %>%
   mutate(prop = n / sum(n)) %>%
   ungroup() %>%
-  left_join(pres_summary, by = "species") %>%
   ggplot(aes(x = species, y = prop, fill = status)) +
   geom_col() +
   geom_text(
-    aes(label = if_else(status == "Present (\u22651 record)",
-                        paste0(pct_present, "%"), "")),
-    position = position_stack(vjust = 0.5),
-    size = 4, fontface = "bold"
+    data = pres_summary,
+    aes(x = species, y = prop_present, label = prop_present),
+    inherit.aes = FALSE,
+    hjust = -0.3, size = 5, fontface = "bold", color = "#1D9E75"
   ) +
   coord_flip() +
   scale_fill_manual(
