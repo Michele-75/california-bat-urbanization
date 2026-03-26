@@ -155,20 +155,10 @@ starting point for all downstream spatial operations.
 
 ### 2.2 California state boundary
 
-A California state boundary polygon is needed both for spatially
-filtering bat points and for constructing the analysis grid.
-`R/02_get_ca_boundary.R` retrieves this from the US Census TIGER/Line
-database using the `tigris` package:
-
-```{r boundary-example, eval=FALSE}
-# (display only — not executed; see R/02_get_ca_boundary.R)
-ca <- tigris::states(cb = TRUE, year = 2022) %>%
-  filter(STUSPS == "CA") %>%
-  st_make_valid()
-```
-
-Let's load the boundary and the cleaned bat points to see what we're
-working with:
+A California state boundary polygon, retrieved from the US Census
+TIGER/Line database via the `tigris` package
+(`R/02_get_ca_boundary.R`), is used for spatially filtering bat points
+and constructing the analysis grid.
 
 ```{r load-boundary-and-points}
 ca <- st_read(
@@ -244,7 +234,7 @@ grid <- st_read(
 cat("Total accessible grid cells:", nrow(grid), "\n")
 ```
 
-```{r map-grid-and-points, fig.width=8, fig.height=9}
+```{r map-grid-and-points, fig.width=5.5, fig.height=5.9}
 pts_map <- st_transform(pts, st_crs(grid))
 ca_map  <- st_transform(ca, st_crs(grid))
 
@@ -252,13 +242,17 @@ ggplot() +
   geom_sf(data = grid, fill = "gray80", color = "gray60", linewidth = 0.2) +
   geom_sf(data = ca_map, fill = NA, color = "black", linewidth = 0.7) +
   geom_sf(data = pts_map, color = "black", fill = "#2CBEC9",
-          shape = 21, size = 2, stroke = 0.6, alpha = 0.9) +
+          shape = 21, size = 1.7, stroke = 0.6, alpha = 0.9) +
   coord_sf(datum = NA) +
   labs(
     title = "10 km accessible grid with bat observation locations",
     subtitle = "2,811 grid cells covering the accessible modeling domain"
   ) +
-  theme_minimal(base_size = 13)
+  theme_minimal(base_size = 13) +
+  theme(
+    plot.title = element_text(size = 13.5, face = "bold"),
+    plot.subtitle = element_text(size = 12)
+  )
 ```
 
 The grid covers the portions of California where bat observations have
@@ -270,74 +264,30 @@ represents roughly 75% of the total California grid.
 
 Three landscape variables were computed for each grid cell, each drawn
 from a different remote sensing or geospatial dataset. The processing
-pipeline (`R/04_build_grid_covariates.R`) involves reprojecting rasters
-and vectors to match the grid CRS, cropping and masking to the study
-extent, and extracting summary statistics per cell.
+pipeline (`R/04_build_grid_covariates.R`) follows a common pattern for
+all raster covariates: crop the source raster to the grid extent,
+reproject to California Albers (EPSG:3310), and extract a per-cell
+summary statistic using `exactextractr::exact_extract()` or
+`terra::extract()`.
 
-#### VIIRS nighttime light radiance
+-   **VIIRS nighttime light radiance** — annual composite images of
+    nighttime light intensity (nW/cm²/sr) from the Earth Observation
+    Group (VNL v2.1 for 2012–2021, v2.2 for 2022–2024). Per-year
+    area-weighted means were averaged across all years to produce a
+    single long-term mean radiance per cell.
+-   **NLCD percent developed land** — the National Land Cover Database
+    (2019, 30 m resolution) classifies pixels into land cover types.
+    The proportion of pixels in the four "Developed" classes (Open Space
+    through High Intensity) was computed per cell.
+-   **GPWv4 population density** — the Gridded Population of the World
+    v4 (rev. 11, ~1 km resolution) from NASA SEDAC, summarized per cell
+    as an area-weighted mean.
 
-The Visible Infrared Imaging Radiometer Suite (VIIRS) produces annual
-composite images of nighttime light intensity. These rasters measure
-radiance in nW/cm²/sr — brighter values indicate more artificial light.
-Annual composites for 2012–2024 were downloaded from the Earth
-Observation Group (VNL v2.1 for 2012–2021 and v2.2 for 2022–2024).
-
-Each annual GeoTIFF was cropped to the grid extent, reprojected from its
-native WGS 84 to California Albers, and then summarized per grid cell
-using `exactextractr::exact_extract()` with an area-weighted mean. The
-per-year means were then averaged across all available years to produce
-a single long-term mean radiance value per cell:
-
-```{r viirs-example, eval=FALSE}
-# (display only — not executed; see R/04_build_grid_covariates.R)
-r <- terra::rast(tif_path)
-r_crop <- terra::crop(r, grid_extent) |> terra::mask(grid_extent)
-r_ae <- terra::project(r_crop, "EPSG:3310", method = "bilinear")
-
-cell_means <- exactextractr::exact_extract(r_ae, grid, "mean")
-```
-
-#### NLCD percent developed land
-
-The National Land Cover Database (NLCD) 2019 is a 30-meter categorical
-raster classifying every pixel in the contiguous US into land cover
-types. The relevant categories for this analysis are the four
-"Developed" classes: Open Space, Low Intensity, Medium Intensity, and
-High Intensity.
-
-To compute percent developed land per grid cell, the NLCD raster was
-cropped to the grid extent and extracted using `terra::extract()` with
-`fun = table`, which counts the number of pixels in each land cover
-class within each cell. The proportion of developed pixels was then
-calculated:
-
-```{r nlcd-example, eval=FALSE}
-# (display only — not executed; see R/04_build_grid_covariates.R)
-nlcd_crop <- terra::crop(nlcd, grid_extent) |> terra::mask(grid_extent)
-ex_tab <- terra::extract(nlcd_crop, grid_polygons, fun = table, na.rm = TRUE)
-
-# Sum all "Developed*" class columns, divide by total pixels
-pct_developed <- dev_cells / total_cells
-```
-
-#### GPWv4 population density
-
-The Gridded Population of the World, Version 4 (GPWv4, Revision 11) from
-NASA SEDAC provides population density estimates at \~1 km resolution.
-Like the VIIRS rasters, this was cropped, reprojected to California
-Albers, and summarized per grid cell using an area-weighted mean via
-`exact_extract()`.
-
-#### PAD-US percent protected land
-
-A fourth covariate — percent protected land — was also computed from
-the Protected Areas Database of the United States (PAD-US 4.1), using a
-spatial intersection (`st_intersection()`) between grid cells and
-protected area polygons with GAP Status 1–3. However, exploratory
-analysis showed that protected land coverage added minimal predictive
-value for bat presence once the urban variables were included, so it is
-not featured in the final modeling. The processing code is preserved in
-`R/04_build_grid_covariates.R` for reference.
+A fourth covariate — percent protected land from PAD-US 4.1 (GAP
+Status 1–3) — was computed but excluded from the final modeling because
+it added minimal predictive value once the urban variables were
+included. The processing code is preserved in
+`R/04_build_grid_covariates.R`.
 
 #### Combined covariate dataset
 
@@ -359,14 +309,21 @@ glimpse(covariates)
 ```{r covariate-summary}
 covariates %>%
   summarise(
-    n_cells = n(),
     across(c(mean_radiance, pct_developed, pop_density),
-           list(min = ~min(., na.rm = TRUE),
-                median = ~median(., na.rm = TRUE),
-                max = ~max(., na.rm = TRUE)),
-           .names = "{.col}_{.fn}")
+           list(Min = ~min(., na.rm = TRUE),
+                Median = ~median(., na.rm = TRUE),
+                Max = ~max(., na.rm = TRUE)),
+           .names = "{.col}__{.fn}")
   ) %>%
-  pivot_longer(everything(), names_to = "metric", values_to = "value")
+  pivot_longer(everything(),
+               names_to = c("variable", "stat"),
+               names_sep = "__") %>%
+  pivot_wider(names_from = stat, values_from = value) %>%
+  mutate(variable = recode(variable,
+    "mean_radiance" = "Nighttime radiance (nW/cm²/sr)",
+    "pct_developed" = "Percent developed land",
+    "pop_density"   = "Population density (people/km²)"
+  ))
 ```
 
 The ranges confirm what we'd expect: most cells have very low radiance,
@@ -378,43 +335,20 @@ urban cells have extreme values across all three variables.
 The last step brings together the species presence data and the
 landscape covariates into a single analysis-ready dataset.
 
-**Why aggregate across years?** The landscape covariates in this study
-— nighttime light, land development, population density — vary far more
-across space than over time. A rural cell in the Sierra foothills and an
-urban cell in Los Angeles differ by orders of magnitude in radiance and
-population density, but neither changes much from 2012 to 2024.
-Variation in these predictors is overwhelmingly spatial, not temporal.
-On the response side, 455 total observations spread across 13 years and
-three species leaves far too few records per year to support meaningful
-year-level modeling. Aggregating across the full study period pools all
-available data into a single spatial snapshot, maximizing statistical
-power at the cost of collapsing any temporal dynamics — a tradeoff
-revisited in the limitations section.
+**Why aggregate across years?** The landscape covariates vary far more
+across space than over time at this scale, and 455 total observations
+spread across 13 years and three species are far too sparse to support
+year-level modeling. Aggregating across the full study period (2012–2024)
+pools all available data into a single spatial snapshot, maximizing
+statistical power at the cost of collapsing temporal dynamics — a
+tradeoff revisited in the limitations section.
 
 **Presence aggregation.** Each bat point was spatially joined to the
-accessible grid using `st_join()` with `st_within()` — assigning every
-observation to the grid cell it falls inside. Observations were then
-aggregated by cell and species across all years (2012–2024).
-
-To create a complete panel — including cells where a species was *not*
-observed — `tidyr::complete()` was used to fill in every cell × species
-combination with explicit zeros. A binary `is_present` column was
-derived as `as.integer(n_obs > 0)`:
-
-```{r presence-example, eval=FALSE}
-# (display only — not executed; see R/05_build_grid_presence.R)
-agg <- pts_joined %>%
-  group_by(cell_id, species) %>%
-  summarise(n_obs = n_distinct(gbif_id))
-
-presence <- agg %>%
-  complete(
-    cell_id = grid$cell_id,
-    species = species_levels,
-    fill = list(n_obs = 0L)
-  ) %>%
-  mutate(is_present = as.integer(n_obs > 0))
-```
+accessible grid (`st_join()` with `st_within()`) and aggregated by cell
+and species. `tidyr::complete()` filled in every cell × species
+combination with explicit zeros, and a binary `is_present` column was
+derived (see `R/05_build_grid_presence.R` and
+`R/06_build_grid_model_dataset.R` for details).
 
 **Final merge.** The presence panel was joined to the covariate table by
 `cell_id` using a left join, producing one row per cell × species with
@@ -450,7 +384,7 @@ is the dataset used for all exploration and modeling that follows.
 
 ### 3.1 Response structure: extreme sparsity
 
-```{r presence-absence-bar}
+```{r presence-absence-bar, fig.width=6.5, fig.height=3.9}
 pres_summary <- df %>%
   group_by(species) %>%
   summarise(
@@ -489,7 +423,9 @@ df %>%
     fill = NULL
   ) +
   theme_minimal(base_size = 13) +
-  theme(legend.position = "top")
+  theme(legend.position = "top",
+        plot.title = element_text(size = 15, face = "bold"),
+        plot.subtitle = element_text(size = 11))
 ```
 
 All three species are observed in fewer than 5% of grid cells.
@@ -517,7 +453,7 @@ pts_map <- st_transform(pts, st_crs(grid_map))
 ca_map  <- st_transform(ca, st_crs(grid_map))
 ```
 
-```{r map-pop-density, fig.width=8, fig.height=9}
+```{r map-pop-density, fig.width=6.5, fig.height=7}
 # Define breaks in original units (roughly log-spaced)
 pop_breaks <- c(0, 1, 10, 100, 1000, 5000, Inf)
 pop_labels <- c("0 – 1", "1 – 10", "10 – 100", "100 – 1,000",
@@ -548,7 +484,7 @@ ggplot() +
   ) +
   geom_sf(data = ca_map, fill = NA, color = "black", linewidth = 0.7) +
   geom_sf(data = pts_map, color = "black", fill = "#2CBEC9",
-          shape = 21, size = 2.6, stroke = 0.6, alpha = 0.9) +
+          shape = 21, size = 2.5, stroke = 0.6, alpha = 0.9) +
   coord_sf(datum = NA) +
   labs(
     title = "GBIF bat observations cluster near urban areas",
@@ -557,7 +493,9 @@ ggplot() +
   theme_minimal(base_size = 13) +
   theme(
     legend.position = "right",
-    legend.key.height = unit(0.5, "cm")
+    legend.key.height = unit(0.5, "cm"),
+    plot.title = element_text(size = 15, face = "bold"),
+    plot.subtitle = element_text(size = 11.5)
   )
 ```
 
@@ -606,7 +544,7 @@ species_colors <- c(
 )
 ```
 
-```{r presence-vs-pop, fig.height=5}
+```{r presence-vs-pop, fig.width=7.5, fig.height=5}
 df %>%
   mutate(bin = ntile(log1p_pop_density, 10)) %>%
   group_by(species, bin) %>%
@@ -620,6 +558,10 @@ df %>%
   geom_point(size = 2) +
   scale_color_manual(values = species_colors) +
   theme_minimal(base_size = 13) +
+  theme(
+    plot.title = element_text(size = 15, face = "bold"),
+    plot.subtitle = element_text(size = 12),
+  ) +
   labs(
     title = "Presence rate increases with population density",
     subtitle = "Binned deciles of log(1 + population density)",
@@ -733,7 +675,7 @@ species_results <- df_model %>%
   })
 ```
 
-```{r auc-barplot, fig.width=11, fig.height=5}
+```{r auc-barplot, fig.width=12, fig.height=5.45}
 species_results %>%
   filter(model %in% c("S1_pop", "M1_pop_rad", "M2_pop_dev", "M4_pop_rad_dev")) %>%
   mutate(
@@ -769,8 +711,10 @@ species_results %>%
     x = "Mean AUC",
     y = NULL
   ) +
-  theme_minimal(base_size = 12) +
+  theme_minimal(base_size = 16) +
   theme(
+    plot.title = element_text(size = 20, face = "bold"),
+    plot.subtitle = element_text(size = 17),
     panel.grid.major.y = element_blank(),
     strip.text = element_text(face = "italic", size = 11),
     axis.line.x = element_line(color = "gray40", linewidth = 0.4),
@@ -897,7 +841,7 @@ The most interpretable way to visualize the interaction model is to plot
 predicted presence probability across the full range of population
 density, with the x-axis back-transformed to real-world units.
 
-```{r predicted-curves, fig.width=9, fig.height=6}
+```{r predicted-curves, fig.width=7, fig.height=4.8}
 # Back-transformation from z-score to population density
 mu  <- mean(df_model$log1p_pop_density)
 sig <- sd(df_model$log1p_pop_density)
@@ -927,7 +871,7 @@ ggplot(pred_grid, aes(z_pop, pred_prob, color = species)) +
     labels = function(x) format(round(z_to_pop(x)), big.mark = ",")
   ) +
   labs(
-    title = "Species differ in their association with the human-modified landscape gradient",
+    title = "Species differ in their association with the human-modified \nlandscape gradient",
     subtitle = "Predicted probability of presence from species \u00d7 population density interaction model",
     y = "Predicted probability of presence",
     color = "Species"
@@ -935,6 +879,7 @@ ggplot(pred_grid, aes(z_pop, pred_prob, color = species)) +
   theme_minimal(base_size = 13) +
   theme(
     plot.title = element_text(size = 15, face = "bold"),
+    plot.subtitle = element_text(size = 12),
     axis.line = element_line(linewidth = 0.8, color = "black"),
     panel.grid.major = element_line(linewidth = 0.5, color = "gray85"),
     panel.grid.minor = element_blank(),
