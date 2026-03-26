@@ -87,13 +87,13 @@ confirmed habitat preference.
 
 ## 2. Data acquisition and processing
 
-The data processing pipeline lives in the `R/` directory as a series of
-modular scripts (`R/00_setup.R` through
-`preprocessing_scripts/06_build_grid_model_dataset.R`) that can be run
-in sequence to reproduce the full workflow from raw downloads to the
-final analysis-ready dataset. This section walks through each stage in
-the order the data were actually acquired and processed, highlighting
-key spatial operations and design decisions along the way.
+The data processing pipeline is organized as a series of modular scripts
+in the `preprocessing_scripts/` directory (`00_setup.R` through
+`06_build_grid_model_dataset.R`). These can be run in order or all at
+once using `preprocessing_scripts/run_all.R` to reproduce the full data
+cleaning pipeline and final analysis-ready dataset. This section walks
+through each stage of the pipeline, covering the key spatial operations
+and design decisions.
 
 ```{r load-libraries}
 library(tidyverse)
@@ -113,17 +113,18 @@ showtext_auto()
 
 ### 2.1 GBIF bat occurrence data
 
-The starting point for this project is publicly available species
-occurrence data from the [Global Biodiversity Information Facility
+This project uses publicly available species occurrence data from the
+[Global Biodiversity Information Facility
 (GBIF)](https://www.gbif.org/). GBIF aggregates biodiversity records
 from museum collections, citizen science platforms, and research surveys
 into a single downloadable format.
 
-The `rgbif` package provides an R interface to the GBIF API. The
-workflow in `preprocessing_scripts/01_get_clean_bat_points.R` begins by
-resolving each focal species name against the GBIF backbone taxonomy
-using `name_backbone()`, which returns a unique `species_key` — a stable
-numeric identifier that avoids issues with taxonomic synonyms.
+The rgbif package allows R to communicate directly with GBIF. The
+workflow in `preprocessing_scripts/01_get_clean_bat_points.R` starts by
+looking up each species name in the GBIF taxonomy using
+`name_backbone()`, which returns a unique numeric identifier
+(`species_key`) for each species. This avoids issues where the same
+species might be listed under different names.
 
 The download request is submitted via `occ_download()` with filters for
 the three focal species keys, valid coordinates, and years 2012–2024:
@@ -139,9 +140,9 @@ dl <- occ_download(
 )
 ```
 
-GBIF processes this request server-side and returns a zipped CSV with
-dozens of columns. The cleaning step selects only the fields needed for
-this analysis and applies coordinate hygiene filters:
+GBIF processes this request and returns a zipped CSV containing dozens
+of columns. The cleaning step selects only the fields needed for this
+analysis and applies coordinate hygiene filters:
 
 ```{r cleaning-example, eval=FALSE}
 # (display only — not executed; see R/01_get_clean_bat_points.R)
@@ -162,15 +163,15 @@ dat <- raw %>%
 ```
 
 After filtering, the cleaned records are converted to an `sf` spatial
-points object in WGS 84 (EPSG:4326) using `st_as_sf()` — this is the
-starting point for all downstream spatial operations.
+points object in WGS 84 (EPSG:4326) using `st_as_sf()`. All spatial
+operations in later scripts build from this file.
 
 ### 2.2 California state boundary
 
-A California state boundary polygon, retrieved from the US Census
-TIGER/Line database via the `tigris` package
-(`preprocessing_scripts/02_get_ca_boundary.R`), is used for spatially
-filtering bat points and constructing the analysis grid.
+A California state boundary polygon is needed for filtering bat points
+and building the analysis grid. This is retrieved from the US Census
+TIGER/Line database using the `tigris` package (see
+`preprocessing_scripts/02_get_ca_boundary.R`).
 
 ```{r load-boundary-and-points}
 ca <- st_read(
@@ -189,23 +190,23 @@ cat("Total bat occurrence records in California:", nrow(pts), "\n")
 pts %>% st_drop_geometry() %>% count(species, sort = TRUE)
 ```
 
-These 455 records are the result of filtering the raw GBIF download to
-valid California coordinates and then performing a spatial intersection
-with the state boundary (`st_intersects()` in
+These 455 records are what remain after filtering the raw GBIF download
+to valid California coordinates and intersecting with the state boundary
+using `st_intersects()` (see
 `preprocessing_scripts/03_build_grid_and_domain.R`).
 
 ### 2.3 Spatial framework: 10 km equal-area grid
 
-With the bat points and boundary in hand, the next decision is how to
+With the bat points and boundary ready, the next step is deciding how to
 structure the analysis spatially. Rather than using administrative units
-like counties (which vary enormously in size and span multiple habitat
-types), this project uses a regular 10 km equal-area grid. A uniform
-grid ensures that every analysis unit covers the same area, making
-landscape summaries directly comparable across cells.
+like counties, which vary a lot in size and can span multiple habitat
+types, this project uses a regular 10 km equal-area grid. This ensures
+every analysis unit covers the same area, making landscape summaries
+directly comparable across cells.
 
 All spatial operations use the California Albers projection (EPSG:3310),
-an equal-area coordinate system measured in meters — essential for any
-analysis where area calculations matter.
+an equal-area coordinate system measured in meters. This is important
+for any analysis where area calculations matter.
 
 The grid is constructed in
 `preprocessing_scripts/03_build_grid_and_domain.R` using
@@ -223,20 +224,20 @@ grid_full <- st_make_grid(
 ```
 
 This produces a grid of regular squares covering the full bounding box
-of California. The analysis grid is then trimmed using two criteria: (1)
-cells whose centroids fall inside California, and (2) a "presence
-rescue" step that retains any cell containing at least one bat
-observation, even if its centroid falls just outside the boundary. This
-prevents edge-case data loss along the coastline and state borders.
+of California. The grid is then trimmed to keep only cells whose
+centroids fall inside California. On top of that, a "presence rescue"
+step retains any cell containing at least one bat observation, even if
+its centroid falls just outside the boundary. This prevents losing data
+along the coastline and state borders.
 
 **Defining the accessible domain.** Not all of California has been
-surveyed for bats. To avoid treating genuinely unsampled areas as
-ecological absences, the analysis is restricted to an "accessible"
-subset of the grid. This domain is defined by buffering every bat
-observation point by 50 km using `st_buffer()`, taking the union of all
-buffers, and intersecting the result with a buffered California
-boundary. Grid cells with centroids inside this domain (plus
-presence-rescued cells) form the final accessible grid:
+surveyed for bats, so treating unsampled areas as true absences would be
+misleading. To avoid this, the analysis is restricted to an "accessible"
+subset of the grid. This domain is built by buffering every bat
+observation point by 50 km using `st_buffer()`, taking the union of
+those buffers, and intersecting with a buffered California boundary.
+Grid cells with centroids inside this domain, plus any presence-rescued
+cells, form the final accessible grid:
 
 ```{r load-grid}
 grid <- st_read(
@@ -296,18 +297,19 @@ per-cell summary statistic using `exactextractr::exact_extract()` or
     v4 (rev. 11, \~1 km resolution) from NASA SEDAC, summarized per cell
     as an area-weighted mean.
 
-A fourth covariate — percent protected land from PAD-US 4.1 (GAP Status
-1–3) — was computed but excluded from the final modeling because it
-added minimal predictive value once the urban variables were included.
-The processing code is preserved in `R/04_build_grid_covariates.R`.
+A fourth covariate, percent protected land from PAD-US 4.1 (GAP Status
+1–3), was also computed but did not add much predictive value once the
+urban variables were included, so it is not used in the final models.
+The processing code is still available in
+`R/04_build_grid_covariates.R`.
 
 #### Combined covariate dataset
 
 All three urban covariates were joined by `cell_id` into a single table.
-Log-transformed versions of radiance and population density
-(`log1p_radiance`, `log1p_pop_density`) were computed to reduce right
-skew — both variables span several orders of magnitude, with most cells
-near zero and a long tail of urban cells with very high values.
+Because both radiance and population density span several orders of
+magnitude, with most cells near zero and a long tail of high-value urban
+cells, log-transformed versions (`log1p_radiance`, `log1p_pop_density`)
+were computed to reduce right skew.
 
 ```{r load-covariates}
 covariates <- read_csv(
@@ -349,11 +351,11 @@ landscape covariates into a single analysis-ready dataset.
 
 **Why aggregate across years?** The landscape covariates vary far more
 across space than over time at this scale, and 455 total observations
-spread across 13 years and three species are far too sparse to support
+spread across 13 years and three species are too sparse to support
 year-level modeling. Aggregating across the full study period
-(2012–2024) pools all available data into a single spatial snapshot,
-maximizing statistical power at the cost of collapsing temporal dynamics
-— a tradeoff revisited in the limitations section.
+(2012–2024) pools all available data into a single spatial snapshot.
+Changes over time are lost, but modeling spatial data becomes easier.
+This tradeoff is revisited in the limitations section.
 
 **Presence aggregation.** Each bat point was spatially joined to the
 accessible grid (`st_join()` with `st_within()`) and aggregated by cell
@@ -390,7 +392,7 @@ df %>%
 
 The final dataset contains 8,433 rows (2,811 cells × 3 species), each
 with three landscape covariates and their log-transformed versions. This
-is the dataset used for all exploration and modeling that follows.
+is the dataset used for all exploration and modeling going forward.
 
 ## 3. Exploratory data analysis
 
@@ -440,11 +442,12 @@ df %>%
         plot.subtitle = element_text(size = 11))
 ```
 
-All three species are observed in fewer than 5% of grid cells.
-*Aeorestes cinereus* is the most frequently observed, while *Myotis
-californicus* is the rarest. This extreme sparsity motivates modeling
-binary presence (observed or not) rather than observation counts — any
-count-based model would be overwhelmed by structural zeros.
+All three species are observed in fewer than 5% of grid cells, with
+*Aeorestes cinereus* being the most frequently observed and *Myotis
+californicus* the rarest. Because the data are this sparse, it makes
+more sense to model binary presence (observed or not) rather than
+observation counts. A count-based model would be overwhelmed by
+structural zeros.
 
 ### 3.2 Mapping observations over the human-modified landscape
 
@@ -510,17 +513,17 @@ ggplot() +
   )
 ```
 
-The map reveals a clear pattern: bat observations are concentrated in
-and around California's major population centers — the San Francisco Bay
-Area, Los Angeles basin, San Diego, and Sacramento. Large swaths of the
-state's interior, mountains, and deserts have few or no records. This is
-the observer bias problem in action: people (and therefore observation
-effort) concentrate in cities.
+The map shows a clear pattern: bat observations are concentrated in and
+around California's major population centers, including the San
+Francisco Bay Area, Los Angeles basin, San Diego, and Sacramento. Large
+parts of the state's interior, mountains, and deserts have few or no
+records. This is the observer bias problem in action. People, and
+therefore observation effort, concentrate in cities.
 
 Maps of nighttime light radiance and percent developed land (not shown)
-display nearly identical spatial patterns — the same urban cores light
-up, the same rural areas stay dark. This visual redundancy is confirmed
-by the correlation analysis below.
+look nearly identical, with the same urban cores lighting up and the
+same rural areas staying dark. The correlation analysis below confirms
+this visual redundancy.
 
 ### 3.3 Predictor correlations
 
@@ -1035,7 +1038,7 @@ difference.
 ## 6. Data sources and citations
 
 | Dataset | Source | Access |
-|------------------------|------------------------|------------------------|
+|----|----|----|
 | Bat occurrence records | GBIF (2012–2024) | [gbif.org](https://www.gbif.org/) |
 | Nighttime light radiance | VIIRS VNL v2.1/v2.2, EOG Payne Institute | [eogdata.mines.edu](https://eogdata.mines.edu/products/vnl/) |
 | Land cover | NLCD 2019 | [mrlc.gov](https://www.mrlc.gov/) |
