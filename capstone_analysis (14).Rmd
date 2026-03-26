@@ -249,9 +249,10 @@ pts_map <- st_transform(pts, st_crs(grid))
 ca_map  <- st_transform(ca, st_crs(grid))
 
 ggplot() +
-  geom_sf(data = grid, fill = "gray90", color = "white", linewidth = 0.2) +
+  geom_sf(data = grid, fill = "gray80", color = "gray60", linewidth = 0.2) +
   geom_sf(data = ca_map, fill = NA, color = "black", linewidth = 0.7) +
-  geom_sf(data = pts_map, color = "#2CBEC9", size = 1.5, alpha = 0.9) +
+  geom_sf(data = pts_map, color = "black", fill = "#2CBEC9",
+          shape = 21, size = 2, stroke = 0.6, alpha = 0.9) +
   coord_sf(datum = NA) +
   labs(
     title = "10 km accessible grid with bat observation locations",
@@ -517,16 +518,37 @@ ca_map  <- st_transform(ca, st_crs(grid_map))
 ```
 
 ```{r map-pop-density, fig.width=8, fig.height=9}
+# Define breaks in original units (roughly log-spaced)
+pop_breaks <- c(0, 1, 10, 100, 1000, 5000, Inf)
+pop_labels <- c("0 – 1", "1 – 10", "10 – 100", "100 – 1,000",
+                "1,000 – 5,000", "> 5,000")
+
+# Bin the log-transformed values using the transformed breaks
+grid_map <- grid_map %>%
+  mutate(
+    pop_bin = cut(
+      log1p_pop_density,
+      breaks = log1p(pop_breaks),
+      labels = pop_labels,
+      include.lowest = TRUE,
+      right = FALSE
+    )
+  )
+
+# Viridis colors sampled at 6 evenly spaced points
+bin_colors <- viridis::viridis(6, option = "cividis")
+
 ggplot() +
-  geom_sf(data = grid_map, aes(fill = log1p_pop_density), color = NA) +
-  scale_fill_viridis_c(
-    option = "cividis",
-    name = "Population density\n(people/km\u00B2, log-scaled)",
-    breaks = c(0, 2, 4, 6, 8),
-    labels = c("0", "10", "50", "400", "3,000")
+  geom_sf(data = grid_map, aes(fill = pop_bin), color = NA) +
+  scale_fill_manual(
+    values = setNames(bin_colors, pop_labels),
+    name = "Population density\n(people/km\u00B2)",
+    na.value = "gray90",
+    drop = FALSE
   ) +
   geom_sf(data = ca_map, fill = NA, color = "black", linewidth = 0.7) +
-  geom_sf(data = pts_map, color = "#2CBEC9", size = 1.5, alpha = 0.9) +
+  geom_sf(data = pts_map, color = "black", fill = "#2CBEC9",
+          shape = 21, size = 2.6, stroke = 0.6, alpha = 0.9) +
   coord_sf(datum = NA) +
   labs(
     title = "GBIF bat observations cluster near urban areas",
@@ -535,7 +557,7 @@ ggplot() +
   theme_minimal(base_size = 13) +
   theme(
     legend.position = "right",
-    legend.key.height = unit(0.8, "cm")
+    legend.key.height = unit(0.5, "cm")
   )
 ```
 
@@ -615,21 +637,29 @@ display the same qualitative pattern — unsurprising given the high
 correlations among these predictors. These exploratory patterns motivate
 the formal modeling that follows.
 
-## 4. Model comparison: what predicts bat presence?
+## 4. Modeling bat presence across the urban gradient
 
-Given the strong collinearity among urban predictors, a natural question
-is: **does adding nighttime light or land development improve
-predictions beyond population density alone?** This matters both
-practically (simpler models are easier to interpret) and conceptually
-(if the variables are interchangeable, they're measuring the same
-thing).
+### 4.1 Why logistic regression?
 
-### 4.1 Cross-validated model comparison
+The EDA revealed that bat presence is extremely sparse (fewer than 5% of
+cells for any species) and that the response of interest is binary:
+was a species ever observed in a given grid cell, or not? Logistic
+regression is a natural fit for this kind of data. It models the
+probability of presence as a function of predictor variables, using a
+logit link to keep predicted probabilities between 0 and 1.
 
-We fit a series of logistic regression models predicting binary presence
-(`is_present`) and compare their performance using 5-fold
-cross-validated AUC (area under the ROC curve). Models are fit
-separately for each species to allow species-specific effects.
+In notation, the model takes the form:
+
+> log(p / (1 − p)) = β₀ + β₁ · predictor
+
+where *p* is the probability of presence. The coefficient β₁ tells us
+how the log-odds of presence change per unit increase in the predictor,
+and exp(β₁) gives the **odds ratio** — the multiplicative change in
+odds per unit increase.
+
+All predictors were standardized (z-scored) before modeling so that
+coefficients are comparable across variables measured on different
+scales.
 
 ```{r standardize-predictors}
 # Standardize predictors for comparable coefficients
@@ -637,9 +667,23 @@ df_model <- df %>%
   mutate(
     z_radiance  = scale(log1p_radiance)[, 1],
     z_pop       = scale(log1p_pop_density)[, 1],
-    z_dev       = scale(pct_developed)[, 1]
+    z_dev       = scale(pct_developed)[, 1],
+    species     = factor(species)
   )
 ```
+
+### 4.2 Comparing urban predictors
+
+Given the strong collinearity among nighttime light, population density,
+and percent developed land, a key question is: **does adding light or
+development improve predictions beyond population density alone?**
+
+To answer this, we fit a series of logistic regression models and
+compared their predictive performance using 5-fold cross-validated
+**AUC** (area under the ROC curve). AUC measures how well a model
+distinguishes between presence and absence cells — a value of 0.5 means
+no better than chance, and 1.0 means perfect discrimination. Models were
+fit separately for each species.
 
 ```{r cv-function}
 # Cross-validation helper: returns mean and SD of AUC across k folds
@@ -663,16 +707,11 @@ run_cv_model <- function(data, formula, k = 5) {
 
 ```{r define-models}
 model_list <- list(
-  # Single-predictor models
   S1_pop       = is_present ~ z_pop,
   S2_radiance  = is_present ~ z_radiance,
   S3_dev       = is_present ~ z_dev,
-
-  # Population density + one additional predictor
   M1_pop_rad   = is_present ~ z_pop + z_radiance,
   M2_pop_dev   = is_present ~ z_pop + z_dev,
-
-  # Full urban footprint
   M4_pop_rad_dev = is_present ~ z_pop + z_radiance + z_dev
 )
 ```
@@ -694,23 +733,7 @@ species_results <- df_model %>%
   })
 ```
 
-```{r auc-table}
-# Key comparison: population density alone vs. additive models
-species_results %>%
-  filter(model %in% c("S1_pop", "M1_pop_rad", "M2_pop_dev", "M4_pop_rad_dev")) %>%
-  mutate(
-    model = recode(model,
-      "S1_pop"         = "Pop. density only",
-      "M1_pop_rad"     = "+ radiance",
-      "M2_pop_dev"     = "+ development",
-      "M4_pop_rad_dev" = "+ radiance + development"
-    )
-  ) %>%
-  select(species, model, mean_auc, sd_auc) %>%
-  arrange(species, desc(mean_auc))
-```
-
-```{r auc-barplot, fig.width=10, fig.height=5}
+```{r auc-barplot, fig.width=11, fig.height=5}
 species_results %>%
   filter(model %in% c("S1_pop", "M1_pop_rad", "M2_pop_dev", "M4_pop_rad_dev")) %>%
   mutate(
@@ -735,7 +758,7 @@ species_results %>%
     hjust = -0.15, size = 3.5
   ) +
   scale_fill_manual(
-    values = c("TRUE" = "#E63946", "FALSE" = "gray50"),
+    values = c("TRUE" = "#2C7BE5", "FALSE" = "gray50"),
     guide = "none"
   ) +
   facet_wrap(~ species) +
@@ -749,11 +772,14 @@ species_results %>%
   theme_minimal(base_size = 12) +
   theme(
     panel.grid.major.y = element_blank(),
-    strip.text = element_text(face = "italic", size = 11)
+    strip.text = element_text(face = "italic", size = 11),
+    axis.line.x = element_line(color = "gray40", linewidth = 0.4),
+    axis.line.y = element_line(color = "gray40", linewidth = 0.4),
+    panel.spacing = unit(1.5, "lines"),
+    panel.border = element_rect(color = "gray80", fill = NA, linewidth = 0.5),
+    strip.background = element_rect(fill = "gray95", color = NA)
   )
 ```
-
-### 4.2 Key finding: urban predictors are redundant at this scale
 
 Population density alone achieves cross-validated AUC scores of
 approximately 0.76–0.80 depending on species. Adding nighttime light
@@ -764,63 +790,60 @@ effectively measuring the same underlying gradient of human modification
 
 This does not mean light and development are ecologically irrelevant. It
 means that at this spatial scale, with opportunistic data, their effects
-cannot be separated from the broader urban intensity signal. A
-finer-resolution study with systematic survey data might be able to
-tease them apart.
+cannot be separated from the broader urban intensity signal. For the
+remaining analysis, we use **population density as the single urban
+intensity predictor** — it is the most parsimonious, has the clearest
+dual interpretation (accessibility proxy + human footprint), and
+performs as well as any combination.
 
-For the remaining analysis, we use **population density as the single
-urban intensity predictor** — it is the most parsimonious, has the
-clearest dual interpretation (accessibility proxy + human footprint),
-and performs as well as any combination.
+### 4.3 Do species respond differently?
 
-## 5. Do species respond differently to the urban gradient?
-
-The EDA and model comparison established that population density
-captures the dominant signal in these data. The next question is whether
-species differ in *how strongly* they respond to that gradient.
-
-### 5.1 Species × population density interaction model
+Population density predicts bat presence, but do all three species
+respond to it in the same way? To test this, we fit three nested
+logistic models and compared them using **AIC** (Akaike Information
+Criterion) — a measure of model fit that penalizes complexity. Lower
+AIC indicates a better balance between fit and simplicity.
 
 ```{r interaction-model}
-# Factor species for interaction modeling
-df_model <- df_model %>%
-  mutate(species = factor(species))
-
-# Fit interaction model: allows each species a different intercept and slope
-model_interaction <- glm(
-  is_present ~ species * z_pop,
-  data = df_model,
-  family = binomial()
-)
-
-summary(model_interaction)
+# Three nested models: pop only, additive species, species × pop interaction
+model_pop         <- glm(is_present ~ z_pop,
+                         data = df_model, family = binomial())
+model_pop_species <- glm(is_present ~ z_pop + species,
+                         data = df_model, family = binomial())
+model_interaction <- glm(is_present ~ species * z_pop,
+                         data = df_model, family = binomial())
 ```
 
-### 5.2 Model comparison: does the interaction matter?
-
-```{r model-comparison-aic}
-model_pop         <- glm(is_present ~ z_pop, data = df_model, family = binomial())
-model_pop_species <- glm(is_present ~ z_pop + species, data = df_model, family = binomial())
-
+```{r aic-comparison}
 tibble(
   Model = c("Pop. density only",
             "Pop. + species (additive)",
             "Species \u00d7 pop. (interaction)"),
-  AIC   = c(AIC(model_pop),
-            AIC(model_pop_species),
-            AIC(model_interaction)),
-  df    = c(model_pop$df.residual,
-            model_pop_species$df.residual,
-            model_interaction$df.residual)
+  Description = c(
+    "Same slope and intercept for all species",
+    "Different intercepts, same slope",
+    "Different intercepts and slopes"
+  ),
+  AIC = c(AIC(model_pop),
+          AIC(model_pop_species),
+          AIC(model_interaction))
 ) %>%
-  mutate(delta_AIC = AIC - min(AIC))
+  mutate(
+    AIC = round(AIC, 1),
+    delta_AIC = round(AIC - min(AIC), 1)
+  )
 ```
 
 The interaction model provides the best fit (lowest AIC), confirming
-that species differ not just in baseline presence rates but in the
-strength of their association with population density.
+that species differ not just in their baseline presence rates but in the
+strength of their association with population density. In other words,
+the urban gradient does not affect all three species equally.
 
-### 5.3 Species-specific slopes and odds ratios
+### 4.4 Species-specific effects
+
+To interpret the interaction model, we extract the species-specific
+slope (the effect of population density on log-odds of presence) and
+convert it to an odds ratio with 95% confidence intervals.
 
 ```{r odds-ratios}
 coefs    <- coef(model_interaction)
@@ -847,41 +870,32 @@ or_results <- bind_rows(
   get_species_slope("Myotis yumanensis")
 ) %>%
   mutate(
-    odds_ratio = exp(log_odds_slope),
-    lower_ci   = exp(log_odds_slope - 1.96 * se),
-    upper_ci   = exp(log_odds_slope + 1.96 * se)
+    odds_ratio = round(exp(log_odds_slope), 2),
+    lower_ci   = round(exp(log_odds_slope - 1.96 * se), 2),
+    upper_ci   = round(exp(log_odds_slope + 1.96 * se), 2)
   )
-
-or_results
 ```
 
-```{r odds-ratio-plot, fig.width=7, fig.height=4}
-ggplot(or_results, aes(x = odds_ratio, y = species)) +
-  geom_vline(xintercept = 1, linetype = "dashed", color = "gray50") +
-  geom_point(size = 3) +
-  geom_errorbarh(aes(xmin = lower_ci, xmax = upper_ci), height = 0.2) +
-  labs(
-    title = "All three species show positive urban associations, but magnitudes differ",
-    subtitle = "Odds ratio per 1 SD increase in log(population density), 95% CI",
-    x = "Odds ratio",
-    y = NULL
-  ) +
-  theme_minimal(base_size = 13) +
-  theme(axis.text.y = element_text(face = "italic"))
+```{r odds-ratio-table}
+or_results %>%
+  transmute(
+    Species = species,
+    `Odds ratio` = odds_ratio,
+    `95% CI` = paste0("(", lower_ci, " – ", upper_ci, ")")
+  )
 ```
 
-All three species have odds ratios significantly greater than 1, meaning
-the probability of observing any of them increases with population
-density. However, the magnitude of the effect differs: *Aeorestes
-cinereus* and *Myotis yumanensis* show the strongest associations, while
-*Myotis californicus* shows a notably weaker response to the urban
-gradient.
+An odds ratio greater than 1 means that presence probability increases
+with population density. All three species show positive associations,
+but the magnitudes differ: *Aeorestes cinereus* and *Myotis yumanensis*
+have the strongest responses, while *Myotis californicus* shows a
+notably weaker association with the urban gradient.
 
-### 5.4 Predicted probability curves
+### 4.5 Predicted probability curves
 
-The most interpretable summary of the interaction model is a plot of
-predicted presence probability across the population density gradient,
-with the x-axis back-transformed to real-world units.
+The most interpretable way to visualize the interaction model is to plot
+predicted presence probability across the full range of population
+density, with the x-axis back-transformed to real-world units.
 
 ```{r predicted-curves, fig.width=9, fig.height=6}
 # Back-transformation from z-score to population density
@@ -948,9 +962,9 @@ This figure — the central result of the analysis — shows that:
     at least less associated with human-modified landscapes, than the
     other two species.
 
-## 6. Discussion
+## 5. Discussion
 
-### 6.1 Summary of findings
+### 5.1 Summary of findings
 
 This analysis used 455 GBIF bat occurrence records across three focal
 species, mapped onto a 10 km equal-area grid covering accessible regions
@@ -978,7 +992,7 @@ structure bat observation patterns. Three main findings emerged:
     sensitive to urbanization or less tolerant of human-modified
     landscapes.
 
-### 6.2 The dual role of population density
+### 5.2 The dual role of population density
 
 Population density plays two roles in this analysis, and the tension
 between them is worth making explicit. First, it serves as an
@@ -996,7 +1010,7 @@ between species: if all three were equally biased by observer effort,
 their curves would be parallel. The fact that *Myotis californicus*
 diverges suggests something ecologically real.
 
-### 6.3 Limitations and future directions
+### 5.3 Limitations and future directions
 
 -   **Observer bias remains the dominant confound.** Without systematic
     survey data (e.g., acoustic monitoring arrays with standardized
@@ -1023,7 +1037,7 @@ framework for using open biodiversity data to detect species-specific
 responses to landscape modification — an approach that scales to other
 taxa and regions.
 
-## 7. Data sources and citations
+## 6. Data sources and citations
 
 | Dataset | Source | Access |
 |----|----|----|
