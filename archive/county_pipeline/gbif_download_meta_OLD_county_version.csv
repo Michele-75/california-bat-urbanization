@@ -1,2 +1,0 @@
-download_key,created,n_records,species,filters
-0055777-251120083545085,2025-12-17 03:08:05.337496,2115,Myotis yumanensis; Myotis californicus; Lasiurus cinereus,hasCoordinate==TRUE; year>=2012; taxonKey in focal species
