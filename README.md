@@ -1,7 +1,7 @@
 # How Do Human-Modified Landscapes Shape Bat Observations in California?
 
-**Environmental Data Science Capstone Project**   
-Michele Perry \| Yale School of the Environment \| 2025–2026  
+**Environmental Data Science Capstone Project**\
+Michele Perry \| Yale School of the Environment \| 2025–2026
 
 ------------------------------------------------------------------------
 
@@ -73,7 +73,12 @@ The repository includes the final processed dataset and key spatial files, so yo
 
 To reproduce everything from scratch, including downloading raw data:
 
-1.  Clone the repository
+1.  Clone the repository:
+
+```         
+   git clone https://github.com/Michele-75/your-repo-name.git
+   cd your-repo-name
+```
 
 2.  Restore the R environment: `renv::restore()`
 
