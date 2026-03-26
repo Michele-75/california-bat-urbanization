@@ -39,24 +39,22 @@ img {
 
 ## 1. Introduction
 
-Urbanization reshapes landscapes at every scale — replacing habitat with
-impervious surface, flooding the night sky with artificial light, and
-concentrating human activity into dense corridors. For wildlife, these
-changes create winners and losers. Some species thrive at the urban
-edge; others retreat to darker, less disturbed landscapes. Understanding
-which species fall into which category is central to managing
-biodiversity in an increasingly human-dominated world.
+Urbanization reshapes landscapes at every scale, replacing habitat with
+developed land, introducing artificial light, and concentrating human
+activity into dense corridors. These changes affect wildlife unevenly:
+some species adapt to the urban edge, while others retreat to less
+disturbed areas. Identifying which species fall into which category is
+important for protecting biodiversity in a rapidly developing world.
 
-Bats are a particularly informative group for studying these dynamics.
-As nocturnal insectivores, they are directly affected by artificial
-light (which can disrupt foraging behavior and prey availability), land
-development (which removes roosting habitat), and the broader footprint
-of urbanization. California, with its steep urban-to-wildland gradients
-and rich bat fauna, provides an ideal setting to ask how these pressures
-structure species distributions.
+Bats are well suited for studying these dynamics. As nocturnal
+insectivores, they are directly affected by artificial light, land
+development, and the broader footprint of urbanization. California
+offers steep urban-to-wildland gradients and a wide variety of bat
+species, making it a strong setting for examining how human modification
+shapes species distributions.
 
-This project examines three focal bat species with contrasting
-ecological profiles:
+This project focuses on three bat species that use the landscape in
+different ways:
 
 -   *Aeorestes cinereus* (hoary bat) — a long-distance migratory,
     tree-roosting species
@@ -65,12 +63,12 @@ ecological profiles:
 -   *Myotis californicus* (California myotis) — a small,
     crevice-roosting species widespread across the state
 
-These species were chosen because their contrasting roosting and
-foraging ecologies suggest they may respond differently to urbanization.
+Because these species have contrasting roosting and foraging ecologies,
+they are likely to respond differently to urbanization.
 
 Using publicly available occurrence records from the [Global
 Biodiversity Information Facility (GBIF)](https://www.gbif.org/), this
-study asks:
+project asks:
 
 > **How do human-modified landscapes structure bat observation patterns
 > at fine spatial scales, and do species respond differently to
@@ -78,13 +76,14 @@ study asks:
 
 ### A note on observer bias
 
-GBIF records are opportunistic — they reflect where people *looked*,
-not just where bats *are*. Because observations cluster near roads,
-cities, and research stations, apparent associations between bats and
-urbanization may partly reflect reporting effort. This analysis accounts
-for that bias by including population density as an accessibility proxy
-and by interpreting results as patterns in *observed* presence rather
-than confirmed ecological preference.
+GBIF records are opportunistic, meaning they reflect where people
+looked, not just where bats are. Observations tend to cluster near
+roads, cities, and research stations, so any apparent association
+between bats and urbanization may partly reflect reporting effort rather
+than true ecological preference. This analysis accounts for that bias by
+including population density as an accessibility proxy and by
+interpreting results as patterns in observed presence rather than
+confirmed habitat preference.
 
 ## 2. Data acquisition and processing
 
