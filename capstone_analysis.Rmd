@@ -290,7 +290,7 @@ per-cell summary statistic using `exactextractr::exact_extract()` or
     proportion of pixels in the four "Developed" classes (Open Space
     through High Intensity) was computed per cell.
 -   **GPWv4 population density** — the Gridded Population of the World
-    v4 (rev. 11, \~1 km resolution) from NASA SEDAC, summarized per cell
+    v4 (rev. 11, 2020, \~1 km resolution) from NASA SEDAC, summarized per cell
     as an area-weighted mean.
 
 A fourth covariate, percent protected land from PAD-US 4.1 (GAP Status
