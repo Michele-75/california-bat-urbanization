@@ -89,11 +89,11 @@ confirmed habitat preference.
 
 The data processing pipeline lives in the `R/` directory as a series of
 modular scripts (`R/00_setup.R` through
-`R/06_build_grid_model_dataset.R`) that can be run in sequence to
-reproduce the full workflow from raw downloads to the final
-analysis-ready dataset. This section walks through each stage in the
-order the data were actually acquired and processed, highlighting key
-spatial operations and design decisions along the way.
+`preprocessing_scripts/06_build_grid_model_dataset.R`) that can be run
+in sequence to reproduce the full workflow from raw downloads to the
+final analysis-ready dataset. This section walks through each stage in
+the order the data were actually acquired and processed, highlighting
+key spatial operations and design decisions along the way.
 
 ```{r load-libraries}
 library(tidyverse)
@@ -120,10 +120,10 @@ from museum collections, citizen science platforms, and research surveys
 into a single downloadable format.
 
 The `rgbif` package provides an R interface to the GBIF API. The
-workflow in `R/01_get_clean_bat_points.R` begins by resolving each focal
-species name against the GBIF backbone taxonomy using `name_backbone()`,
-which returns a unique `species_key` — a stable numeric identifier that
-avoids issues with taxonomic synonyms.
+workflow in `preprocessing_scripts/01_get_clean_bat_points.R` begins by
+resolving each focal species name against the GBIF backbone taxonomy
+using `name_backbone()`, which returns a unique `species_key` — a stable
+numeric identifier that avoids issues with taxonomic synonyms.
 
 The download request is submitted via `occ_download()` with filters for
 the three focal species keys, valid coordinates, and years 2012–2024:
@@ -168,9 +168,9 @@ starting point for all downstream spatial operations.
 ### 2.2 California state boundary
 
 A California state boundary polygon, retrieved from the US Census
-TIGER/Line database via the `tigris` package (`R/02_get_ca_boundary.R`),
-is used for spatially filtering bat points and constructing the analysis
-grid.
+TIGER/Line database via the `tigris` package
+(`preprocessing_scripts/02_get_ca_boundary.R`), is used for spatially
+filtering bat points and constructing the analysis grid.
 
 ```{r load-boundary-and-points}
 ca <- st_read(
@@ -192,7 +192,7 @@ pts %>% st_drop_geometry() %>% count(species, sort = TRUE)
 These 455 records are the result of filtering the raw GBIF download to
 valid California coordinates and then performing a spatial intersection
 with the state boundary (`st_intersects()` in
-`R/03_build_grid_and_domain.R`).
+`preprocessing_scripts/03_build_grid_and_domain.R`).
 
 ### 2.3 Spatial framework: 10 km equal-area grid
 
@@ -207,7 +207,8 @@ All spatial operations use the California Albers projection (EPSG:3310),
 an equal-area coordinate system measured in meters — essential for any
 analysis where area calculations matter.
 
-The grid is constructed in `R/03_build_grid_and_domain.R` using
+The grid is constructed in
+`preprocessing_scripts/03_build_grid_and_domain.R` using
 `sf::st_make_grid()`:
 
 ```{r grid-construction-example, eval=FALSE}
@@ -276,10 +277,10 @@ represents roughly 75% of the total California grid.
 
 Three landscape variables were computed for each grid cell, each drawn
 from a different remote sensing or geospatial dataset. The processing
-pipeline (`R/04_build_grid_covariates.R`) follows a common pattern for
-all raster covariates: crop the source raster to the grid extent,
-reproject to California Albers (EPSG:3310), and extract a per-cell
-summary statistic using `exactextractr::exact_extract()` or
+pipeline (`preprocessing_scripts/04_build_grid_covariates.R`) follows a
+common pattern for all raster covariates: crop the source raster to the
+grid extent, reproject to California Albers (EPSG:3310), and extract a
+per-cell summary statistic using `exactextractr::exact_extract()` or
 `terra::extract()`.
 
 -   **VIIRS nighttime light radiance** — annual composite images of
