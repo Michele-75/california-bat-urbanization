@@ -5,7 +5,7 @@ This directory contains the modular R scripts that transform raw data into the a
 ## Script overview
 
 | Script | Purpose | Key inputs | Key outputs |
-|----|----|----|----|
+|------------------|------------------|------------------|------------------|
 | `00_setup.R` | Load core libraries, define directory paths, set reproducibility options | — | Directory structure created |
 | `01_get_clean_bat_points.R` | Download GBIF bat occurrences for 3 focal species (2012–2024), clean coordinates, resolve taxonomy | GBIF API (requires credentials) | `data/raw/gbif/gbif_bats_raw_2012_2024.csv`, `data/processed/gbif/gbif_bats_points_clean_2012_2024.gpkg` |
 | `02_get_ca_boundary.R` | Retrieve California state boundary from US Census TIGER/Line | `tigris` package | `data/processed/boundaries/ca_boundary.gpkg` |
