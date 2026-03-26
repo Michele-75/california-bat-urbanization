@@ -44,8 +44,7 @@ GBIF data are opportunistic, meaning they reflect where people looked, not just 
 │   ├── README.md                   # Data acquisition instructions
 │   └── data_dictionary.md          # Variable descriptions for final dataset
 ├── communication/                  # Presentation materials
-│   └── Capstone_Presentation.png
-├── docs/                           # Project log, GBIF citation
+│   └── lightning_presentation_slide.png
 ├── renv.lock                       # R package dependencies
 ├── .gitignore
 └── LICENSE

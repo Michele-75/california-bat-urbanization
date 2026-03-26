@@ -417,7 +417,6 @@ informative than the absolute trends.</p>
 │   ├── processed/                  # Key processed outputs (see data/README.md)
 │   ├── README.md                   # Data acquisition instructions
 │   └── data_dictionary.md          # Variable descriptions for final dataset
-├── notebooks/                      # Archived exploratory notebooks
 ├── communication/                  # Presentation materials
 │   └── Capstone_Presentation.png
 ├── docs/                           # Project log, GBIF citation
@@ -453,7 +452,11 @@ pipeline:</p>
 <p>To reproduce everything from scratch, including downloading raw
 data:</p>
 <ol style="list-style-type: decimal">
-<li><p>Clone the repository</p></li>
+<li>Clone the repository:</li>
+</ol>
+<pre><code>   git clone https://github.com/Michele-75/your-repo-name.git
+   cd your-repo-name</code></pre>
+<ol start="2" style="list-style-type: decimal">
 <li><p>Restore the R environment: <code>renv::restore()</code></p></li>
 <li><p>Set GBIF credentials in <code>.Renviron</code>:</p>
 <pre><code>GBIF_USER=your_username
@@ -472,9 +475,9 @@ for sources and file placement)</p></li>
 <h2>Data sources</h2>
 <table>
 <colgroup>
-<col width="31%" />
-<col width="27%" />
-<col width="40%" />
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -525,9 +528,9 @@ rev. 11</a> (SEDAC/CIESIN)</td>
 <h2>Focal species</h2>
 <table>
 <colgroup>
-<col width="29%" />
-<col width="41%" />
-<col width="29%" />
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
 </colgroup>
 <thead>
 <tr class="header">
