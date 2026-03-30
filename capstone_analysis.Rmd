@@ -3,16 +3,16 @@ title: "How Do Human-Modified Landscapes Shape Bat Observations in California?"
 author: "Michele Perry"
 date: "03-26-2026"
 output:
-  html_document:
-    toc: true
-    df_print: paged
-  github_document:
-    toc: true
-    html_preview: false
   html_notebook:
     toc: true
     toc_float: true
     theme: cosmo
+  github_document:
+    toc: true
+    html_preview: false
+  html_document:
+    toc: true
+    df_print: paged
 subtitle: Environmental Data Science Capstone Project
 editor_options:
   markdown:
