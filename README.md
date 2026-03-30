@@ -21,7 +21,7 @@ This project examines how human-modified landscapes shape bat observation patter
 
 <p align="center">
 
-<img src="communication/predicted_curves.png" alt="Predicted probability curves" width="537"/>
+<img src="communication/predicted_curves.png" alt="Predicted probability curves" width="600"/>
 
 </p>
 
