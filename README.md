@@ -15,6 +15,8 @@ This project examines how human-modified landscapes shape bat observation patter
 2.  **All three species** show positive associations with increasing urban intensity, consistent with observer bias in opportunistic data.
 3.  **Species differ in response strength.** *Myotis californicus* shows a notably weaker association with the urban gradient than the other two species, suggesting greater sensitivity to human-modified landscapes.
 
+![Predicted probability curves](communication/predicted_curves.png){width="537"}
+
 ### A note on observer bias
 
 GBIF data are opportunistic, meaning they reflect where people looked, not just where bats are. Population density captures both ecological signal and reporting effort, so results are interpreted as patterns in *observed* presence rather than confirmed ecological preference. The differences *between* species are more informative than the absolute trends.
@@ -100,7 +102,7 @@ To reproduce everything from scratch, including downloading raw data:
 ## Data sources
 
 | Dataset | Source | Resolution |
-|----|----|----|
+|------------------------|------------------------|------------------------|
 | Bat occurrences | [GBIF](https://www.gbif.org/) | Point records, 2012–2024 |
 | Nighttime light | [VIIRS VNL](https://eogdata.mines.edu/products/vnl/) v2.1/v2.2 | \~500 m annual composites |
 | Land cover | [NLCD 2019](https://www.mrlc.gov/) | 30 m |
@@ -113,7 +115,7 @@ To reproduce everything from scratch, including downloading raw data:
 ## Focal species
 
 | Species | Common name | Ecology |
-|----|----|----|
+|------------------------|------------------------|------------------------|
 | *Aeorestes cinereus* | Hoary bat | Long-distance migratory, tree-roosting |
 | *Myotis yumanensis* | Yuma myotis | Water-associated, often found near bridges and buildings |
 | *Myotis californicus* | California myotis | Crevice-roosting, widespread across the state |
@@ -126,7 +128,7 @@ An interactive R Shiny application for exploring California bat occurrence patte
 
 ## Acknowledgements
 
-This project was completed as part of the [Yale Environmental Data Science Certificate Program](https://environment.yale.edu/certificates/data), 2025–2026 cohort. I am grateful to the program's leaders, professors, and mentors for their guidance and support. Capstone projects from the full cohort can be viewed at the [Cohort 1 Capstones repository](https://github.com/yse-eds-cert/cohort1-capstones). Bat occurrence data were provided by the [Global Biodiversity Information Facility (GBIF)](https://www.gbif.org/).
+This project was completed as part of the [Yale Environmental Data Science Certificate Program](https://environment.yale.edu/certificates/data), 2025–2026 cohort. I am very grateful to the program's leaders, professors, and mentors for their guidance and support. Capstone projects from the full cohort can be viewed at the [Cohort 1 Capstones repository](https://github.com/yse-eds-cert/cohort1-capstones). Bat occurrence data were provided by the [Global Biodiversity Information Facility (GBIF)](https://www.gbif.org/).
 
 ## License
 
