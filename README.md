@@ -12,10 +12,20 @@ This project examines how human-modified landscapes shape bat observation patter
 ### Key findings
 
 1.  **Population density alone** predicts bat presence nearly as well as multi-variable models (cross-validated AUC \~78%). At 10 km resolution, nighttime light and percent developed land are highly correlated with population density and add less than 1% predictive improvement.
+
 2.  **All three species** show positive associations with increasing urban intensity, consistent with observer bias in opportunistic data.
+
 3.  **Species differ in response strength.** *Myotis californicus* shows a notably weaker association with the urban gradient than the other two species, suggesting greater sensitivity to human-modified landscapes.
 
-![Predicted probability curves](communication/predicted_curves.png){width="537"}
+<br>
+
+<p align="center">
+
+<img src="communication/predicted_curves.png" alt="Predicted probability curves" width="537"/>
+
+</p>
+
+<br>
 
 ### A note on observer bias
 
@@ -102,7 +112,7 @@ To reproduce everything from scratch, including downloading raw data:
 ## Data sources
 
 | Dataset | Source | Resolution |
-|------------------------|------------------------|------------------------|
+|----|----|----|
 | Bat occurrences | [GBIF](https://www.gbif.org/) | Point records, 2012–2024 |
 | Nighttime light | [VIIRS VNL](https://eogdata.mines.edu/products/vnl/) v2.1/v2.2 | \~500 m annual composites |
 | Land cover | [NLCD 2019](https://www.mrlc.gov/) | 30 m |
@@ -115,7 +125,7 @@ To reproduce everything from scratch, including downloading raw data:
 ## Focal species
 
 | Species | Common name | Ecology |
-|------------------------|------------------------|------------------------|
+|----|----|----|
 | *Aeorestes cinereus* | Hoary bat | Long-distance migratory, tree-roosting |
 | *Myotis yumanensis* | Yuma myotis | Water-associated, often found near bridges and buildings |
 | *Myotis californicus* | California myotis | Crevice-roosting, widespread across the state |
