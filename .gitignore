@@ -51,4 +51,11 @@ rsconnect/
 #Large raw data sets
 data/raw/
 
+#Library
+renv/library/
 
+#Unnecessary html
+data/README.html
+preprocessing_scripts/README.html
+README.html
+archive/*.html
