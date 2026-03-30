@@ -1,18 +1,21 @@
 ---
 title: "How Do Human-Modified Landscapes Shape Bat Observations in California?"
-subtitle: "Environmental Data Science Capstone Project"
 author: "Michele Perry"
 date: "03-26-2026"
 output:
+  html_document:
+    toc: true
+    df_print: paged
+  github_document:
+    toc: true
+    html_preview: false
   html_notebook:
     toc: true
     toc_float: true
     theme: cosmo
-  github_document:
-    toc: true
-    html_preview: false
-editor_options: 
-  markdown: 
+subtitle: Environmental Data Science Capstone Project
+editor_options:
+  markdown:
     wrap: 72
 ---
 
@@ -881,7 +884,7 @@ pred_grid$pred_prob <- predict(
   model_interaction, newdata = pred_grid, type = "response"
 )
 
-# Reorder species for legend clarity
+# Reorder species for clarity
 pred_grid$species <- factor(pred_grid$species, levels = c(
   "Aeorestes cinereus",
   "Myotis yumanensis",
